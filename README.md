@@ -55,6 +55,7 @@ Transaksjon administrasjon:
 - Send over eFaktura
 - Logg over alt transaksjon
 
+Bruker:
 - HTML: Sideoppsett
 - CSS: Design
 - Python: Valideringsoppgaver
