@@ -55,8 +55,8 @@ Transaksjon administrasjon:
 - Send over eFaktura
 - Logg over alt transaksjon
 
-HTML: Sideoppsett
-CSS: Design
-Python: Valideringsoppgaver
-MySQL: Database
-Server? - Trengs nett, trengs server.
+- HTML: Sideoppsett
+- CSS: Design
+- Python: Valideringsoppgaver
+- MySQL: Database
+- Server? - Trengs nett, trengs server.
