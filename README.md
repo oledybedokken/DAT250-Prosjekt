@@ -62,5 +62,4 @@ Bruker:
 - MySQL: Database
 - Server? - Trengs nett, trengs server.
 
-
-Halla Jørgen
+TEST test test
