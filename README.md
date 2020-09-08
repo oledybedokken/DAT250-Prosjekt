@@ -61,3 +61,6 @@ Bruker:
 - Python: Valideringsoppgaver
 - MySQL: Database
 - Server? - Trengs nett, trengs server.
+
+
+Halla Jørgen
