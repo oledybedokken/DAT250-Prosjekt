@@ -1,7 +1,0 @@
-[url "git@github.com:"]
-	insteadOf = https://github.com/
-[user]
-	name = pervazgolrang
-	email = pe.golrang@stud.uis.no
-[core]
-	sshCommand = 'C:\\Windows\\System32\\OpenSSH\\ssh.exe'
