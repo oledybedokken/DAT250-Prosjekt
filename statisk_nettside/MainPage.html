@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
+<header>
+    <nav>
         <div class="nav-wrapper">
             <div class="left-side">
                 <div class="nav-link-wrapper">
@@ -29,28 +30,33 @@
                     <a href="Konto.html">Konto</a>
                 </div>
             </div>
-
             <div class="right-side">
-                <div class="DnBlogo">
+                <div class="nav-logo">
                     <img src="images/DNB.png">
                 </div>
             </div>
         </div>
-        </div>
+    </nav>
+</header>
+<main>
+    <div id="container">
+
     </div>
+    <aside>
+        
+    </aside>
+    <div id="push"></div>
+</main>
+<footer>
+<!-- Kontaktinformasjonen til banken -->
+    <p> Kontakt oss: <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">DuErEnKødd@mail.no</a></p>
+    <p> Eller ring oss på tlf: 12345678 </p>
+</footer>
 </body>
+
 <script>
-    const portfolioitems = document.querySelectorAll('.portfolio-item-wrapper')
 
-    portfolioitems.forEach(portfolioItem => {
-        portfolioItem.addEventListener('mouseover',()=> {
-            portfolioItem.childNodes[1].classList.add('img-darken');
-            
-        })
-
-        portfolioItem.addEventListener('mouseout',()=> {
-            portfolioItem.childNodes[1].classList.remove('img-darken');
-        })
-    })
 </script>
+
+
 </html>

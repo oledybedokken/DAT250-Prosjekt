@@ -33,6 +33,7 @@ Innlogging:
 @ Nettisde:
 - Automatisk avlogging etter x minutt av inaktivitet
 - Fjerner potensiell 'sikkerhetsshull' for å minske tilgang.
+- Legge til reCaptcha for at roboter ikke skal kunne logge inn på siden
 
 @ Admin loggin:
 - Spesiell kode for Admin, eks. Admin authentication-code eller ha en 'whitelisted' MAC-addresse.
