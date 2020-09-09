@@ -11,6 +11,8 @@ header{
 main{
     margin-bottom: -120px;
     min-height: 100%;
+    z-index: -1;
+    position: relative;
 }
 
 #container{
@@ -220,6 +222,9 @@ span{
     color: black;
 }
 
+
+
+/* OVERSIKT */
 .oversikt-container {
     background: rgb(47, 69, 163);
     width: 20%;
