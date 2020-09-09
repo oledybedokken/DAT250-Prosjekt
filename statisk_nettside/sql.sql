@@ -1,5 +1,8 @@
 -- MySQL
 
+create database "Nettbank"
+use "Nettbank"
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE IF NOT EXISTS 'brukere' (
