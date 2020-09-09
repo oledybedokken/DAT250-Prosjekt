@@ -15,12 +15,14 @@ main{
 
 #container{
     margin:0;
+    padding-top: 50px;
 }
 .push{
     height: 120px;
 }
 footer{
     height: 120px;
+    z-index: 5;
     border-top: 5px solid grey;
     text-align: center;
     background-color: rgb(190, 211, 238);
@@ -36,7 +38,6 @@ footer{
     cursor: pointer;
     border-radius: 30%;
 }
-
 
 /* Background styles */
 
