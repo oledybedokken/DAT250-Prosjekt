@@ -40,3 +40,5 @@ CREATE TABLE IF NOT EXISTS `kunder` (
   UNIQUE KEY `konto_nr` (`konto_nr`),
   UNIQUE KEY `email` (`email`)
 )
+
+SELECT * FROM 'brukere'
