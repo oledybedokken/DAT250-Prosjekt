@@ -1,6 +1,5 @@
 /* main layout for nettside */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-header{
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');header{
     height: 80px;
     position: fixed;
     background-color: lightblue;
@@ -46,7 +45,7 @@ html,body{
 }
 body{
     font-family: 'Roboto', sans-serif;
-    font-size: em;
+    font-size: 1em;
     margin: 0;
     padding: 0;
 }
