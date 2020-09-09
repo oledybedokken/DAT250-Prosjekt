@@ -50,6 +50,21 @@ body{
     position: relative;
 }
 
+
+.DnBlogo{
+    margin: 30px auto;
+    text-align: center;
+}
+
+.DnBlogo img{
+    width: 100px;
+    margin: 0 12px;
+    box-shadow: 0 0 20px 0 #7f7f7f3d;
+    cursor: pointer;
+    border-radius: 30%;
+}
+
+
 #btn{
     top: 0;
     left: 0;
