@@ -13,9 +13,17 @@ main{
     min-height: 100%;
     z-index: -1;
     position: relative;
+    /*
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    */
 }
 
 #container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
     margin:0;
     padding-top: 50px;
     padding-bottom: 100px;
@@ -226,9 +234,11 @@ span{
 
 
 /* OVERSIKT */
+.sub-container{
+
+}
 .oversikt-container {
     background: rgb(47, 69, 163);
-    width: 20%;
     color: rgb(223, 225, 233);
     margin: 40px;
     padding: .02em;
@@ -236,7 +246,6 @@ span{
 
 .info-container {
     background: rgb(137, 157, 247);
-    width: 20%;
     color: rgb(223, 225, 233);
     margin: 40px;
     padding: .02em;
