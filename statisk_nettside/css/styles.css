@@ -218,3 +218,19 @@ span{
 .nav-link-wrapper a:hover {
     color: black;
 }
+
+.oversikt-container {
+    background: rgb(47, 69, 163);
+    width: 20%;
+    color: rgb(223, 225, 233);
+    margin: 40px;
+    padding: .02em;
+}
+
+.info-container {
+    background: rgb(137, 157, 247);
+    width: 20%;
+    color: rgb(223, 225, 233);
+    margin: 40px;
+    padding: .02em;
+}
