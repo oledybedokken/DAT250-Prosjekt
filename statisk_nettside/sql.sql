@@ -34,6 +34,6 @@ CREATE TABLE IF NOT EXISTS `kunder` (
   `post` varchar(3) NOT NULL,
   `post_kode` varchar(5) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `account_number` (`account_number`),
+  UNIQUE KEY `konto_nr` (`konto_nr`),
   UNIQUE KEY `email` (`email`)
 )
