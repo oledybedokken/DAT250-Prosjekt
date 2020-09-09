@@ -1,0 +1,18 @@
+[2020-09-09 05:34:58.740] [exthost] [info] extension host started
+[2020-09-09 05:34:58.765] [exthost] [info] ExtensionService#_doActivateExtension vscode.github-authentication {"startup":false,"extensionId":{"value":"vscode.github-authentication","_lower":"vscode.github-authentication"},"activationEvent":"onAuthenticationRequest:github"}
+[2020-09-09 05:34:58.765] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/github-authentication/dist/extension.js
+[2020-09-09 05:34:58.780] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch {"startup":true,"extensionId":{"value":"vscode.debug-auto-launch","_lower":"vscode.debug-auto-launch"},"activationEvent":"*"}
+[2020-09-09 05:34:58.780] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/debug-auto-launch/dist/extension
+[2020-09-09 05:34:58.782] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"extensionId":{"value":"vscode.emmet","_lower":"vscode.emmet"},"activationEvent":"*"}
+[2020-09-09 05:34:58.783] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/emmet/dist/node/emmetNodeMain
+[2020-09-09 05:34:58.812] [exthost] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2020-09-09 05:34:58.812] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/git/dist/main
+[2020-09-09 05:34:58.864] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"extensionId":{"value":"vscode.merge-conflict","_lower":"vscode.merge-conflict"},"activationEvent":"*"}
+[2020-09-09 05:34:58.864] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/merge-conflict/dist/mergeConflictMain
+[2020-09-09 05:34:58.866] [exthost] [info] ExtensionService#_doActivateExtension vscode.search-result {"startup":true,"extensionId":{"value":"vscode.search-result","_lower":"vscode.search-result"},"activationEvent":"*"}
+[2020-09-09 05:34:58.866] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/search-result/dist/extension.js
+[2020-09-09 05:34:58.948] [exthost] [info] ExtensionService#_doActivateExtension vscode.github {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2020-09-09 05:34:58.948] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/github/dist/extension.js
+[2020-09-09 05:34:59.018] [exthost] [info] ExtensionService#_doActivateExtension golang.go {"startup":true,"extensionId":{"value":"golang.go","_lower":"golang.go"},"activationEvent":"workspaceContains:**/*.go"}
+[2020-09-09 05:34:59.018] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/extensions/golang.go-0.16.2/dist/goMain.js
+[2020-09-09 05:34:59.131] [exthost] [info] eager extensions activated

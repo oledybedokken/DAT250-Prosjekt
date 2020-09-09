@@ -1,0 +1,22 @@
+[2020-08-22 21:00:57.769] [remoteagent] [info] 
+
+*
+* Visual Studio Code Server
+*
+* Reminder: You may only use this software with Visual Studio family products,
+* as described in the license https://aka.ms/vscode-remote/license
+*
+
+
+[2020-08-22 21:00:57.769] [remoteagent] [info] Extension host agent started.
+[2020-08-22 21:00:57.887] [remoteagent] [info] [::ffff:172.27.224.1][460da2a7][ManagementConnection] New connection established.
+[2020-08-22 21:00:57.904] [remoteagent] [info] [::ffff:172.27.224.1][926fb435][ExtensionHostConnection] New connection established.
+[2020-08-22 21:00:57.991] [remoteagent] [info] [::ffff:172.27.224.1][926fb435][ExtensionHostConnection] <7609> Launched Extension Host Process.
+[2020-08-22 21:01:20.516] [remoteagent] [info] Installing the extension: ms-vscode.cpptools
+[2020-08-22 21:01:21.619] [remoteagent] [info] Extracted extension to /home/pervazgolrang/.vscode-server/extensions/.ms-vscode.cpptools-0.30.0-insiders3: ms-vscode.cpptools
+[2020-08-22 21:01:21.620] [remoteagent] [info] Renamed to /home/pervazgolrang/.vscode-server/extensions/ms-vscode.cpptools-0.30.0-insiders3
+[2020-08-22 21:01:21.623] [remoteagent] [info] Installation completed. ms-vscode.cpptools
+[2020-08-22 21:01:21.649] [remoteagent] [info] Successfully installed the extension: ms-vscode.cpptools
+[2020-08-22 23:56:11.595] [remoteagent] [info] [::ffff:172.27.224.1][460da2a7][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[2020-08-22 23:56:12.611] [remoteagent] [info] [::ffff:172.27.224.1][926fb435][ExtensionHostConnection] <7609> Extension Host Process exited with code: 0, signal: null.
+[2020-08-22 23:56:12.611] [remoteagent] [info] Last EH closed, waiting before shutting down

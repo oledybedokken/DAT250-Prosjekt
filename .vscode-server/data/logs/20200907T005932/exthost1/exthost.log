@@ -1,0 +1,22 @@
+[2020-09-07 00:59:33.213] [exthost] [info] extension host started
+[2020-09-07 00:59:33.242] [exthost] [info] ExtensionService#_doActivateExtension vscode.github-authentication {"startup":false,"extensionId":{"value":"vscode.github-authentication","_lower":"vscode.github-authentication"},"activationEvent":"onAuthenticationRequest:github"}
+[2020-09-07 00:59:33.243] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/3dd905126b34dcd4de81fa624eb3a8cbe7485f13/extensions/github-authentication/dist/extension.js
+[2020-09-07 00:59:33.264] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch {"startup":true,"extensionId":{"value":"vscode.debug-auto-launch","_lower":"vscode.debug-auto-launch"},"activationEvent":"*"}
+[2020-09-07 00:59:33.265] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/3dd905126b34dcd4de81fa624eb3a8cbe7485f13/extensions/debug-auto-launch/dist/extension
+[2020-09-07 00:59:33.275] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":true,"extensionId":{"value":"vscode.emmet","_lower":"vscode.emmet"},"activationEvent":"*"}
+[2020-09-07 00:59:33.275] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/3dd905126b34dcd4de81fa624eb3a8cbe7485f13/extensions/emmet/dist/node/emmetNodeMain
+[2020-09-07 00:59:33.309] [exthost] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2020-09-07 00:59:33.309] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/3dd905126b34dcd4de81fa624eb3a8cbe7485f13/extensions/git/dist/main
+[2020-09-07 00:59:33.365] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"extensionId":{"value":"vscode.merge-conflict","_lower":"vscode.merge-conflict"},"activationEvent":"*"}
+[2020-09-07 00:59:33.365] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/3dd905126b34dcd4de81fa624eb3a8cbe7485f13/extensions/merge-conflict/dist/mergeConflictMain
+[2020-09-07 00:59:33.369] [exthost] [info] ExtensionService#_doActivateExtension vscode.search-result {"startup":true,"extensionId":{"value":"vscode.search-result","_lower":"vscode.search-result"},"activationEvent":"*"}
+[2020-09-07 00:59:33.370] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/3dd905126b34dcd4de81fa624eb3a8cbe7485f13/extensions/search-result/dist/extension.js
+[2020-09-07 00:59:33.527] [exthost] [info] ExtensionService#_doActivateExtension vscode.github {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2020-09-07 00:59:33.527] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/3dd905126b34dcd4de81fa624eb3a8cbe7485f13/extensions/github/dist/extension.js
+[2020-09-07 00:59:33.554] [exthost] [info] eager extensions activated
+[2020-09-07 00:59:50.788] [exthost] [info] ExtensionService#_doActivateExtension ms-vscode.cpptools {"startup":false,"extensionId":{"value":"ms-vscode.cpptools","_lower":"ms-vscode.cpptools"},"activationEvent":"onLanguage:c"}
+[2020-09-07 00:59:50.788] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/extensions/ms-vscode.cpptools-0.30.0-insiders3/dist/main
+[2020-09-07 00:59:55.277] [exthost] [error] [ms-vscode.cpptools] provider FAILED
+[2020-09-07 00:59:55.277] [exthost] [error] undefined
+[2020-09-07 01:00:08.046] [exthost] [error] [ms-vscode.cpptools] provider FAILED
+[2020-09-07 01:00:08.046] [exthost] [error] undefined

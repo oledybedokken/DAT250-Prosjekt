@@ -1,0 +1,20 @@
+[2020-09-09 04:39:10.167] [exthost] [info] extension host started
+[2020-09-09 04:39:10.213] [exthost] [info] ExtensionService#_doActivateExtension vscode.github-authentication {"startup":false,"extensionId":{"value":"vscode.github-authentication","_lower":"vscode.github-authentication"},"activationEvent":"onAuthenticationRequest:github"}
+[2020-09-09 04:39:10.214] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/github-authentication/dist/extension.js
+[2020-09-09 04:39:10.244] [exthost] [info] ExtensionService#_doActivateExtension vscode.emmet {"startup":false,"extensionId":{"value":"vscode.emmet","_lower":"vscode.emmet"},"activationEvent":"onLanguage:html"}
+[2020-09-09 04:39:10.244] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/emmet/dist/node/emmetNodeMain
+[2020-09-09 04:39:10.317] [exthost] [info] ExtensionService#_doActivateExtension vscode.html-language-features {"startup":false,"extensionId":{"value":"vscode.html-language-features","_lower":"vscode.html-language-features"},"activationEvent":"onLanguage:html"}
+[2020-09-09 04:39:10.317] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/html-language-features/client/dist/node/htmlClientMain
+[2020-09-09 04:39:10.358] [exthost] [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch {"startup":true,"extensionId":{"value":"vscode.debug-auto-launch","_lower":"vscode.debug-auto-launch"},"activationEvent":"*"}
+[2020-09-09 04:39:10.358] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/debug-auto-launch/dist/extension
+[2020-09-09 04:39:10.362] [exthost] [info] ExtensionService#_doActivateExtension vscode.git {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2020-09-09 04:39:10.362] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/git/dist/main
+[2020-09-09 04:39:10.455] [exthost] [info] ExtensionService#_doActivateExtension vscode.merge-conflict {"startup":true,"extensionId":{"value":"vscode.merge-conflict","_lower":"vscode.merge-conflict"},"activationEvent":"*"}
+[2020-09-09 04:39:10.456] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/merge-conflict/dist/mergeConflictMain
+[2020-09-09 04:39:10.460] [exthost] [info] ExtensionService#_doActivateExtension vscode.search-result {"startup":true,"extensionId":{"value":"vscode.search-result","_lower":"vscode.search-result"},"activationEvent":"*"}
+[2020-09-09 04:39:10.460] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/search-result/dist/extension.js
+[2020-09-09 04:39:10.735] [exthost] [info] ExtensionService#_doActivateExtension vscode.github {"startup":true,"extensionId":{"value":"vscode.github","_lower":"vscode.github"},"activationEvent":"*"}
+[2020-09-09 04:39:10.736] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/github/dist/extension.js
+[2020-09-09 04:39:10.925] [exthost] [info] eager extensions activated
+[2020-09-09 04:39:14.378] [exthost] [info] ExtensionService#_doActivateExtension vscode.css-language-features {"startup":false,"extensionId":{"value":"vscode.css-language-features","_lower":"vscode.css-language-features"},"activationEvent":"onLanguage:css"}
+[2020-09-09 04:39:14.378] [exthost] [info] ExtensionService#loadCommonJSModule file:///home/pervazgolrang/.vscode-server/bin/a0479759d6e9ea56afa657e454193f72aef85bd0/extensions/css-language-features/client/dist/node/cssClientMain
