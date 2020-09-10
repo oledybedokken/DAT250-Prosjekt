@@ -30,12 +30,12 @@ main{
     height: 120px;
 }
 footer{
-    color: white;
+    color: black;
     height: 120px;
     z-index: 40; /* nokså høy*/
-    border-top: 5px solid grey;
     text-align: center;
-    background-color: #324154;
+    background-color: #ecf2f7 ;
+    padding-top: 5px;
 }
 footer a{
     color: black;
