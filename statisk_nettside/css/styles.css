@@ -245,7 +245,7 @@ span{
     text-align: center;
     margin-top: 100px;
     border-style: solid;
-    height: 60px;
+    height: 50px;
     width: 250px;
 }
 
@@ -259,15 +259,21 @@ span{
 }
 
 
+h1 {
+    font-size: 1.4em;
+}
+
 h2 {
     border-color: white white white rgb(94, 94, 139);
     border-style: solid;
     margin-left: 20px;
     padding-left: 5px;
+    font-size: 1.2em;
 }
 
 h3 {
     margin-left: 40px;
     margin-top: -10px;
     padding-bottom: 20px;
+    font-size: em;
 }
