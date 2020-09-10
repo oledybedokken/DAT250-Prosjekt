@@ -73,6 +73,12 @@ body{
     background-position: center;
     position: absolute;
 
+
+    
+    
+    
+    
+    
 }
 /* Master styles */
 
@@ -202,6 +208,57 @@ span{
 #register{
     left: 450px;
 } 
+
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+    width: 200px;
+    height: 250px;
+    display:none;
+    background-color: #fff;
+    position: relative;
+    top: -400px;
+    right: -300px;
+    padding: 5px;
+    margin: .5% auto;
+    
+  }
+
+
+#message p {
+    padding: 10px 35px;
+    font-size: 10px;
+  }
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+  }
+
+.valid:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+  }
+  
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: red;
+  }
+  
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+  }
+
+/*Requirement text properties */
+.Requirements{
+    color: black;
+}
+
+
+
 
 /* Nav styles */
 
