@@ -323,6 +323,12 @@ span{
     color: rgb(63, 40, 66);
 }
 
+.oversikt-container i {
+    color: #324154;
+    position: relative;
+    top: 4px;
+}
+
 .oversikt-container h1 {
     font-size: 1.4em;
 }
