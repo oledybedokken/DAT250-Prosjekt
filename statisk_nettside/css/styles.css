@@ -292,9 +292,7 @@ span{
 
 
 /* OVERSIKT */
-.sub-container{
 
-}
 .oversikt-container {
     display:flex;
     border-color: white white rgb(49, 49, 187) white;
