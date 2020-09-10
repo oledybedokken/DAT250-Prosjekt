@@ -3,7 +3,7 @@
 header{
     height: 80px;
     position: fixed;
-    background-color: lightblue;
+    background-color: #324154;
     width: 100%;
     z-index: 50;
 }
@@ -11,7 +11,7 @@ header{
 main{
     margin-bottom: -120px;
     min-height: 100%;
-    z-index: -50;
+    z-index: -30;
     position: relative;
     /*
     display: flex;
@@ -32,11 +32,15 @@ main{
     height: 120px;
 }
 footer{
+    color: white;
     height: 120px;
     z-index: 50;
     border-top: 5px solid grey;
     text-align: center;
-    background-color: rgb(190, 211, 238);
+    background-color: #324154;
+}
+footer a{
+    color: black;
 }
 .nav-logo{
     margin: -30px;
@@ -61,7 +65,7 @@ body{
     font-size: 1em;
     margin: 0;
     padding: 0;
-    z-index: 1;
+    z-index: -50;
 }
 
 
@@ -276,7 +280,7 @@ span{
 }
 
 .nav-link-wrapper a{
-    color: black;
+    color: white;
     text-decoration: none;
     transition: color 0.5s;
 }
@@ -286,7 +290,7 @@ span{
 }
 
 .nav-link-wrapper a:hover {
-    color: black;
+    color: grey;
 }
 
 /* OVERSIKT */
