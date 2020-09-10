@@ -68,14 +68,25 @@ body{
     padding: 0;
 }
 
-
 .Background{
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)); 
     background-size: cover;
     background-position: center;
-    position: absolute;  
+    position: absolute;
+    top: 150px;
+}
+
+.bakgrunnsbilde img{
+    height: 100%;
+    width: 100%;
+    opacity: 0.85;
+    position: fixed;
+    background-size: contain;
+}
+
+#background-image img{
+    opacity: 0.5;
 }
 
 /* Master styles */

@@ -7,34 +7,37 @@
 </head>
 
 <body>
-    <div class="Background" style="background-image:url(images/Background.jpg)">
-            <div class="Registry-box">
-                <div class="button-box">
-                    <div id="btn"></div>
-                    <button type="button" class="Actual-button" onclick="login()"> Logg inn </button>
-                    <button type="button" class="Actual-button" onclick="register()"> Bli kunde </button>
-                </div>
-
-                <div class="DnBlogo">
-                    <img src="images/DNB.png">
-                </div>
-
-                <form id="login" class="input-group">
-                    <input type ="text" class="input-field" placeholder="E-mail" required>
-                    <input type ="password" class="input-field" placeholder="Passord" required>
-                    <input type ="checkbox" class="check-box" placeholder="Passord"><span>Husk mitt passord</span>
-                    <button type="submit" class="submit-button">Logg inn</button>
-                </form>
-
-                <!-- "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" linja for å legge til minimum en special case letter -->
-                <form id="register" class="input-group">
-                    <input type ="email" class="input-field" placeholder="E-mail" required>
-                    <input type ="password" id = "psw" class="input-field" placeholder="Passord" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                    <input type ="password" id = "psw" class="input-field" placeholder="Gjenta passordet" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                    <input type ="checkbox" class="check-box" placeholder="Passord"><span>Jeg godkjenner bruksvilkår</span>
-                    <button type="submit" class="submit-button">Registrer konto</button>
-                </form>
+    <div class="bakgrunnsbilde">
+        <img src = "images/Background.jpg">
+    </div>
+    <div class="Background">
+        <div class="Registry-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="Actual-button" onclick="login()"> Logg inn </button>
+                <button type="button" class="Actual-button" onclick="register()"> Bli kunde </button>
             </div>
+
+            <div class="DnBlogo">
+                <img src="images/DNB.png">
+            </div>
+
+            <form id="login" class="input-group">
+                <input type ="text" class="input-field" placeholder="E-mail" required>
+                <input type ="password" class="input-field" placeholder="Passord" required>
+                <input type ="checkbox" class="check-box" placeholder="Passord"><span>Husk mitt passord</span>
+                <button type="submit" class="submit-button">Logg inn</button>
+            </form>
+
+            <!-- "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" linja for å legge til minimum en special case letter -->
+            <form id="register" class="input-group">
+                <input type ="email" class="input-field" placeholder="E-mail" required>
+                <input type ="password" id = "psw" class="input-field" placeholder="Passord" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                <input type ="password" id = "psw" class="input-field" placeholder="Gjenta passordet" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                <input type ="checkbox" class="check-box" placeholder="Passord"><span>Jeg godkjenner bruksvilkår</span>
+                <button type="submit" class="submit-button">Registrer konto</button>
+            </form>
+        </div>
 
         <div id="message">
             <div class="Requirements"><h4>Passordet må best av:</h4></div>
