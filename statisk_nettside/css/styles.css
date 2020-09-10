@@ -302,6 +302,10 @@ span{
     width: 250px;
 }
 
+.oversikt-container i {
+    padding-right: 5px;
+}
+
 .info-container {
     background: white;
 }
@@ -311,8 +315,13 @@ span{
     text-decoration: none;
     transition: color 0.5s;
 }
+
 .info-container a:hover {
     color: rgb(63, 40, 66);
+}
+
+.info-container i {
+    padding-right: 10px;
 }
 
 
@@ -321,8 +330,6 @@ h1 {
 }
 
 h2 {
-    border-color: white white white rgb(94, 94, 139);
-    border-style: solid;
     margin-left: 20px;
     padding-left: 5px;
     font-size: 1.2em;
