@@ -9,6 +9,7 @@ header{
 }
 
 main{
+    padding-top: 50px;
     margin-bottom: -120px;
     min-height: 100%;
     z-index: 2;
