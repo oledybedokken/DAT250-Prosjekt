@@ -32,7 +32,7 @@ main{
 footer{
     color: white;
     height: 120px;
-    z-index: 40;
+    z-index: 40; /* nokså høy*/
     border-top: 5px solid grey;
     text-align: center;
     background-color: #324154;
