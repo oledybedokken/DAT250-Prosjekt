@@ -256,6 +256,10 @@ span{
 .info-container a{
     color: black;
     text-decoration: none;
+    transition: color 0.5s;
+}
+.info-container a:hover {
+    color: aquamarine;
 }
 
 
