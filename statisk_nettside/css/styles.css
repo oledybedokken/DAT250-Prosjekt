@@ -5,11 +5,10 @@ header{
     position: fixed;
     background-color: lightblue;
     width: 100%;
-    z-index: 5;
+    z-index: 50;
 }
 
 main{
-    padding-top: 50px;
     margin-bottom: -120px;
     min-height: 100%;
     z-index: 2;
@@ -26,7 +25,7 @@ main{
     flex-direction: row;
     justify-content: space-evenly;
     margin:0;
-    padding-top: 50px;
+    padding-top: 80px;
     padding-bottom: 100px;
 }
 .push{
@@ -34,7 +33,7 @@ main{
 }
 footer{
     height: 120px;
-    z-index: 5;
+    z-index: 50;
     border-top: 5px solid grey;
     text-align: center;
     background-color: rgb(190, 211, 238);
@@ -62,7 +61,7 @@ body{
     font-size: 1em;
     margin: 0;
     padding: 0;
-    z-index: -1;
+    z-index: 1;
 }
 
 
