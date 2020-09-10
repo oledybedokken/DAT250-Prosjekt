@@ -306,8 +306,8 @@ span{
 
 .info-container {
     background: white;
-    color: rgb(75, 74, 74);
 }
+
 .info-container a{
     color: black;
     text-decoration: none;
@@ -328,6 +328,7 @@ h2 {
     margin-left: 20px;
     padding-left: 5px;
     font-size: 1.2em;
+    color: rgb(75, 74, 74);
 }
 
 h3 {
@@ -335,4 +336,5 @@ h3 {
     margin-top: -10px;
     padding-bottom: 20px;
     font-size: em;
+    color: rgb(127, 137, 146);
 }
