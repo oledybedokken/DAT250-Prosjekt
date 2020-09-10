@@ -1,4 +1,4 @@
--- MySQL
+-- MySQL:
 
 create database "Nettbank"
 use "Nettbank"
