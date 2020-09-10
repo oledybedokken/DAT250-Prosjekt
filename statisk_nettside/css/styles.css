@@ -5,14 +5,12 @@ header{
     position: fixed;
     background-color: #324154;
     width: 100%;
-    z-index: 50;
+    z-index: 50; /*høy*/
 }
 
 main{
-    margin-bottom: -120px;
+    margin-bottom: -110px;
     min-height: 100%;
-    z-index: -30;
-    position: relative;
     /*
     display: flex;
     flex-direction: row;
@@ -34,7 +32,7 @@ main{
 footer{
     color: white;
     height: 120px;
-    z-index: 50;
+    z-index: 40;
     border-top: 5px solid grey;
     text-align: center;
     background-color: #324154;
@@ -65,7 +63,6 @@ body{
     font-size: 1em;
     margin: 0;
     padding: 0;
-    z-index: -50;
 }
 
 
@@ -75,21 +72,18 @@ body{
     background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)); 
     background-size: cover;
     background-position: center;
-    position: absolute;
-
-
-    
-    
-    
-    
-    
+    position: absolute;  
 }
+
 /* Master styles */
+.sub-container{
+    position: relative;
+    z-index: 2;
+}
 
 .container {
     display: grid;
     grid-template-columns: 1fr;
-
 }
 
 
