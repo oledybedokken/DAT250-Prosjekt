@@ -337,6 +337,10 @@ h3 {
     font-size: em;
     color: rgb(127, 137, 146);
 }
+
+
+
+
 ol { list-style-type: none; }
 ol.faq  { padding-left: 0; }
 
@@ -350,8 +354,10 @@ ol.faq > li > ol > li:before {
     content: "Answer: ";
     color: green;
 }
+
+
 /* Style inputs with type="text", select elements and textareas */
-input[type=text], select, textarea {
+.sub-container input[type=text], select, textarea {
     width: 100%; /* Full width */
     padding: 12px; /* Some padding */ 
     border: 1px solid #ccc; /* Gray border */
@@ -363,7 +369,7 @@ input[type=text], select, textarea {
   }
   
   /* Style the submit button with a specific background color etc */
-  input[type=submit] {
+.sub-container input[type=submit] {
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
@@ -373,12 +379,12 @@ input[type=text], select, textarea {
   }
   
   /* When moving the mouse over the submit button, add a darker green color */
-  input[type=submit]:hover {
+.sub-container input[type=submit]:hover {
     background-color: #45a049;
   }
   
   /* Add a background color and some padding around the form */
-  .container {
+.container {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
