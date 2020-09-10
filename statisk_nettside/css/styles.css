@@ -9,8 +9,8 @@ header{
 }
 
 main{
-    margin-bottom: -130px;
     min-height: 100%;
+    padding-bottom: 100px;
     /*
     display: flex;
     flex-direction: row;
@@ -24,11 +24,9 @@ main{
     justify-content: space-evenly;
     margin:0;
     padding-top: 80px;
-    padding-bottom: 100px;
+    padding-bottom: 70px;
 }
-.push{
-    height: 120px;
-}
+
 footer{
     color: black;
     height: 120px;
@@ -36,6 +34,10 @@ footer{
     text-align: center;
     background-color: #ecf2f7 ;
     padding-top: 5px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 footer a{
     color: black;
