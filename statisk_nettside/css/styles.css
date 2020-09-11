@@ -9,7 +9,6 @@ header{
 }
 
 main{
-    min-height: 100%;
     padding-bottom: 100px;
     /*
     display: flex;
@@ -54,6 +53,48 @@ footer a{
     border-radius: 30%;
 }
 
+/* Konto siden*/
+#konto-container{
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+.konto-overskrift{
+    text-align: center;
+
+}
+.konto-tabell{
+
+}
+.transaksjoner{
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+.transaksjoner td{
+    padding: 8px;
+}
+.transaksjoner tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+.transaksjoner tr:last-child{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #50698a;
+    color: white;
+}
+
+.transaksjoner th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #324154;
+    color: white;
+    border: none;
+}
 /* Background styles */
 
 html,body{
