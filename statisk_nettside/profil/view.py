@@ -1,10 +1,6 @@
-from django.shortcuts import render, redirect
-from . import forms
+from django.shortcuts import render
 from . import models
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
-from profil.model import Status 
+from profil.model import Status
 import random
 
 def randomGen():
