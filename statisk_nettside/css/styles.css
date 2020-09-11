@@ -65,6 +65,7 @@ footer a{
     justify-content: space-evenly;
     margin-left: 15%;
     margin-right: 15%;
+    padding-bottom: 80px;
 }
 .konto-overskrift{
     text-align: center;
