@@ -3,7 +3,7 @@ from profil import forms                                            # forms.py
 from profil import models                                           # models.py
 from django.contrib.auth.forms import PasswordChangeForm            # Egen Form for å bytte passord
 from django.contrib import messages                                 # Gir melding
-from django.contrib.auth import update_session_auth_hash            # Hash kode
+from django.contrib.auth import update_session_auth_hash            # Ikke logge ut etter passordet er skrevet.
 from profiles.models import Status                                  # import bare Status
 import random
 
@@ -123,6 +123,7 @@ def profil_redigering(request):
             # Tar den gjeldende forespørselen og oppdaterer brukerobject (user object) 
             # som den nye 'session hash' blir hentet fra, og oppdaterer 'session hash'. 
             # Den roterer 'session hash' slik at en stjålet session cookie blir ugyldiggjort.
+            # Ikke logge ut etter passordet er skrevet.
 
             message.success(request, "Passordet ditt ble oppdatert!")
             return redirect("statisk_nettside/Profil.html")
