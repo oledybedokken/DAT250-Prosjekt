@@ -5,7 +5,7 @@ use "Nettbank"
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
-CREATE TABLE IF NOT EXISTS 'brukere' (
+CREATE TABLE IF NOT EXISTS 'bruker' (
     'id' int(5) NOT NULL AUTO_INCREMENT,
     'email' varchar(32)) NOT NULL,
     'etternavn' varchar(32) NOT NULL,
