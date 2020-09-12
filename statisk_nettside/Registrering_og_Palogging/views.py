@@ -26,7 +26,7 @@ def loggin(request):
 
 def logg_av(request): 
     # Trykke på logout-knappen for å logge ut. 
-    # Må linkes til i html fila. Idk hvordan.
+    # Må linkes til i html fila. Idk hvordan. 
 
     logout(request)
     return redirect("statisk_nettside/Login.html")
