@@ -41,8 +41,52 @@
         </nav>
     </header>
     <main>
-        <div id="container">
-            
+        <div id="register-container">
+            <form action="action_page.php">
+                <div class="register-container">
+                  <h1>Registrer</h1>
+                  <p>Vennligsst fyll inn skjemaet for å lage kontoen.</p>
+                  <hr>
+
+                  <label for="fornavn"><b>Fornavn</b></label>
+                  <input type="text" placeholder="Bob" name="fornavn" id="fornavn" required>
+
+                  <label for="etternavn"><b>Etternavn</b></label>
+                  <input type="text" placeholder="Bobsen" name="etternavn" id="etternavn" required>
+              
+                  <label for="email"><b>Email</b></label>
+                  <input type="text" placeholder="bob.bobsen@mail.no" name="email" id="email" required>
+
+                  <label for="postAddresse"><b>Post Addresse</b></label>
+                  <input type="text" placeholder="Stavangerveien 3" name="postAddresse" id="postAddresse" required>
+                  
+                  <label for="postKode"><b>Post Kode</b></label>
+                  <input type="text" placeholder="xxxx" name="postKode" id="postKode" required>
+
+                  <label for="fylke"><b>Fylke</b></label>
+                  <input type="text" placeholder="Rogaland" name="fylke" id="fylke" required>
+                  
+                  <label for="kjonn"><b>Kjønn</b></label>
+                  <input type="text" placeholder="Vaskemaskin" name="Kjonn" id="Kjonn" required>
+
+                  <label for="fodselsdato"><b>Fødselsdato</b></label>
+                  <input type="text" placeholder="dd.mm.yyyy" name="Fodselsdato" id="Fodselsdato" required>
+
+                  <label for="psw"><b>Passord</b></label>
+                  <input type="password" placeholder="Skriv Passord" name="psw" id="psw" required>
+              
+                  <label for="psw-repeat"><b>Gjenta Passord</b></label>
+                  <input type="password" placeholder="Gjenta Passord" name="psw-repeat" id="psw-repeat" required>
+                  <hr>
+              
+                  <p>Ved å lage en konto, så godtar du våre <a href="#">Brukervilkår</a>.</p>
+                  <button type="submit" class="registerbtn">Registrer</button>
+                </div>
+              
+                <div class="register-container signin">
+                  <p>Allerede bruker? <a href="#">Logg Inn</a>.</p>
+                </div>
+              </form> 
         </div>
     </main>
     <footer>
