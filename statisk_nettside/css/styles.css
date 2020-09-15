@@ -531,6 +531,14 @@ span{
       margin-left: 25%;
       text-align: center;
   }
+#suppinput h1 {
+    border-bottom: #50698a 2px solid;
+    padding-bottom: 40px;
+}
+#overskriftsub{
+    border-bottom: #50698a 2px solid;
+    padding-bottom: 40px;
+}
 .container {
     border-radius: 5px;
     background-color: #f2f2f2;
