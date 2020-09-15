@@ -372,7 +372,7 @@ span{
 /* OVERSIKT */
 
 .oversikt-container {
-    display:flex;
+    display: flex;
     border-color: white white #324154 white;
     border-style: solid;
     color: rgb(37, 37, 37);
@@ -438,6 +438,7 @@ span{
     margin-left: 12px;
 }
 
+/* BETALING */
 
 /* ole fuck off me denne css koden takk */
 .supptab h4{
