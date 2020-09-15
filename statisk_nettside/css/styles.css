@@ -299,8 +299,6 @@ span{
     margin: .5% auto;
     
   }
-
-
 #message p {
     padding: 10px 35px;
     font-size: 10px;
@@ -332,9 +330,6 @@ span{
 .Requirements{
     color: black;
 }
-
-
-
 
 /* Nav styles */
 
@@ -462,7 +457,7 @@ span{
     *list-style: decimal; /* Keep using default numbering for IE6/7 */
     font: 15px 'trebuchet MS', 'lucida sans';
     padding: 0;
-    margin-bottom: 4em;
+    margin-bottom: 10em;
     text-shadow: 0 1px 0 rgba(255,255,255,.5);
   }
 
@@ -484,11 +479,12 @@ span{
     background: #eee;
     color: #808080;
   }
-  .faq a:before{
-    content: counter(li);
+  .faq a::before{
+    counter-increment: section;
+    content: "Q";
     position: absolute;
     left: -1.3em;
-    top: 50%;
+    top: 40%;
     margin-top: -1.3em;
     background: #324154;
     height: 2em;
@@ -523,7 +519,7 @@ span{
     border-radius: 4px;
     cursor: pointer;
   }
-  #kategori {
+#kategori {
       margin-left: 50%;;
   }
   /* When moving the mouse over the submit button, add a darker green color */
@@ -531,7 +527,8 @@ span{
     background-color: #262d36;
   }
   /* Add a background color and some padding around the form */
-  #suppinput {
+#suppinput {
+      margin-left: 25%;
       text-align: center;
   }
 .container {
