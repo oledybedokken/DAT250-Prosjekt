@@ -523,7 +523,7 @@ span{
     cursor: pointer;
   }
   #kategori {
-      margin-left: 50%;;
+      margin-left: 50%;
   }
   /* When moving the mouse over the submit button, add a darker green color */
 .sub-container input[type=submit]:hover {
