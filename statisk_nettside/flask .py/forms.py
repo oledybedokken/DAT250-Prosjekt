@@ -1,5 +1,5 @@
 from flask_wtf import Forms
-from wtforms import TextField, TextAreaField, SubmitField, PasswordField, BooleanField, IntegerField
+from wtforms import TextField, TextAreaField, SubmitField, PasswordField, BooleanField, IntegerField, SelectField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, Length, Email
 import random_auth
@@ -14,6 +14,7 @@ class Pameldingsskjema(Form):
     email = TextField("Email", validators=[DataRequired(), Email()])
     passord = PasswordField("Passord", validators=[DataRequired(), Length(min=8)])
 #    autoriserings_kode = IntegerField("Autoriserings kode", validators=[DataRequired(), Length(min=5, max=5)])
+    husk_meg = BooleanField("Hold meg innlogget")
     bekreft = SubmitField("Påmelding")
 
 class Registreringsskjema(Form):
@@ -21,6 +22,7 @@ class Registreringsskjema(Form):
     passord = PasswordField("Passord", validators=[DataRequired(), Length(min=8, max=30)])
     fylke = TextField("Fylke", validators=[DataRequired(), min_lengde])
     by = TextField("By", validators=[DataRequired(), min_lengde])
+    kjonn = SelectField("Kjønn", choices=[("Tørkel", "Tørkel"), ("Mann", "Mann")], validators=[DataRequired()], coerce="str"])
     husk_meg = BooleanField("Hold meg innlogget")
     bekreft = SubmitField("Logg in")
 
