@@ -1,4 +1,5 @@
 /* main layout for nettside */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
 header{
     height: 80px;
@@ -54,6 +55,37 @@ footer a{
 .nav-logo-BB img{
     width: 100px;
 }
+
+.nav-logo-LoggUt{
+    margin-top: -17px;
+}
+
+.logout-btn {
+    text-transform: uppercase;
+    font-family: 'Calibri', sans-serif;
+    background: #324154;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 1rem;
+    border: 2px solid;
+    transition: all 0.5s;
+    border-radius: 10px;
+    width: auto;
+    position: relative;
+    min-width: 100px;
+  }
+
+  .logout-btn:hover {
+    background: #475f83;
+    transition: all 0.5s;
+    border-radius: 10px;
+    box-shadow: 0px 6px 10px #c4d8e7;
+  }
+  .logout-btn:hover::after {
+    opacity: 1;
+    transition: all 0.5s;
+  }
 
 /* Konto siden*/
 .tabell-scroll{
@@ -476,9 +508,6 @@ span{
     transition: color 0.5s;
 }
 
-.info-container a:hover {
-    color: rgb(63, 40, 66);
-}
 
 .oversikt-container i {
     color: #324154;
