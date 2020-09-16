@@ -47,10 +47,10 @@ footer a{
     text-align: center;
 }
 .nav-logo-BB{
-    margin-top: -20px;
-    position: relative;
-    left: -150%;
-    /*margin-left: -200px;*/
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    margin-left: -50px;
 }
 .nav-logo-BB img{
     width: 100px;
