@@ -1,1 +1,0 @@
-# Ta ut penger
