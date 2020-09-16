@@ -237,7 +237,7 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     margin: 5px 0 22px 0;
     display: inline-block;
     border: none;
-    background: #f1f1f1;
+    background: #fff;
   }
   
   input[type=text]:focus, input[type=password]:focus {
@@ -536,7 +536,6 @@ span{
     position: relative;
     left: 225px;
     top: 15px;
-    margin-top: -100px;
 }
 
 .fa-plus-circle {
@@ -545,6 +544,18 @@ span{
 }
 
 /* BETALING */
+
+.oversikt-container .fa-money-check {
+    font-size: 20px;
+    position: relative;
+    top: 0px;
+}
+
+.oversikt-container .fa-exchange-alt {
+    font-size: 20px;
+    position: relative;
+    top: 0px;
+}
 
 /* ole fuck off me denne css koden takk */
 .supptab h4{
