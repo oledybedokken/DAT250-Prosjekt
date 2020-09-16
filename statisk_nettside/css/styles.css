@@ -233,11 +233,25 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     flex-direction: row;
     justify-content: space-evenly;
     margin:0;
-
+}
+.register-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.register-row{
+    display: flex;
+    flex-direction:row ;
+    justify-content: space-between;
 }
 #register-container form{
-    max-width: 60%;
+    min-width: 70%;
 }
+.register-input{
+    display: flex;
+    flex-direction: column;
+}
+
 /* Add padding to containers */
 .signin {
     padding: 15px;
@@ -245,7 +259,8 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
   
   /* Full-width input fields */
  input[type=text], input[type=password] {
-    width: 95%;
+    max-width: 95%;
+    min-width: 400px;
     padding: 15px 15px;
     margin: 5px 0 22px 0;
     display: inline-block;
@@ -255,7 +270,7 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
   }
   
   input[type=text]:focus, input[type=password]:focus {
-    background-color: #ddd;
+    background-color: #b2c0d2;
     outline: none;
   }
   

@@ -43,45 +43,69 @@
     <main>
         <div id="register-container">
             <form action="action_page.php">
-                <div class="register-container">
+                
                   <h1>Registrer</h1>
                   <p>Vennligst fyll inn skjemaet for å lage kontoen.</p>
                   <hr>
 
-                  <label for="fornavn"><b>Fornavn</b></label>
-                  <input type="text" placeholder="Bob" name="fornavn" id="fornavn" required>
+            <div class="register-container">
 
-                  <label for="etternavn"><b>Etternavn</b></label>
-                  <input type="text" placeholder="Bobsen" name="etternavn" id="etternavn" required>
-              
-                  <label for="email"><b>Email</b></label>
-                  <input type="text" placeholder="bob.bobsen@mail.no" name="email" id="email" required>
-
-                  <label for="postAddresse"><b>Post Addresse</b></label>
-                  <input type="text" placeholder="Stavangerveien 3" name="postAddresse" id="postAddresse" required>
-                  
-                  <label for="postKode"><b>Post Kode</b></label>
-                  <input type="text" placeholder="xxxx" name="postKode" id="postKode" required>
-
-                  <label for="fylke"><b>Fylke</b></label>
-                  <input type="text" placeholder="Rogaland" name="fylke" id="fylke" required>
-                  
-                  <label for="kjonn"><b>Kjønn</b></label>
-                  <input type="text" placeholder="Vaskemaskin" name="Kjonn" id="Kjonn" required>
-
-                  <label for="fodselsdato"><b>Fødselsdato</b></label>
-                  <input type="text" placeholder="dd.mm.yyyy" name="Fodselsdato" id="Fodselsdato" required>
-
-                  <label for="psw"><b>Passord</b></label>
-                  <input type="password" placeholder="Skriv Passord" name="psw" id="psw" required>
-              
-                  <label for="psw-repeat"><b>Gjenta Passord</b></label>
-                  <input type="password" placeholder="Gjenta Passord" name="psw-repeat" id="psw-repeat" required>
-                  <hr>
-              
+                <div class="register-row">
+                    <div class="register-input">
+                    <label for="fornavn"><b>Fornavn</b></label>
+                    <input type="text" placeholder="Bob" name="fornavn" id="fornavn" required>
+                    </div>
+                    <div class="register-input">
+                    <label for="etternavn"><b>Etternavn</b></label>
+                    <input type="text" placeholder="Bobsen" name="etternavn" id="etternavn" required>
+                    </div>
+                </div>
+                <div class="register-row">
+                    <div class="register-input">
+                    <label for="email"><b>Email</b></label>
+                    <input type="text" placeholder="bob.bobsen@mail.no" name="email" id="email" required>
+                    </div>
+                    <div class="register-input">
+                    <label for="postAddresse"><b>Post Addresse</b></label>
+                    <input type="text" placeholder="Stavangerveien 3" name="postAddresse" id="postAddresse" required>
+                    </div>
+                </div>
+                <div class="register-row">
+                    <div class="register-input">
+                    <label for="postKode"><b>Post Kode</b></label>
+                    <input type="text" placeholder="xxxx" name="postKode" id="postKode" required>
+                    </div>
+                    <div class="register-input">
+                    <label for="fylke"><b>Fylke</b></label>
+                    <input type="text" placeholder="Rogaland" name="fylke" id="fylke" required>
+                    </div>
+                </div>
+                <div class="register-row">
+                    <div class="register-input">
+                    <label for="kjonn"><b>Kjønn</b></label>
+                    <input type="text" placeholder="Vaskemaskin" name="Kjonn" id="Kjonn" required>
+                    </div>
+                    <div class="register-input">
+                    <label for="fodselsdato"><b>Fødselsdato</b></label>
+                    <input type="text" placeholder="dd.mm.yyyy" name="Fodselsdato" id="Fodselsdato" required>
+                    </div>
+                </div>
+                <div class="register-row">
+                    <div class="register-input">
+                    <label for="psw"><b>Passord</b></label>
+                    <input type="password" placeholder="Skriv Passord" name="psw" id="psw" required>
+                    </div>
+                    <div class="register-input">
+                    <label for="psw-repeat"><b>Gjenta Passord</b></label>
+                    <input type="password" placeholder="Gjenta Passord" name="psw-repeat" id="psw-repeat" required>
+                    </div>
+                </div>
+            </div> 
+                
+                <hr>
                   <p>Ved å lage en konto, så godtar du våre <a href="#">Brukervilkår</a>.</p>
                   <button type="submit" class="registerbtn">Registrer</button>
-                </div>
+
               
                 <div class="register-container signin">
                   <p>Allerede bruker? <a href="#">Logg Inn</a>.</p>
