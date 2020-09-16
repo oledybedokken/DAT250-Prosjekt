@@ -559,6 +559,15 @@ span{
     top: 0px;
 }
 
+.info-container select {
+    border-bottom: #324154;
+    border-top: #324154;
+    border-left: white;
+    border-right: white;
+    border-style: solid;
+    margin-top: -8px;
+}
+
 /* ole fuck off me denne css koden takk */
 .supptab h4{
     padding-top: 10px;;
