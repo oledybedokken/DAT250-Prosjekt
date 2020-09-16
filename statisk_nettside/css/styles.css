@@ -250,6 +250,7 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
 .register-input{
     display: flex;
     flex-direction: column;
+    width: 50%;
 }
 
 /* Add padding to containers */
@@ -259,10 +260,8 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
   
   /* Full-width input fields */
  input[type=text], input[type=password] {
-    max-width: 95%;
-    min-width: 400px;
     padding: 15px 15px;
-    margin: 5px 0 22px 0;
+    margin: 5px 10px 22px 10px;
     display: inline-block;
     border: none;
     background: #edf2f7;
