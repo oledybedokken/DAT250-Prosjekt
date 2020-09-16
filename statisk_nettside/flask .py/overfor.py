@@ -1,1 +1,0 @@
-# Overfør sum, motta sum
