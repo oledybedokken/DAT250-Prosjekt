@@ -563,6 +563,7 @@ span{
 
 .oversikt-container h1 {
     font-size: 1.4em;
+    color: #324154;
 }
 
 .info-container h2 {
@@ -594,12 +595,14 @@ span{
 .oversikt-container .fa-money-check {
     font-size: 20px;
     position: relative;
+    padding-top: 7px;
     top: 0px;
 }
 
 .oversikt-container .fa-exchange-alt {
     font-size: 20px;
     position: relative;
+    padding-top: 7px;
     top: 0px;
 }
 
