@@ -4,13 +4,15 @@
 header{
     height: 80px;
     position: fixed;
+    top: 0;
+    left: 0;
     background-color: #324154;
     width: 100%;
     z-index: 50; /*høy*/
 }
 
 main{
-    padding-bottom: 100px;
+    padding-bottom: 150px;
     /*
     display: flex;
     flex-direction: row;
@@ -23,8 +25,6 @@ main{
     flex-direction: row;
     justify-content: space-evenly;
     margin:0;
-    padding-top: 80px;
-    padding-bottom: 70px;
 }
 
 footer{
@@ -96,13 +96,11 @@ footer a{
     overflow: auto;
 }
 #konto-container{
-    padding-top: 80px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     margin-left: 15%;
     margin-right: 15%;
-    padding-bottom: 80px;
 }
 .konto-overskrift{
     text-align: center;
@@ -111,7 +109,7 @@ footer a{
     padding-top: 50px;
 }
 .konto-tabell{
-    margin-top: 100px;
+    margin-top: 50px;
 }
 .transaksjoner{
     border-collapse: collapse;
@@ -165,6 +163,7 @@ body{
     font-family: 'Roboto', sans-serif;
     font-size: 1em;
     margin: 0;
+    margin-top: 80px;
     padding: 0;
 }
 
@@ -220,21 +219,18 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     flex-direction: row;
     justify-content: space-evenly;
     margin:0;
-    padding-top: 80px;
-    padding-bottom: 70px;
+
 }
 #register-container form{
-    max-width: 50%;
+    max-width: 60%;
 }
-
-
 /* Add padding to containers */
 .signin {
     padding: 15px;
   }
   
   /* Full-width input fields */
-  input[type=text], input[type=password] {
+ input[type=text], input[type=password] {
     width: 95%;
     padding: 15px 15px;
     margin: 5px 0 22px 0;
@@ -281,6 +277,23 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     background-color: #f1f1f1;
     text-align: center;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
