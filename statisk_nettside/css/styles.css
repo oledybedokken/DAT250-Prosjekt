@@ -507,7 +507,6 @@ span{
     position: relative;
     left: 225px;
     top: 15px;
-    margin-top: -100px;
 }
 
 .fa-plus-circle {
@@ -516,6 +515,18 @@ span{
 }
 
 /* BETALING */
+
+.oversikt-container .fa-money-check {
+    font-size: 20px;
+    position: relative;
+    top: 0px;
+}
+
+.oversikt-container .fa-exchange-alt {
+    font-size: 20px;
+    position: relative;
+    top: 0px;
+}
 
 /* ole fuck off me denne css koden takk */
 .supptab h4{
