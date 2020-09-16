@@ -567,6 +567,37 @@ span{
     margin-top: -8px;
 }
 
+.info-container input[type=psum] {
+    height: 25px;
+    position: relative;
+    width: 135px;
+    left: 75px;
+}
+
+.info-container input[type=kontonr] {
+    height: 25px;
+    position: relative;
+    width: 135px;
+    left: 44px;
+}
+
+.info-container input[type=mld] {
+    height: 25px;
+    position: relative;
+    width: 135px;
+    left: 49px;
+}
+
+.button-container button {
+    background-color: #324154;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
 /* ole fuck off me denne css koden takk */
 .supptab h4{
     padding-top: 10px;;
