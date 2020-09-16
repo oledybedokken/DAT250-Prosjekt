@@ -520,7 +520,7 @@ span{
 }
 
 .info-container h2 {
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: rgb(75, 74, 74);
 }
 
@@ -558,10 +558,8 @@ span{
 }
 
 .info-container select {
-    border-bottom: #324154;
-    border-top: #324154;
-    border-left: white;
-    border-right: white;
+    border: #324154;
+    border: thin;
     border-style: solid;
     margin-top: -8px;
 }
