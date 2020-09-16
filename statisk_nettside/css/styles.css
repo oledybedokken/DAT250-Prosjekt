@@ -77,12 +77,13 @@ footer a{
   }
 
   .logout-btn:hover {
-    background: #324154;
+    background: #424d5e;
     color: white;
     border-color: white;
     transition: all 0.5s;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 2px #b2c0d2;
+    box-shadow: 0px 4px 10px #b2c0d2;
+    opacity: 1;
   }
   .logout-btn:hover::after {
     opacity: 1;
