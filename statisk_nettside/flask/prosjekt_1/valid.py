@@ -33,7 +33,7 @@ def bytt_passord():
     try:
         email = data["email"]
         auth_kode = data["auth_kode"]
-        newpw = data["passord"]
+        ny_pass = data["passord"]
     except KeyError:
         return am.jsonify({"msg": "OBS! Sjekk om stavefeil"}), 400
 
@@ -43,7 +43,7 @@ def bytt_passord():
 
     ny_hash = am.bcrypt.generate_password_hash(newpw.encode("UTF-8"))
     resultat = am.bruker.update_one({"email": email},
-                                   {"$set": {"passord": new_hash}})
+                                   {"$set": {"passord": ny_hash}})
     if not result.modified_count:
         return am.jsonify({"msg": "Failed to update"}), 503
 
