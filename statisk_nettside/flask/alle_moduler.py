@@ -15,7 +15,7 @@ from datetime import datetime
 # LAG AUTORISERINGS KODE OG IMPORT TIL HER!
 
 
-# Copiert forklaring fra flask.palletsprojects.com:
+# Copiert forklaring fra flask.palletsprojects.com: - Kan brukes?
 
 # SECRET_KEY: 
 # A secret key that will be used for securely signing the session cookie 
