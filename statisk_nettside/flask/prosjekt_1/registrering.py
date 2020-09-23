@@ -5,7 +5,7 @@ from .views import uttak
 def registrering():
     data = am.request.get_json()
     if not data:
-        return am.jsonify({"msg": "OBS! Ingen data"}), 400
+        return am.jsonify({"msg": "OBS! Ingen data"})
 
     try:
         fornavn = data["fornavn"].lower()
@@ -15,4 +15,4 @@ def registrering():
         passord = data["passord"]
 
     except KeyError:
-        return am.jsonify({"msg": "OBS! Sjekk om stavefeil"}), 400
+        return am.jsonify({"msg": "OBS! Sjekk om stavefeil"})

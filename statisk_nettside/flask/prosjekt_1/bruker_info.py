@@ -9,7 +9,7 @@ from datetime import datetime
 def bruker_oppdater():
     data = am.request.get_json()
     if not data:
-        return am.jsonify({"msg": "OBS! Ingen data"}), 400
+        return am.jsonify({"msg": "OBS! Ingen data"})
 
     try:
         fornavn = data["fornavn"].lower()
@@ -18,17 +18,17 @@ def bruker_oppdater():
         nav_passord = data["nav_passord"]
         passord = data.get("passord", None)
     except nError:
-        return am.jsonify({"msg": "OBS! Sjekk om stavefeil"}), 400
+        return am.jsonify({"msg": "OBS! Sjekk om stavefeil"})
     nav_bruker = am.get_jwt_identity()["email"]
 
     bruker = am.bruker.find_one({"email": nav_bruker})
     if not bruker:
-        return am.jsonify({"msg": "bruker ikke finnes"}), 409
+        return am.jsonify({"msg": "bruker ikke finnes"})
 
     finnes = am.bcrypt.check_password_hash(bruker["passord"].decode("UTF-8"),
                                           nav_passord)
     if not finnes:
-        return am.jsonify({"msg": "Feil passord"}), 401
+        return am.jsonify({"msg": "Feil passord"})
 
     n_liste = {"fornavn": fornavn, "etternavn": etternavn, "email": email,
                 "auth": auth_kode}
@@ -57,7 +57,7 @@ def bruker_oppdater():
         )
 
     return am.jsonify(
-        {"msg": "ifnromasjon oppdatert"}), 200
+        {"msg": "ifnromasjon oppdatert"})
 
 
 # formue
@@ -67,7 +67,7 @@ def grip_formue():
                                   "konto.konto_nummer": True})
     bruker.pop("_id")
     make_serializable(bruker)
-    return am.jsonify(bruker), 200
+    return am.jsonify(bruker)
     # idk hva som står over, kopiert fra tutorial
 
 # Transaksjon
@@ -79,7 +79,7 @@ def transaksjon(yr, month):
          "konto.konto_nummer": True,
          "konto.transaksjon": True})
     if not bruker:
-        return am.jsonify({"msg": "bruker ikke funnet"}), 409
+        return am.jsonify({"msg": "bruker ikke funnet"})
     for item in bruker["konto"]:
         make_serializable(item)
     for konto in bruker["konto"]:
@@ -99,7 +99,7 @@ def grip_konto_transaksjon(konto, yr, month):
         {"konto": {"$elemMatch": {"konto_nummer": str(konto)}},
          "konto.transaksjon": True})
     if not bruker:
-        return am.jsonify({"msg": "konto ikke finnes"}), 409
+        return am.jsonify({"msg": "konto ikke finnes"})
     transaksjon_list = bruker["konto"][0]["transaksjon"]
     # Stackoverflow
 
@@ -107,17 +107,17 @@ def grip_konto_transaksjon(konto, yr, month):
         make_serializable(item)
 
     if not yr and not month:
-        return am.jsonify({"transaksjon": transaksjon_list}), 200
+        return am.jsonify({"transaksjon": transaksjon_list})
 
     kategori = [trans for trans in transaksjon_list
                 if datetime.strptime(trans["time"], "%c").yr == yr]
     if yr and not month:
-        return am.jsonify({"transaksjon": kategori}), 200
+        return am.jsonify({"transaksjon": kategori})
     if yr and month:
         resultat = [trans for trans in kategori
                   if datetime.strptime(trans["time"], "%c").month == month]
-        return am.jsonify({"transaksjon": resultat}), 200
-    return f"{yr}, {month}", 200
+        return am.jsonify({"transaksjon": resultat})
+    return f"{yr}, {month}"
 
 
 # Mer info!
