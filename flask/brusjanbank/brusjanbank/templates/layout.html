@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %} - News24/7</title>
+    <link rel="stylesheet" href="static/style.css">
+  </head>
+  <body>
+    <header>
+      <h1>Brusjanbank</h1>
+    </header>
+    <main>
+      <div id="konto-container">
+        <!-- Overskrift -->
+        <div class="konto-overskrift">
+            <div>
+                <h1>Transaksjons Rapport</h1>
+            </div>
+            <div>
+                <h4>Viser transaksjoner for konto: Daglig Bruk</h4>
+            </div>
+        </div>+
+      <div class="konto-tabell">
+        <table class="transaksjoner">
+            <!-- Kunne trykke på th og sortere -->
+            <tr>
+                <th><a href="#">Konto </a></th>
+                <th><a href="#">Dato</a></th>
+                <th><a href="#">Saldo</a></th>
+            </tr>
+        </table>
+        <div class="tabell-scroll">
+        <table class="transaksjoner">
+            {% block content %} {% endblock %}
+        </table>
+        </div>
+        </div>
+      </div>
+      </main>
+    <footer>
+      <h3>Tips? Contact us at 5818288191919</h3>
+      <h3>Location: Stavanger, Norway</h3>
+    </footer>
+  </body>
+</html>
