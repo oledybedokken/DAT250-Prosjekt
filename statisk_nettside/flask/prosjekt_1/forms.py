@@ -1,38 +1,36 @@
-from flask_wtf import Forms
-from wtforms import TextField, TextAreaField, SubmitField, PasswordField, BooleanField, IntegerField, SelectField, Datefield
-from wtforms.fields.html5 import EmailField, Datefield
-from wtforms.validators import DataRequired, Length, Email
-import random_auth
+from flask_wtf import FlaskForm
+from wtforms import StringField, IntegerField, SubmitField, FloatField, PasswordField
+from wtforms.validators import InputRequired, EqualTo
 
-def min_lengde(form, field):
-    if len(field.data == 0:)
-    raise ValueError("Felt skal ikke være tomt")
+class OpprettForm(FlaskForm):
 
-class Pameldingsskjema(Form):
-#    fornavn = TextField("Fornavn", validators=[DataRequired(), min_lengde])
-#    etternavn = TextField("Etternavn", validators=[DataRequired(), min_lengde])
-    email = TextField("Email", validators=[DataRequired(), Email()])
-    passord = PasswordField("Passord", validators=[DataRequired(), Length(min=8)])
-#    autoriserings_kode = IntegerField("Autoriserings kode", validators=[DataRequired(), Length(min=5, max=5)])
-    husk_meg = BooleanField("Hold meg innlogget")
-    bekreft = SubmitField("Påmelding")
+    navn = StringField("Kontonavn: ", [InputRequired()])
+    saldo = FloatField("Inngående egenkapital: ")
+    passord = PasswordField("Passord: ", [InputRequired(), EqualTo("pass_konf", message="Passordene må være like")])
+    pass_konf = PasswordField("Bekreft passord for kontoen: ")
+    bekreft = SubmitField("Opprett konto")
 
-class Registreringsskjema(Form):
-    email = EmailField("Email", validators=[DataRequired(), Email()])
-    passord = PasswordField("Passord", validators=[DataRequired(), Length(min=8, max=30)])
-    fylke = TextField("Fylke", validators=[DataRequired(), min_lengde])
-    by = TextField("By", validators=[DataRequired(), min_lengde])
-    kjonn = SelectField("Kjønn", choices=[("Tørkel", "Tørkel"), ("Mann", "Mann")], validators=[DataRequired()], coerce="str"])
-    fodsel = DateField("Fødeselsdato", format="%d-%m-%Y")
-    husk_meg = BooleanField("Hold meg innlogget")
-    bekreft = SubmitField("Logg in")
+class InnloggingForm(FlaskForm):
 
-class Brukerskjema(Form):
-    fornavn = TextField("Fornavn", validators=[DataRequired(), min_lengde])
-    etternavn = TextField("Etternavn", validators=[DataRequired(), min_lengde])
-    email = EmailField("Email", validaotrs=[DataRequired(), Email()])
-    passord = PasswordField("Passord", validators=[DataRequired(), Length(min=8)])
+    email = TextField("Email: ",[validators.Required("Vennligst skriv inn E-postadressen din"), validators.email("Vennligst skriv inn E-postadressen din")])
+    passord = PasswordField("Passord: ", [InputRequired()])
+    bekreft = SubmitField("Login")
 
-class legg_til_kontoskjema(Form):
-    konto_nummer = TextField("Konto nummer")
-    f_uttak = TextField("Uttak")
+class OverforingForm(FlaskForm):
+
+    konto_nummer = IntegerField("Mottakerens kontonummer: ", [InputRequired()])
+    belop = FloatField("Overfør beløp: ", [InputRequired()])
+    passord = PasswordField("Passord: ", [InputRequired()])
+    overfor = SubmitField("Overfør beløp")
+
+class InnskuddForm(FlaskForm):
+
+    belop = FloatField("Innskuddsbeløp: ", [InputRequired()])
+    bekreft = SubmitField("Innskuddsbeløp")
+
+class SlettForm(FlaskForm):
+
+    bruker_id = IntegerField("Kontonummer som skal slettes: ", [InputRequired()])
+    passord = PasswordField("Passord: ", [InputRequired(), EqualTo("pass_konf", message="Passordene må være like")])
+    pass_konf = PasswordField("Bekreft passord for kontoen: ")
+    bekreft = SubmitField("Slett konto")
