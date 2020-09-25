@@ -19,7 +19,7 @@ class User:
         return f'<User: {self.username}>'
 
 users = []
-users.append(User(id = 1, username= "Ole", password ="password", saldo = 200))
+users.append(User(id = 1, username= "Ole", password ="password", saldo = 2))
 users.append(User(id = 2, username= "Pervaz", password ="password2", saldo=500))
 users.append(User(id = 3, username= "Espen", password ="password3", saldo=1000))
 users.append(User(id = 4, username= "Jørgn", password ="password3", saldo=600))
