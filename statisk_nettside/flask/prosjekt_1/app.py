@@ -160,7 +160,7 @@ def aktiverkunde(kunde_id=None):
     if session["usert"]=="executive":
         if kunde_id is not None:
             kunde_id = int(kunde_id)
-            resultat = db.execute("SELECT * from kunder WHERE kunde_id = :a and status = 'deactivate', {"a": kunde_id}).fetchone()
+            resultat = db.execute("SELECT * from kunder WHERE kunde_id = :a and status = 'deactivate'", {"a": kunde_id}).fetchone()
             if resultat is not None :
                 spor = db.execute("UPDATE kunder SET status='activate' WHERE kunde_id = :a", {"a": kunde_id})
                 db.commit()
