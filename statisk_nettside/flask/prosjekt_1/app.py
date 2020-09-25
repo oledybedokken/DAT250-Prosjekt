@@ -112,7 +112,7 @@ def redigerkunde(kunde_id=None):
                 kunde_id = int(kunde_id)
                 navn = request.form.get("navn")
                 adresse = request.form.get("adresse")
-                resultat = db.execute("SELECT * from kunder WHERE kunde_id = :c and status = 'activate', {"c": kunde_id}).fetchone()
+                resultat = db.execute("SELECT * from kunder WHERE kunde_id = :c and status = 'activate'", {"c": kunde_id}).fetchone()
                 if resultat is not None :
                     resultat = db.execute("UPDATE kunder SET navn = :n , adresse = :add , WHERE kunde_id = :a", {"n": navn, "add": adresse, "a": kunde_id})
                     db.commit()
