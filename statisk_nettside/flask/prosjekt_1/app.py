@@ -10,7 +10,6 @@ from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import scoped_session, sessionmaker
 import datetime
 import xlwt
-from fpdf import FPDF
 
 app = Flask(__navn__)
 bcrypt = Bcrypt(app)
