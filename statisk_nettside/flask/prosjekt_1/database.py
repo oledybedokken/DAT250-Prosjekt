@@ -22,7 +22,7 @@ class Kunder(Base):
     adresse = Column(String(64), nullable=False)
     fylke = Column(String(32), nullable=False)
     by = Column(String(32), nullable=False)
-    status = Column(String(64), nullable=False)
+    status = Column(String(250), nullable=False)
 
 class Kundelog(Base):
     __tablename__="kundelog"
@@ -34,16 +34,16 @@ class Kundelog(Base):
 class Konto(Base):
     __tablename__="konto"
     bruker_id = Column(Integer,primary_key=True,autoincrement=True)
-    acc_type = Column(String(64),nullable=False)
-    balance = Column(Integer, nullable=False)
+    bruker_type = Column(String(64),nullable=False)
+    saldo = Column(Integer, nullable=False)
     kunde_id = Column(Integer, ForeignKey("kunder.kunde_id"))
     kunder = relationship(kunder)
     status = Column(String(64), nullable=False)
     melding =  Column(String(64))
     last_update = Column(DateTime)
 
-class Transactions(Base):
-    __tablename__="transactions"
+class Transaksjoner(Base):
+    __tablename__="Transaksjoner"
     trans_id = Column(Integer, primary_key=True, autoincrement=True)
     bruker_id = Column(Integer, ForeignKey("konto.bruker_id"))
     trans_melding = Column(String(64), nullable=False)
