@@ -4,24 +4,25 @@
     <!-- Profil til brukerne på nettsiden -->
     <meta charset ="utf-8" />
     <title>About</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
     <main>
-        <div id="profil-container">
-            <div class="profil-venstre">
-                <div id="konto-container">
+
+        <div id="konto-container">
                     <!-- Overskrift -->
-                    <div class="konto-overskrift">
+                <div class="konto-overskrift">
                         <div>
                             <h1>Transaksjons Rapport</h1>
                         </div>
                         <div>
                             <h4>Viser transaksjoner for konto: Daglig Bruk</h4>
                         </div>
-                    </div>
-                  <div class="konto-tabell">
+                </div>
+
+
+                <div class="konto-tabell">
                     <table class="transaksjoner">
                         <tr>
                             <th><a href="#">Konto </a></th>
@@ -35,7 +36,6 @@
                     </table>
                     </div>
                 </div>
-            </div>
         </div>
     </main>
 </body>
