@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Profil til brukerne på nettsiden -->
+    <meta charset ="utf-8" />
+    <title>About</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <main>
+        <div id="profil-container">
+            <div class="profil-venstre">
+                <div class="profil-bilde">
+                    <p>Hei, {{g.user.username}}!</p>
+                </div>
+                    <h2>Du har kr {{g.user.saldo}} på konto</h2>
+                    <h3>Beløp</h3>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
