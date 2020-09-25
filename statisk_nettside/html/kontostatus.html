@@ -11,25 +11,25 @@
             <table class="table">
                 <thead>
                   <tr>
-                    <th> Customer Id</th>
-                    <th> Account Id</th>
-                    <th> Account Type</th>
-                    <th> Account Status</th>
-                    <th> Message</th>
-                    <th>  Last Update</th>
+                    <th> Kunde-ID</th>
+                    <th> Konto-ID</th>
+                    <th> Konto type</th>
+                    <th> Konto status</th>
+                    <th> Melding</th>
+                    <th> Sist oppdatert</th>
                     <th> Operations</th>
                   </tr>
                 </thead>
                 <tbody>
                     {% for i in data %}
                   <tr>
-                    <td> {{ i.cust_id }}</td>
-                    <td>  {{ i.acc_id }}</td>
-                    <td> {{ i.acc_type }}</td>
+                    <td> {{ i.kunde_id }}</td>
+                    <td>  {{ i.bruker_id }}</td>
+                    <td> {{ i.bruker_type }}</td>
                     <td>   {{ i.status }}</td>
-                    <td>   {{ i.message }}</td>
+                    <td>   {{ i.melding }}</td>
                     <td>   {{ i.last_update }}</td>
-                    <td><a href="javaScript:void(0)" class="refresh_acc" data-acc_id={{ i.acc_id }}>Refresh</a></td>
+                    <td><a href="javaScript:void(0)" class="refresh_acc" data-bruker_id={{ i.bruker_id }}>Refresh</a></td>
                   </tr>
                 
                     
@@ -42,8 +42,8 @@
             <div class="row">
               <div class="form-group col-md-12 text-center">
                   <div class="float-right">
-                      <a href="{{ url_for('viewaccountstatus') }}">
-                          <button class="btn">Refresh the List</button>
+                      <a href="{{ url_for('kontostatus') }}">
+                          <button class="btn">Oppdater listen</button>
                       </a>
                   </div>
               </div>
