@@ -11,11 +11,29 @@
     <main>
         <div id="profil-container">
             <div class="profil-venstre">
-                <div class="profil-bilde">
-                    <p>Hei, {{g.user.username}}!</p>
-                </div>
-                    <h2>Du har kr {{g.user.saldo}} på konto</h2>
-                    <h3>Beløp</h3>
+                <div id="konto-container">
+                    <!-- Overskrift -->
+                    <div class="konto-overskrift">
+                        <div>
+                            <h1>Transaksjons Rapport</h1>
+                        </div>
+                        <div>
+                            <h4>Viser transaksjoner for konto: Daglig Bruk</h4>
+                        </div>
+                    </div>
+                  <div class="konto-tabell">
+                    <table class="transaksjoner">
+                        <tr>
+                            <th><a href="#">Konto </a></th>
+                            <th><a href="#">Dato</a></th>
+                            <th><a href="#">Saldo</a></th>
+                        </tr>
+                    </table>
+                    <div class="tabell-scroll">
+                    <table class="transaksjoner">
+                        <tr><td>{{ g.user.username }}</td><td> xx</td> <td> {{ g.user.saldo }}</td></tr>
+                    </table>
+                    </div>
                 </div>
             </div>
         </div>
