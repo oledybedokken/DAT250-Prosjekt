@@ -8,35 +8,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <main>
-
-        <div id="konto-container">
-                    <!-- Overskrift -->
-                <div class="konto-overskrift">
-                        <div>
-                            <h1>Transaksjons Rapport</h1>
-                        </div>
-                        <div>
-                            <h4>Viser transaksjoner for konto: Daglig Bruk</h4>
-                        </div>
-                </div>
-
-
-                <div class="konto-tabell">
-                    <table class="transaksjoner">
-                        <tr>
-                            <th><a href="#">Konto </a></th>
-                            <th><a href="#">Dato</a></th>
-                            <th><a href="#">Saldo</a></th>
-                        </tr>
-                    </table>
-                    <div class="tabell-scroll">
-                    <table class="transaksjoner">
-                        <tr><td>{{ g.user.username }}</td><td> xx</td> <td> {{ g.user.saldo }}</td></tr>
-                    </table>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <div class="left-side">
+                    <div class="nav-link-wrapper">
+                        <a href="Registrer.html">Registrer</a>
+                    </div>
+                    <div class="nav-link-wrapper">
+                        <a href="Profil.html">Profil</a>
+                    </div>
+                    <div class="nav-link-wrapper">
+                        <a href="Betaling .html">Betaling</a>
+                    </div>
+                    <div class="nav-link-wrapper">
+                        <a href="Oversikt.html">Oversikt</a>
+                    </div>
+                    <div class="nav-link-wrapper">
+                        <a href="Konto.html">Konto</a>
                     </div>
                 </div>
+                <div class="mid-side">
+                    <div class="nav-logo-BB">
+                        <a href="#"><img src="images/LOGO-med-skygge-morkere.png"></a>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <div class="nav-logo-LoggUt">
+                        <button class="logout-btn">Logg ut</button>    
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div id="konto-container">
+            <!-- Overskrift -->
+            <div class="konto-overskrift">
+                <div>
+                    <h1>Transaksjons Rapport</h1>
+                </div>
+                <div>
+                    <h4>Viser transaksjoner for konto: Daglig Bruk</h4>
+                </div>
+            </div>
+            <!-- Tabell for transaksjonene -->
+            <div class="konto-tabell">
+                <table class="transaksjoner">
+                    <!-- Kunne trykke på th og sortere -->
+                    <tr>
+                        <th><a href="#">Konto </a></th>
+                        <th><a href="#">Transaksjons Type</a></th>
+                        <th><a href="#">Dato</a></th>
+                        <th><a href="#">Mengde</a></th>
+                        <th><a href="#">Saldo</a></th>
+                    </tr>
+                </table>
+                <div class="tabell-scroll">
+                <table class="transaksjoner">
+                    <tr><td>{{ g.user.username }}</td><td> {{ g.user.dato }}</td> <td> {{ g.user.saldo }}</td></tr>
+                </table>
+            </div>                
+                <table class="saldo-visning">
+                    <tr>
+                        <td colspan="3"></td>
+                        <td>Saldo</td>
+                        <td>Kr 47 500.00</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </main>
+    <footer>
+    <!-- Kontaktinformasjonen til banken -->
+        <p> Kontakt oss: <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">DuErEnKødd@mail.no</a></p>
+        <p> Eller ring oss på tlf: 12345678 </p>
+        <p> For mer hjelp, trykk inn <a href="Support.html">HER</a>.</p>
+
+    </footer>
 </body>
 </html>

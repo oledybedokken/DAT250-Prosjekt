@@ -7,22 +7,24 @@ from flask import (
     session,
     url_for
 )
+import datetime as dt
 
 class User:
-    def __init__(self, id, username, password,saldo):
+    def __init__(self, id, username, password,saldo, dato):
         self.id = id
         self.username = username
         self.password = password
         self.saldo = int(saldo)
+        self.dato = dato
 
     def __repr__(self):
         return f'<User: {self.username}>'
 
 users = []
-users.append(User(id = 1, username= "Ole", password ="password", saldo = 2))
-users.append(User(id = 2, username= "Pervaz", password ="password2", saldo=500))
-users.append(User(id = 3, username= "Espen", password ="password3", saldo=1000))
-users.append(User(id = 4, username= "Jørgn", password ="password3", saldo=600))
+users.append(User(id = 1, username= "Ole", password ="password", saldo = 2, dato =dt.date(2002, 5, 6) ))
+users.append(User(id = 2, username= "Pervaz", password ="password2", saldo=500,dato =dt.date(2002, 5, 6) ))
+users.append(User(id = 3, username= "Espen", password ="123", saldo=1000, dato =dt.date(2002, 5, 6)))
+users.append(User(id = 4, username= "Jørgen", password ="password3", saldo=600 , dato =dt.date(2002, 5, 6)))
 
 
 app = Flask(__name__)
