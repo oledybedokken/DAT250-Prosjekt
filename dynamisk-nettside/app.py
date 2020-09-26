@@ -93,3 +93,10 @@ def overview():
         return redirect(url_for('login'))
 
     return render_template('overview.html')
+
+@app.route('/account')
+def account():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('account.html')
