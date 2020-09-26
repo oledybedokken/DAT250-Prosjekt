@@ -86,3 +86,10 @@ def profile():
         return redirect(url_for('login'))
 
     return render_template('profile.html')
+
+@app.route('/overview')
+def overview():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('overview.html')
