@@ -5,7 +5,7 @@ from flask import send_file
 from flask import Flask, session, render_template, request, redirect, url_for, flash, jsonify, Response
 from flask_bcrypt import Bcrypt
 from flask_session import Session
-from flask.prosjekt_1.database import Base, Konto, Bruker, Kunder, KundeLog, Transaksjoner
+from database import Base, Konto, Bruker, Kunder, KundeLog, Transaksjoner
 from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import scoped_session, sessionmaker
 import datetime
@@ -124,9 +124,9 @@ def redigerkunde(kunde_id=None):
 
     return redirect(url_for("se_kunder"))
 
-@app.route("/slettkonto")
-@app.route("/slettkonto/<kunde_id>")
-def slettkonto(kunde_id=None):
+@app.route("/slettkunde")
+@app.route("/slettkunde/<kunde_id>")
+def slettkunde(kunde_id=None):
     if "user" not in session:
         return redirect(url_for("login"))
     if session["usert"] != "executive":
@@ -192,8 +192,8 @@ def aktiverkonto(bruker_id=None):
             flash(f"Konto med id : {bruker_id} er allerede aktiv eller ikke til stede i databasen.", "advarsel")
     return redirect(url_for("se_kunder"))
 
-@app.route("/kontostatus")
-def kontostatus():
+@app.route("/kundestatus")
+def kundestatus():
     if "user" not in session:
         return redirect(url_for("login"))
     if session["usert"] != "executive":
@@ -202,7 +202,7 @@ def kontostatus():
     if session["usert"]=="executive":
         data = db.execute("SELECT kunder.kunde_id as id, kunder.ssn_kunde_id as ssn_id, kundelog.melding_log as melding, kundelog.time_stamp as date from (SELECT kunde_id,melding_log,time_stamp from kundelog group by kunde_id ORDER by time_stamp desc) as kundelog JOIN kunder ON kunder.kunde_id = kundelog.kunde_id group by kundelog.kunde_id order by kundelog.time_stamp desc").fetchall()
         if data:
-            return render_template("kontostatus.html", kontostatus=True , data=data)
+            return render_template("kontostatus.html", kundestatus=True , data=data)
         else:
             flash("Ingen data er funnet.", "fare")
     return redirect(url_for("hovedmeny"))
@@ -243,6 +243,7 @@ def lagkonto():
 
     return render_template('lagkonto.html', lagkonto=True)
 
+
 @app.route("/slettkonto" , methods=["GET", "POST"])
 def slettkonto():
     if "user" not in session:
@@ -264,8 +265,8 @@ def slettkonto():
             flash(f"Bruker med ID : {bruker_id} er allerede deaktiv eller ikke funnet.", "advarsel")
     return render_template("slettkonto.html", slettkonto=True)
 
-@app.route("/se_kunder" , methods=["GET", "POST"])
-def se_kunder():
+@app.route("/sekunder" , methods=["GET", "POST"])
+def sekunder():
     if "user" not in session:
         return redirect(url_for("login"))        
     if session["usert"]=="executive" or session["usert"]=="teller" or session["usert"]=="cashier":
@@ -274,13 +275,13 @@ def se_kunder():
             kunde_id = request.form.get("kunde_id")
             data = db.execute("SELECT * from konto WHERE kunde_id = :c or bruker_id = :d", {"c": kunde_id, "d": bruker_id}).fetchall()
             if data:
-                return render_template("se_kunder.html", se_kunder=True, data=data)
+                return render_template("se_kunder.html", sekunder=True, data=data)
             
             flash("Konto ikke funnet! Vennligst sjekk om informasjon er riktig", "fare")
     else:
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
-    return render_template("se_kunder.html", se_kunder=True)
+    return render_template("se_kunder.html", sekunder=True)
 
 
 @app.route("/kontostatus" , methods=["GET", "POST"])
