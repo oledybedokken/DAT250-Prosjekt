@@ -24,7 +24,7 @@ class Kunder(Base):
     by = Column(String(32), nullable=False)
     status = Column(String(250), nullable=False)
 
-class Kundelog(Base):
+class KundeLog(Base):
     __tablename__="kundelog"
     log_id = Column(Integer, primary_key=True, autoincrement=True)
     kunde_id = Column(Integer, ForeignKey("kunder.kunde_id"))
@@ -37,7 +37,7 @@ class Konto(Base):
     bruker_type = Column(String(64),nullable=False)
     saldo = Column(Integer, nullable=False)
     kunde_id = Column(Integer, ForeignKey("kunder.kunde_id"))
-    kunder = relationship(kunder)
+    kunder = relationship(Kunder)
     status = Column(String(64), nullable=False)
     melding =  Column(String(64))
     last_update = Column(DateTime)

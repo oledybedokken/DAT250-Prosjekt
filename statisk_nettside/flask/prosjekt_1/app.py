@@ -5,13 +5,13 @@ from flask import send_file
 from flask import Flask, session, render_template, request, redirect, url_for, flash, jsonify, Response
 from flask_bcrypt import Bcrypt
 from flask_session import Session
-from database import Bruker, Kunder, KundeLog, Konto, Transaksjoner
+from flask.prosjekt_1.database import Base, Konto, Bruker, Kunder, KundeLog, Transaksjoner
 from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import scoped_session, sessionmaker
 import datetime
 import xlwt
 
-app = Flask(__navn__)
+app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = os.urandom(4) # Bytt til noe høyere når ferdig
 
@@ -200,7 +200,7 @@ def kontostatus():
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
     if session["usert"]=="executive":
-        data = db.execute("SELECT kunder.kunde_id as id, kunder.ssn_kunde_id as ssn_id, KundeLog.melding_log as melding, KundeLog.time_stamp as date from (SELECT kunde_id,melding_log,time_stamp from KundeLog group by kunde_id ORDER by time_stamp desc) as KundeLog JOIN kunder ON kunder.kunde_id = KundeLog.kunde_id group by KundeLog.kunde_id order by KundeLog.time_stamp desc").fetchall()
+        data = db.execute("SELECT kunder.kunde_id as id, kunder.ssn_kunde_id as ssn_id, kundelog.melding_log as melding, kundelog.time_stamp as date from (SELECT kunde_id,melding_log,time_stamp from kundelog group by kunde_id ORDER by time_stamp desc) as kundelog JOIN kunder ON kunder.kunde_id = kundelog.kunde_id group by kundelog.kunde_id order by kundelog.time_stamp desc").fetchall()
         if data:
             return render_template("kontostatus.html", kontostatus=True , data=data)
         else:
@@ -261,7 +261,7 @@ def slettkonto():
                 db.commit()
                 flash(f"Kunde er deaktivert.", "vellykket")
                 return redirect(url_for("hovedmeny"))
-            flash(f"Account with id : {bruker_id} is already deaktiv or account not found.", "advarsel")
+            flash(f"Bruker med ID : {bruker_id} er allerede deaktiv eller ikke funnet.", "advarsel")
     return render_template("slettkonto.html", slettkonto=True)
 
 @app.route("/se_kunder" , methods=["GET", "POST"])
@@ -319,7 +319,7 @@ def innskudd(bruker_id=None):
                     spor = db.execute("UPDATE konto SET saldo = :b WHERE bruker_id = :a", {"b":saldo,"a": data.bruker_id})
                     db.commit()
                     flash(f"{belop} beløp deponert på konto: {data.bruker_id} vellykket.","vellykket")
-                    temp = transaksjoner(bruker_id=data.bruker_id, trans_melding="Beløp innskudd", belop=belop)
+                    temp = Transaksjoner(bruker_id=data.bruker_id, trans_melding="Beløp innskudd", belop=belop)
                     db.add(temp)
                     db.commit()
                 else:
@@ -438,7 +438,7 @@ def innlogging():
     if request.method == "POST":
         email = request.form.get("email").lower()
         passord = request.form.get("passord").encode("utf-8")
-        resultat = db.execute("SELECT * FROM user WHERE id = :u", {"u": email}).fetchone()
+        resultat = db.execute("SELECT * FROM bruker WHERE id = :u", {"u": email}).fetchone()
         if resultat is not None:
             if bcrypt.check_password_hash(resultat["passord"], passord) is True:
                 session["email"] = email
@@ -530,7 +530,7 @@ def kontolog():
     
 
 # Bytt på secret key. 
-if __navn__ == "__main__":
+if __name__ == "__main__":
     app.secret_key = "admin123"
     app.debug = True
     app.run(host="0.0.0.0", port=5000)
