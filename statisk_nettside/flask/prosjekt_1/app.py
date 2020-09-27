@@ -15,7 +15,7 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = os.urandom(4) # Bytt til noe høyere når ferdig
 
-# Setter databasen
+# Setter databasen.
 engine = create_engine("sqlite:///database.db", connect_args={"check_same_thread": False}, echo=True)
 Base.metadata.bind = engine
 db = scoped_session(sessionmaker(bind=engine))
