@@ -13,7 +13,7 @@
                 <label for="fra_konto"><h2>Fra konto</h2></label>
                 <select name="fra_konto" id="fra_konto">
                     {% for konto in g.user.kontoer %}
-                    <option value="{{ konto }}"> {{ konto.name }}: {{ konto.saldo }} kr</option>
+                    <option value="{{ konto.id }}"> {{ konto.name }}: {{ konto.saldo }} kr</option>
                     {% endfor %}
                 </select>
             </div>
@@ -22,7 +22,7 @@
                 <label for="til_konto"><h2>Til konto</h2></label>
                 <select name="til_konto" id="til_konto">
                     {% for konto in g.user.kontoer %}
-                    <option value="{{ konto }}">{{ konto.name }}: {{ konto.saldo }} kr</option>
+                    <option value="{{ konto.id }}">{{ konto.name }}: {{ konto.saldo }} kr</option>
                     {% endfor %}
                 </select>
             </div>

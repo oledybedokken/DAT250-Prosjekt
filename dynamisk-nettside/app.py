@@ -8,6 +8,7 @@ from flask import (
     url_for
 )
 import datetime as dt
+import random
 
 class User:
     def __init__(self, id, username, password,saldo, dato):
@@ -24,6 +25,10 @@ class User:
     def __repr__(self):
         return f'<User: {self.username}>'
 
+    def finn_konto(self, konto_id):
+        for konto in self.kontoer:
+            if konto.id == konto_id:
+                return konto
 
 class BankAccount:
     def __init__(self, name, kontotype, user_id, saldo):
@@ -31,6 +36,7 @@ class BankAccount:
         self.kontotype = kontotype
         self.user_id = user_id
         self.saldo = int(saldo)
+        self.id = random.randint(1e15, 1e16)
 
     def withdraw(self, sum):
         self.saldo -= sum
@@ -54,11 +60,11 @@ users.append(User(id = 3, username= "Espen", password ="69420123", saldo=1000, d
 users.append(User(id = 4, username= "Jørgen", password ="password3", saldo=600 , dato =dt.date(2002, 5, 6)))
 
 for user in users:
-    user.kontoer.append(BankAccount(name = "Brukskonto", kontotype ="bruk", user_id = 4, saldo = 1300))
-    user.kontoer.append(BankAccount(name = "Regninger", kontotype = "bruk", user_id = 4, saldo = 7200))
-    user.kontoer.append(BankAccount(name = "Sparekonto", kontotype = "spar", user_id = 4, saldo = 4))
-    user.laan.append(Loan(name = "Lån type hus", user_id = 4, saldo = 2345928))
-    user.laan.append(Loan(name = "Lån type bil", user_id = 4, saldo = 356281))
+    user.kontoer.append(BankAccount(name = "Brukskonto", kontotype ="bruk", user_id = user.id, saldo = 1300))
+    user.kontoer.append(BankAccount(name = "Regninger", kontotype = "bruk", user_id = user.id, saldo = 7200))
+    user.kontoer.append(BankAccount(name = "Sparekonto", kontotype = "spar", user_id = user.id, saldo = 4))
+    user.laan.append(Loan(name = "Lån type hus", user_id = user.id, saldo = 2345928))
+    user.laan.append(Loan(name = "Lån type bil", user_id = user.id, saldo = 356281))
 
 app = Flask(__name__)
 app.secret_key = 'brusjanbank'
@@ -101,19 +107,18 @@ def transaction():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        fra_konto = request.form["fra_konto"]
-        til_konto = request.form["til_konto"]
+        fra_konto_id = request.form["fra_konto"]
+        til_konto_id = request.form["til_konto"]
         pengesum = int(request.form["pengesum"])
-        print(fra_konto)
-        print(til_konto)
-        print(pengesum)
+        fra_konto = user.finn_konto(int(fra_konto_id))
+        til_konto = user.finn_konto(int(til_konto_id))
 
-        if fra_konto == til_konto:
+        if fra_konto == til_konto or fra_konto.saldo < pengesum:
             print("Kontoene er like")
             return redirect(url_for('transaction'))
         
-        #fra_konto.withdraw(pengesum)
-        #til_konto.deposit(pengesum)
+        fra_konto.withdraw(pengesum)
+        til_konto.deposit(pengesum)
         return redirect(url_for('overview'))
 
     return render_template('transaction.html')
