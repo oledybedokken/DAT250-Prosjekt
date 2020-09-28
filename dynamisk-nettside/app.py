@@ -94,10 +94,19 @@ def overview():
 
     return render_template('overview.html')
 
-@app.route('/create_bank_account')
+@app.route('/create_bank_account', methods=['GET', 'POST'])
 def create_bank_account():
     if not g.user:
         return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        kontotype = request.form['kontotype']
+        kontonavn = request.form['kontonavn']
+        if kontotype == "bruk":
+            user.kontoer.append(BankAccount(name = kontonavn, kontotype = "bruk", user_id = user.id, saldo = 0))
+        else:
+            user.kontoer.append(BankAccount(name = kontonavn, kontotype = "spar", user_id = user.id, saldo = 0))
+        return redirect(url_for('overview'))
 
     return render_template('create_bank_account.html')
 
