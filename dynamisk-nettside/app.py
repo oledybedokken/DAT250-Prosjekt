@@ -48,7 +48,7 @@ users.append(User(id = 4, username= "Jørgen", password ="password3", saldo=600 
 for user in users:
     user.kontoer.append(BankAccount(name = "Brukskonto", kontotype ="bruk", user_id = 4, saldo = 1300))
     user.kontoer.append(BankAccount(name = "Regninger", kontotype = "bruk", user_id = 4, saldo = 7200))
-    user.kontoer.append(BankAccount(name = "Sparekonto", kontotype = "spar", user_id = 4, saldo = 68925))
+    user.kontoer.append(BankAccount(name = "Sparekonto", kontotype = "spar", user_id = 4, saldo = 4))
     user.laan.append(Loan(name = "Lån type hus", user_id = 4, saldo = 2345928))
     user.laan.append(Loan(name = "Lån type bil", user_id = 4, saldo = 356281))
 
