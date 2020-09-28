@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div id="container">
+    <!-- -->
+    <div class="sub-container">
+        <div class="oversikt-container">
+            <h1><i class="fas fa-exchange-alt"></i>OVERFØRE</h1>
+        </div>
+        <!-- -->
+        <form method="POST">
+            <div class="info-container">
+                <label for="fra_konto"><h2>Fra konto</h2></label>
+                <select name="fra_konto" id="fra_konto">
+                    {% for konto in g.user.kontoer %}
+                    <option value="{{ konto }}"> {{ konto.name }}: {{ konto.saldo }} kr</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- -->
+            <div class="info-container">
+                <label for="til_konto"><h2>Til konto</h2></label>
+                <select name="til_konto" id="til_konto">
+                    {% for konto in g.user.kontoer %}
+                    <option value="{{ konto }}">{{ konto.name }}: {{ konto.saldo }} kr</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- -->
+            <div class="info-container">
+                <label for="psum"><h2>Sum<input type="psum" id="psum" name="pengesum" placeholder="kr"></h2></label>
+            </div>
+            <!-- -->
+            <div class="button-container">
+                <button type="submit">OVERFØR</button>
+            </div>
+        </form>
+    </div>
+    <!-- -->
+    <div class="sub-container">
+        <div class="oversikt-container">
+            <h1><i class="fas fa-money-check"></i>BETALE</h1>
+        </div>
+        <!-- -->
+        <div class="info-container">
+            <label for="kontoer"><h2>Fra konto</h2></label>
+            <select name="kontoer" id="kontoer">
+                <option value="konto1">Konto 1</option>
+                <option value="konto2">Konto 2</option>
+                <option value="konto3">Konto 3</option>
+            </select>
+        </div>
+        <!-- -->
+        <div class="info-container">
+            <label for="kontonr"><h2>Til konto<input type="kontonr" id="kontonr" name="kontonummer" placeholder="Kontonummer"></h2></label>
+        </div>
+        <!-- -->
+        <div class="info-container">
+            <label for="psum"><h2>Sum<input type="psum" id="psum" name="pengesum" placeholder="kr"></h2></label>
+        </div>
+        <!-- -->
+        <div class="info-container">
+            <label for="mld"><h2>Melding<input type="mld" id="mld" name="melding" placeholder="Melding"></h2></label>
+        </div>
+        <!-- -->
+        <div class="button-container">
+            <button type="button">BETAL</button>
+        </div>
+    </div>
+    <!-- -->
+</div>
+{% endblock content %}

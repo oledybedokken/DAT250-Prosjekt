@@ -32,6 +32,14 @@ class BankAccount:
         self.user_id = user_id
         self.saldo = int(saldo)
 
+    def withdraw(self, sum):
+        self.saldo -= sum
+        return self.saldo
+
+    def deposit(self, sum):
+        self.saldo += sum
+        return self.saldo
+
 
 class Loan:
     def __init__(self, name, user_id, saldo):
@@ -86,6 +94,29 @@ def profile():
         return redirect(url_for('login'))
 
     return render_template('profile.html')
+
+@app.route('/transaction', methods=['GET', 'POST'])
+def transaction():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        fra_konto = request.form["fra_konto"]
+        til_konto = request.form["til_konto"]
+        pengesum = int(request.form["pengesum"])
+        print(fra_konto)
+        print(til_konto)
+        print(pengesum)
+
+        #if fra_konto == til_konto:
+        #    print("Kontoene er like")
+        #    return redirect(url_for('transaction'))
+        
+        #fra_konto.withdraw(pengesum)
+        #til_konto.deposit(pengesum)
+        #return redirect(url_for('overview'))
+
+    return render_template('transaction.html')
 
 @app.route('/overview')
 def overview():
