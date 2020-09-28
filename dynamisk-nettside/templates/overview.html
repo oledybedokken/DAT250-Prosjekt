@@ -11,7 +11,7 @@
         {% for konto in g.user.kontoer %}
             {% if konto.kontotype == "bruk" %}
                 <div class="info-container">
-                    <a href="Konto.html">
+                    <a href="account">
                         <h2><i class='fas fa-chevron-right'></i>{{ konto.name }}</h2>
                         <h3>{{ konto.saldo }} kr</h3>
                     </a>
@@ -34,7 +34,7 @@
         {% for konto in g.user.kontoer %}
             {% if konto.kontotype == "spar" %}
                 <div class="info-container">
-                    <a href="Konto.html">
+                    <a href="account">
                         <h2><i class='fas fa-chevron-right'></i>{{ konto.name }}</h2>
                         <h3>{{ konto.saldo }} kr</h3>
                     </a>
@@ -57,7 +57,7 @@
         <!-- -->
         {% for laan in g.user.laan %}
             <div class="info-container">
-                <a href="Konto.html">
+                <a href="#">
                     <h2><i class='fas fa-chevron-right'></i>{{ laan.name }}</h2>
                     <h3>{{ laan.saldo }} kr</h3>
                 </a>
