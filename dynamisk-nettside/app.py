@@ -108,13 +108,13 @@ def transaction():
         print(til_konto)
         print(pengesum)
 
-        #if fra_konto == til_konto:
-        #    print("Kontoene er like")
-        #    return redirect(url_for('transaction'))
+        if fra_konto == til_konto:
+            print("Kontoene er like")
+            return redirect(url_for('transaction'))
         
         #fra_konto.withdraw(pengesum)
         #til_konto.deposit(pengesum)
-        #return redirect(url_for('overview'))
+        return redirect(url_for('overview'))
 
     return render_template('transaction.html')
 
