@@ -142,7 +142,6 @@ def transaction():
             return redirect(url_for('transaction'))
         
         fra_konto.utfor_transaksjon(til_konto, "overføring", pengesum)
-        #til_konto.deposit(pengesum)
         return redirect(url_for('overview'))
 
     return render_template('transaction.html')
