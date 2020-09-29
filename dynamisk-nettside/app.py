@@ -89,6 +89,12 @@ for user in users:
     user.kontoer.append(BankAccount(name = "Sparekonto", kontotype = "spar", user_id = user.id, saldo = 4))
     user.laan.append(Loan(name = "Lån type hus", user_id = user.id, saldo = 2345928))
     user.laan.append(Loan(name = "Lån type bil", user_id = user.id, saldo = 356281))
+    print()
+    print(user.username)
+    print(user.kontoer[0].id)
+    print(user.kontoer[1].id)
+    print(user.kontoer[2].id)
+    print()
 
 app = Flask(__name__)
 app.secret_key = 'brusjanbank'
@@ -130,12 +136,30 @@ def transaction():
     if not g.user:
         return redirect(url_for('login'))
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form["btn"] == "overfør":
         fra_konto_id = request.form["fra_konto"]
         til_konto_id = request.form["til_konto"]
         pengesum = int(request.form["pengesum"])
         fra_konto = g.user.finn_konto(int(fra_konto_id))
         til_konto = g.user.finn_konto(int(til_konto_id))
+
+        if fra_konto == til_konto or fra_konto.saldo < pengesum:
+            print("Kontoene er like")
+            return redirect(url_for('transaction'))
+        
+        fra_konto.utfor_transaksjon(til_konto, "overføring", pengesum)
+        return redirect(url_for('overview'))
+
+    if request.method == 'POST' and request.form["btn"] == "betal":
+        fra_konto_id = request.form["fra_konto_bet"]
+        til_konto_id = request.form["til_konto_bet"]
+        pengesum = int(request.form["pengesum2"])
+        fra_konto = g.user.finn_konto(int(fra_konto_id))
+        for user in users:
+            for konto in user.kontoer:
+                if konto.id == int(til_konto_id):
+                    til_konto = user.finn_konto(int(til_konto_id))
+                    break
 
         if fra_konto == til_konto or fra_konto.saldo < pengesum:
             print("Kontoene er like")
