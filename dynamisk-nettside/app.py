@@ -36,7 +36,7 @@ class BankAccount:
         self.kontotype = kontotype
         self.user_id = user_id
         self.saldo = int(saldo)
-        self.id = random.randint(1e15, 1e16)
+        self.id = int(random.randint(1e15, 1e16))
 
     def withdraw(self, sum):
         self.saldo -= sum
@@ -146,9 +146,13 @@ def create_bank_account():
 
     return render_template('create_bank_account.html')
 
-@app.route('/account')
-def account():
+@app.route('/account/<int:account_id>')
+def account(account_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    return render_template('account.html')
+    kontoen = user.finn_konto(int(account_id))
+    if kontoen in user.kontoer:
+        return render_template('account.html', konto=kontoen)
+
+    return redirect(url_for('account'))
