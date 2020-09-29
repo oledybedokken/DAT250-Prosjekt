@@ -8,6 +8,7 @@ from flask import (
     url_for
 )
 import datetime as dt
+from datetime import datetime
 import random
 
 class User:
@@ -37,21 +38,44 @@ class BankAccount:
         self.user_id = user_id
         self.saldo = int(saldo)
         self.id = int(random.randint(1e15, 1e16))
+        self.transactions = []
 
-    def withdraw(self, sum):
-        self.saldo -= sum
-        return self.saldo
+    def utfor_transaksjon(self, mottaker_konto, transaksjonstype, pengesum):
+        self.mottaker_konto = mottaker_konto
+        self.transaksjonstype = transaksjonstype
+        self.pengesum = int(pengesum)
+        self.dato = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print(self.dato)
 
-    def deposit(self, sum):
-        self.saldo += sum
-        return self.saldo
+        self.ny_saldo = self.saldo - self.pengesum
+        self.ny_mottaker_saldo = mottaker_konto.saldo + self.pengesum
 
+        self.saldo -= pengesum
+        mottaker_konto.saldo += pengesum
+
+        self.transactions.append(Transaction(mottaker_konto.id, self.transaksjonstype, -self.pengesum, self.dato, self.ny_saldo))
+        mottaker_konto.transactions.append(Transaction(self.id, self.transaksjonstype, self.pengesum, self.dato, self.ny_mottaker_saldo))
+
+    def ingen_transaksjoner(self):
+        if len(self.transactions) == 0:
+            return True
+        return False
 
 class Loan:
     def __init__(self, name, user_id, saldo):
         self.name = name
         self.user_id = user_id
         self.saldo = int(saldo)
+
+
+class Transaction:
+    def __init__(self, konto2, transaksjonstype, pengesum, dato, ny_saldo):
+        self.konto2 = konto2
+        self.transaksjonstype = transaksjonstype
+        self.pengesum = int(pengesum)
+        self.dato = dato
+        self.ny_saldo = int(ny_saldo)
+
 
 users = []
 users.append(User(id = 1, username= "Ole", password ="password", saldo = 2, dato =dt.date(2002, 5, 6) ))
@@ -117,8 +141,8 @@ def transaction():
             print("Kontoene er like")
             return redirect(url_for('transaction'))
         
-        fra_konto.withdraw(pengesum)
-        til_konto.deposit(pengesum)
+        fra_konto.utfor_transaksjon(til_konto, "overføring", pengesum)
+        #til_konto.deposit(pengesum)
         return redirect(url_for('overview'))
 
     return render_template('transaction.html')
@@ -146,7 +170,7 @@ def create_bank_account():
 
     return render_template('create_bank_account.html')
 
-@app.route('/account/<int:account_id>')
+@app.route('/account<int:account_id>')
 def account(account_id):
     if not g.user:
         return redirect(url_for('login'))

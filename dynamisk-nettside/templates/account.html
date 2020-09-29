@@ -25,16 +25,27 @@
         </table>
         <div class="tabell-scroll">
         <table class="transaksjoner">
-            <tr><td>{{ g.user.username }}</td><td> {{ g.user.dato }}</td> <td> {{ g.user.saldo }}</td></tr>
-        </table>
-    </div>                
-        <table class="saldo-visning">
+            {% if konto.ingen_transaksjoner() %}
             <tr>
-                <td colspan="3"></td>
-                <td>Saldo</td>
-                <td>Kr 47 500.00</td>
+                <td>Transaksjonshistorikken er tom</td>
             </tr>
+            {% endif %}
+            {% for transaksjon in konto.transactions %}
+            <tr>
+                <td>{{ transaksjon.konto2 }}</td>
+                <td> {{ transaksjon.transaksjonstype }}</td>
+                <td> {{ transaksjon.dato }}</td>
+                <td> {{ transaksjon.pengesum }} kr</td>
+                <td> {{ transaksjon.ny_saldo }} kr</td>
+            </tr>
+            {% endfor %}
+            <table class="saldo-visning">
+                <tr>
+                    <td colspan="3"></td>
+                    <td>Saldo</td>
+                    <td>{{ konto.saldo }} kr</td>
+                </tr>
+            </table>
         </table>
-    </div>
 </div>
 {% endblock content %}
