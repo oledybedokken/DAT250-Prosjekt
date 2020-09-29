@@ -45,7 +45,6 @@ class BankAccount:
         self.transaksjonstype = transaksjonstype
         self.pengesum = int(pengesum)
         self.dato = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        print(self.dato)
 
         self.ny_saldo = self.saldo - self.pengesum
         self.ny_mottaker_saldo = mottaker_konto.saldo + self.pengesum
@@ -54,7 +53,7 @@ class BankAccount:
         mottaker_konto.saldo += pengesum
 
         self.transactions.append(Transaction(mottaker_konto.id, self.transaksjonstype, -self.pengesum, self.dato, self.ny_saldo))
-        mottaker_konto.transactions.append(Transaction(self.id, self.transaksjonstype, self.pengesum, self.dato, self.ny_mottaker_saldo))
+        mottaker_konto.transactions.append(Transaction(self.id, self.transaksjonstype, "+"+str(self.pengesum), self.dato, self.ny_mottaker_saldo))
 
     def ingen_transaksjoner(self):
         if len(self.transactions) == 0:
@@ -72,7 +71,7 @@ class Transaction:
     def __init__(self, konto2, transaksjonstype, pengesum, dato, ny_saldo):
         self.konto2 = konto2
         self.transaksjonstype = transaksjonstype
-        self.pengesum = int(pengesum)
+        self.pengesum = pengesum
         self.dato = dato
         self.ny_saldo = int(ny_saldo)
 
@@ -90,10 +89,10 @@ for user in users:
     user.laan.append(Loan(name = "Lån type hus", user_id = user.id, saldo = 2345928))
     user.laan.append(Loan(name = "Lån type bil", user_id = user.id, saldo = 356281))
     print()
-    print(user.username)
-    print(user.kontoer[0].id)
-    print(user.kontoer[1].id)
-    print(user.kontoer[2].id)
+    print(f"Kontonummer for bruker: {user.username}")
+    print(f"{user.kontoer[0].name}: {user.kontoer[0].id}")
+    print(f"{user.kontoer[1].name}: {user.kontoer[1].id}")
+    print(f"{user.kontoer[2].name}: {user.kontoer[2].id}")
     print()
 
 app = Flask(__name__)
