@@ -313,7 +313,6 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
  /* PROFIL-SIDEN */
 
  #profil-container{
-    
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -321,14 +320,15 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
 #profil-container h1{
     display: flex;
     flex-direction: row;
+    font-size: 0.5em;
+    color: #324154;
     border-color: white white #324154 white;
     border-style: solid;
-    color: rgb(37, 37, 37);
+    /* color: rgb(37, 37, 37); */
     text-align: center;
     margin-top: 100px;
     height: 50px;
     justify-content: space-between;
-
 }
 .profil-bilde{
     font-size: 2em;
@@ -338,8 +338,6 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     width: 200px;
     border-radius: 200px;
 }
-
-
 
 .profil-venstre{
     margin-top: 8rem;
@@ -351,31 +349,6 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     color: black;
     text-decoration: none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* White registry box */
