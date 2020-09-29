@@ -134,8 +134,8 @@ def transaction():
         fra_konto_id = request.form["fra_konto"]
         til_konto_id = request.form["til_konto"]
         pengesum = int(request.form["pengesum"])
-        fra_konto = user.finn_konto(int(fra_konto_id))
-        til_konto = user.finn_konto(int(til_konto_id))
+        fra_konto = g.user.finn_konto(int(fra_konto_id))
+        til_konto = g.user.finn_konto(int(til_konto_id))
 
         if fra_konto == til_konto or fra_konto.saldo < pengesum:
             print("Kontoene er like")
@@ -162,20 +162,20 @@ def create_bank_account():
         kontotype = request.form['kontotype']
         kontonavn = request.form['kontonavn']
         if kontotype == "bruk":
-            user.kontoer.append(BankAccount(name = kontonavn, kontotype = "bruk", user_id = user.id, saldo = 0))
+            g.user.kontoer.append(BankAccount(name = kontonavn, kontotype = "bruk", user_id = user.id, saldo = 0))
         else:
-            user.kontoer.append(BankAccount(name = kontonavn, kontotype = "spar", user_id = user.id, saldo = 0))
+            g.user.kontoer.append(BankAccount(name = kontonavn, kontotype = "spar", user_id = user.id, saldo = 0))
         return redirect(url_for('overview'))
 
     return render_template('create_bank_account.html')
 
-@app.route('/account<int:account_id>')
+@app.route('/account<int:account_id>', methods=['GET'])
 def account(account_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    kontoen = user.finn_konto(int(account_id))
-    if kontoen in user.kontoer:
+    kontoen = g.user.finn_konto(int(account_id))
+    if kontoen in g.user.kontoer:
         return render_template('account.html', konto=kontoen)
 
     return redirect(url_for('account'))
