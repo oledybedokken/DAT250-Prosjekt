@@ -44,9 +44,9 @@ def leggtilkunde():
             if resultat is None :
                 resultat = db.query(Kunder).count()
                 if resultat == 0 :
-                    query = Kunder(kunde_id=110110000,ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
+                    query = Kunder(kunde_id=110110000,ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='aktiv')
                 else:
-                    query = Kunder(ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
+                    query = Kunder(ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='aktiv')
                 db.add(query)
                 db.commit()
                 if query.kunde_id is None:
@@ -103,7 +103,7 @@ def redigkunde(kunde_id=None):
             if request.method != "POST":
                 kunde_id = int(kunde_id)
                 data = db.execute("SELECT * from kunder WHERE kunde_id = :c", {"c": kunde_id}).fetchone()
-                if data is not None and data.status != 'deactivate':
+                if data is not None and data.status != 'ikke aktiv':
                     return render_template('redigkunde.html', redigkunde=True, data=data)
                 else:
                     flash("Kunden er ikke aktiv eller ikke til stede i databasen.","advarsel")
@@ -112,7 +112,7 @@ def redigkunde(kunde_id=None):
                 name = request.form.get("name")
                 adresse = request.form.get("adresse")
                 age = int(request.form.get("age"))
-                resultat = db.execute("SELECT * from kunder WHERE kunde_id = :c and status = 'activate'", {"c": kunde_id}).fetchone()
+                resultat = db.execute("SELECT * from kunder WHERE kunde_id = :c and status = 'aktiv'", {"c": kunde_id}).fetchone()
                 if resultat is not None :
                     resultat = db.execute("UPDATE kunder SET name = :n , adresse = :add , age = :ag WHERE kunde_id = :a", {"n": name,"add": adresse,"ag": age,"a": kunde_id})
                     db.commit()
@@ -136,14 +136,14 @@ def slettkunde(kunde_id=None):
     if session['usert']=="executive":
         if kunde_id is not None:
             kunde_id = int(kunde_id)
-            resultat = db.execute("SELECT * from kunder WHERE kunde_id = :a and status = 'activate'", {"a": kunde_id}).fetchone()
+            resultat = db.execute("SELECT * from kunder WHERE kunde_id = :a and status = 'aktiv'", {"a": kunde_id}).fetchone()
             if resultat is not None :
-                query = db.execute("UPDATE kunder SET status='deactivate' WHERE kunde_id = :a", {"a": kunde_id})
+                query = db.execute("UPDATE kunder SET status='ikke aktiv' WHERE kunde_id = :a", {"a": kunde_id})
                 db.commit()
                 temp = KundeLog(kunde_id=kunde_id,log_message="Kunde deaktivert")
                 db.add(temp)
                 db.commit()
-                flash(f"Kunde er diaktivert.","success")
+                flash(f"Kunde er slettet.", "vellyket")
                 return redirect(url_for("dashboard"))
             else:
                 flash(f"Kunde med ID: {kunde_id} er allerede aktiv eller ikke til stede i databasen.", "advarsel")
@@ -160,9 +160,9 @@ def aktiverkunde(kunde_id=None):
     if session['usert']=="executive":
         if kunde_id is not None:
             kunde_id = int(kunde_id)
-            resultat = db.execute("SELECT * from kunder WHERE kunde_id = :a and status = 'deactivate'", {"a": kunde_id}).fetchone()
+            resultat = db.execute("SELECT * from kunder WHERE kunde_id = :a and status = 'ikke aktiv'", {"a": kunde_id}).fetchone()
             if resultat is not None :
-                query = db.execute("UPDATE kunder SET status='activate' WHERE kunde_id = :a", {"a": kunde_id})
+                query = db.execute("UPDATE kunder SET status='aktiv' WHERE kunde_id = :a", {"a": kunde_id})
                 db.commit()
                 temp = KundeLog(kunde_id=kunde_id,log_message="Kunden er aktiv.")
                 db.add(temp)
@@ -183,10 +183,10 @@ def aktiverkonto(konto_id=None):
     if session['usert']=="executive":
         if konto_id is not None:
             konto_id = int(konto_id)
-            resultat = db.execute("SELECT * from konto WHERE konto_id = :a and status = 'deactive'", {"a": konto_id}).fetchone()
+            resultat = db.execute("SELECT * from konto WHERE konto_id = :a and status = 'ikke aktiv'", {"a": konto_id}).fetchone()
             if resultat is not None :
                 date = datetime.datetime.now()
-                query = db.execute("UPDATE konto SET status='active', message='Konto aktiv igjen', last_update = :d WHERE konto_id = :a", {"d":date,"a": konto_id})
+                query = db.execute("UPDATE konto SET status='aktiv', message='Konto aktiv igjen', last_update = :d WHERE konto_id = :a", {"d":date,"a": konto_id})
                 db.commit()
                 flash(f"Kunden er aktiv.", "vellykket")
                 return redirect(url_for("dashboard"))
@@ -227,9 +227,9 @@ def leggtilkonto():
                 if resultat is None:
                     resultat = db.query(Konto).count()
                     if resultat == 0 :
-                        query = Konto(konto_id=360110000,konto_type=konto_type,saldo=belop,kunde_id=kunde_id,status='active',message=message,last_update=datetime.datetime.now())
+                        query = Konto(konto_id=360110000,konto_type=konto_type,saldo=belop,kunde_id=kunde_id,status='aktiv',message=message,last_update=datetime.datetime.now())
                     else:
-                        query = Konto(konto_type=konto_type,saldo=belop,kunde_id=kunde_id,status='active',message=message,last_update=datetime.datetime.now())
+                        query = Konto(konto_type=konto_type,saldo=belop,kunde_id=kunde_id,status='aktiv',message=message,last_update=datetime.datetime.now())
                     db.add(query)
                     db.commit()
                     if query.konto_id is None:
@@ -292,7 +292,7 @@ def inskudd(konto_id=None):
         else:
             if request.method == "POST":
                 belop = request.form.get("belop")
-                data = db.execute("SELECT * from konto where konto_id = :a and status='active'",{"a":konto_id}).fetchone()
+                data = db.execute("SELECT * from konto where konto_id = :a and status='aktiv'",{"a":konto_id}).fetchone()
                 if data is not None:
                     saldo = int(belop) + int(data.saldo)
                     query = db.execute("UPDATE konto SET saldo= :b WHERE konto_id = :a", {"b":saldo,"a": data.konto_id})
@@ -329,8 +329,8 @@ def overfor(kunde_id=None):
                 trg_type = request.form.get("trg_type")
                 belop = int(request.form.get("belop"))
                 if src_type != trg_type:
-                    src_data  = db.execute("SELECT * from konto where kunde_id = :a and konto_type = :t and status='active'",{"a":kunde_id,"t":src_type}).fetchone()
-                    trg_data  = db.execute("SELECT * from konto where kunde_id = :a and konto_type = :t and status='active'",{"a":kunde_id,"t":trg_type}).fetchone()
+                    src_data  = db.execute("SELECT * from konto where kunde_id = :a and konto_type = :t and status='aktiv'",{"a":kunde_id,"t":src_type}).fetchone()
+                    trg_data  = db.execute("SELECT * from konto where kunde_id = :a and konto_type = :t and status='aktiv'",{"a":kunde_id,"t":trg_type}).fetchone()
                     if src_data is not None and trg_data is not None:
                         if src_data.saldo > belop:
                             src_saldo = src_data.saldo - belop

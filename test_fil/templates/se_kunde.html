@@ -87,16 +87,16 @@
                             <button class="btn">Edit</button>
                         </a>
                     </div>
-                    {% if data.status == 'deactivate' %}
+                    {% if data.status == 'ikke aktiv' %}
                     <div class="float-right">
                         <a href="{{ url_for('aktiverkunde',kunde_id=data.kunde_id ) }}">
-                            <button class="btn" onclick="alert('Er du sikker du vil aktivere denne kunden?')">Aktiver</button>
+                            <button class="btn" onclick="alert('Er du sikker du vil starte denne kunden?')">Aktiver</button>
                         </a>
                     </div>
                     {% else %}
                     <div class="float-right">
                         <a href="{{ url_for('slettkunde',kunde_id=data.kunde_id ) }}">
-                            <button class="btn" onclick="alert('Er du sikker du vil aktivere denne kunden?')">Slett</button>
+                            <button class="btn" onclick="alert('Er du sikker du vil slette denne kunden?')">Slett</button>
                         </a>
                     </div>
                     {% endif %}
