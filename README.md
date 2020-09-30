@@ -23,13 +23,13 @@ Dra over til adressen nederst
 
 ### To do:
 ### Legg til ting du holder på med
-  * Ole:
+  Ole:
     1. 
-  * Jørgen:
+  Jørgen:
     1. 
-  * Pervaz:
+  Pervaz:
     1. 
-  * Espen:
+  Espen:
     1. 
 
 

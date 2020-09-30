@@ -14,37 +14,34 @@
                     <div class="left-side">
                         <div class="nav-link-wrapper">
                             <a href="{{ url_for('index') }}">Home</a>
-                            
                         </div>
                         <div class="nav-link-wrapper">
                         {% if current_user.is_authenticated %}
                             <a href="{{ url_for('profile') }}" >Profile</a>
                         {% endif %}
                         </div>
-                        
-                        <div class="nav-link-wrapper">
-                            {% if not current_user.is_authenticated %}
+                        {% if not current_user.is_authenticated %}
+                        <div class="nav-link-wrapper">   
                             <a href="{{ url_for('login') }}" >Login</a>
-                            {% endif %}
                         </div>
+                        {% endif %}
+                        {% if not current_user.is_authenticated %}
                         <div class="nav-link-wrapper">
                             <a href="{{ url_for('signup') }}" >Sign Up</a>
                         </div>
+                        {% endif %} 
                         
-                        {% if current_user.is_authenticated %}
-                        <div class="nav-link-wrapper">
-                            <a href="{{ url_for('logout') }}" >Logout</a>
-                        </div>
-                        {% endif %}
                     <div class="mid-side">
                         <div class="nav-logo-BB">
-                            <a href="#"><img src="/static/images/LOGO-med-skygge-morkere.png"></a>
+                            <img src="/static/images/LOGO-med-skygge-morkere.png">
                         </div>
                     </div>
                 </div>
                 <div class="right-side">
                     <div class="nav-logo-LoggUt">
-                        <button class="logout-btn">Logg ut</button>    
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('logout') }}"><button class="logout-btn">Logg ut</button></a>
+                        {% endif %}    
                     </div>
                 </div>
             </div>
