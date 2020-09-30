@@ -442,11 +442,12 @@ def innlogging():
         resultat = db.execute("SELECT * FROM bruker WHERE id = :u", {"u": email}).fetchone()
         if resultat is not None:
             if bcrypt.check_password_hash(resultat["passord"], passord) is True:
+                print("riktig passord")
                 session["email"] = email
                 session["navn"] = resultat.navn
                 session["usert"] = resultat.bruker_type
                 flash(f"{resultat.navn.capitalize()}, du er innlogget!", "vellykket")
-                return redirect(url_for("innlogging"))
+                return render_template("overforing.html")
         flash("Beklager, email eller password er feil.", "fare")
     return render_template("overforing.html", login=True)
 
