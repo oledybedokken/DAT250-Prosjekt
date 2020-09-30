@@ -1,0 +1,38 @@
+<div class="navbar">
+  <a href="{{ url_for('dashboard') }}" class="nav-link {% if home %}active{% endif %}">Hjem</a>
+  {% if not session['user'] %}
+  <a href="{{ url_for('login') }}" class="nav-link {% if login %}active{% endif %}">Logg Inn</a>
+  {% else %}
+    {% if session['usert']=="executive" %}
+      <div class="subnav">
+        <button class="subnavbtn">Kundebehandling <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="{{ url_for('addcustomer') }}" class="nav-link {% if addcustomer %}active{% endif %}">Legg til kunde</a>
+          <a href="{{ url_for('viewcustomer') }}" class="nav-link {% if viewcustomer %}active{% endif %}" >Se kunden</a>
+          <a href="{{ url_for('editcustomer') }}" class="nav-link {% if editcustomer %}active{% endif %}">Rediger kunde</a>
+          <a href="{{ url_for('customerstatus') }}" class="nav-link {% if customerstatus %}active{% endif %}">Kundestatus</a>
+
+
+        </div>
+      </div>
+      <div class="subnav">
+        <button class="subnavbtn">Kontoadministrasjon <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="{{ url_for('addaccount') }}" class="nav-link {% if addaccount %}active{% endif %}">Legg til konto</a>
+          <a href="{{ url_for('viewaccount') }}" class="nav-link {% if viewaccount %}active{% endif %}">Vis konto</a>
+          <a href="{{ url_for('viewaccountstatus') }}" class="nav-link {% if viewaccountstatus %}active{% endif %}">Konto status</a>
+        </div>
+      </div>
+    {% elif session['usert']=="teller" or session['usert']=="cashier" %}
+      <div class="subnav">
+        <button class="subnavbtn">Kontoadministrasjon <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="{{ url_for('viewaccount') }}" class="nav-link {% if viewaccount %}active{% endif %}">Vis konto</a>
+          <a href="{{ url_for('statement') }}" class="nav-link {% if statement %}active{% endif %}">Kontoutskrift</a>
+        </div>
+      </div>
+    {% endif %}
+    <a href="#contact">Kontakt oss</a>
+    <a href="{{ url_for('logout') }}" class="nav-link">Logg ut</a>
+  {% endif %}
+</div>
