@@ -13,7 +13,7 @@ import xlwt
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.secret_key = os.urandom(4) # Bytt til noe høyere når ferdig
+app.secret_key = os.urandom(24) # Bytt til noe høyere når ferdig
 
 # Setter databasen.
 engine = create_engine("sqlite:///database.db", connect_args={"check_same_thread": False}, echo=True)
@@ -50,7 +50,7 @@ def lagkunde():
                 db.add(spor)
                 db.commit()
                 if spor.kunde_id is None:
-                    flash("Data er ikke satt inn! Sjekk om det er riktig.","fare")
+                    flash("Data er ikke satt inn! Sjekk om det er riktig.", "fare")
                 else:
                     temp = KundeLog(kunde_id=spor.kunde_id, melding_log="Kundelaget")
                     db.add(temp)
