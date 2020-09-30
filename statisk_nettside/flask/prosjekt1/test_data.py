@@ -8,7 +8,7 @@ from flask_bcrypt import Bcrypt
 from flask import Flask
 
 app = Flask(__name__)
-engine = create_engine("qlite:///database.db",connect_args={"check_same_thread": False},echo=True)
+engine = create_engine("sqlite:///database.db",connect_args={"check_same_thread": False},echo=True)
 Base.metadata.bind = engine
 db = scoped_session(sessionmaker(bind=engine))
 bcrypt = Bcrypt(app)
