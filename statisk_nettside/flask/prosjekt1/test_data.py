@@ -38,6 +38,14 @@ def kontoer():
     db.execute("INSERT INTO bruker (id,navn,bruker_type,passord) VALUES (:u,:n,:t,:p)", {"u": email,"n":navn,"t":usert ,"p": passord_hash})
     db.commit()
     print("Konto skapes ............................................ ")
+    email = "test123"
+    navn = "Yogurt"
+    usert = "teller"
+    passord = "admin"
+    passord_hash = bcrypt.generate_password_hash(passord).decode("utf-8")
+    db.execute("INSERT INTO bruker (id,navn,bruker_type,passord) VALUES (:u,:n,:t,:p)", {"u": email,"n":navn,"t":usert ,"p": passord_hash})
+    db.commit()
+    print("Konto skapes ............................................ ")
 
 if __name__ == "__main__":
     kontoer()
