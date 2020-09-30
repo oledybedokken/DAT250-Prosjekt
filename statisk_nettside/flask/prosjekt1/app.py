@@ -447,7 +447,7 @@ def innlogging():
                 session["navn"] = resultat.navn
                 session["usert"] = resultat.bruker_type
                 flash(f"{resultat.navn.capitalize()}, du er innlogget!", "vellykket")
-                return render_template("overforing.html")
+                return redirect(url_for("overforing"))
         flash("Beklager, email eller password er feil.", "fare")
     return render_template("login.html", login=True)
 
