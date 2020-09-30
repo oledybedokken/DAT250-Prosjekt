@@ -1,6 +1,3 @@
-# Banking Application
-
-
 ### Ting å gjøre og fikse
   * Session problemer
   * Sikkerhet
