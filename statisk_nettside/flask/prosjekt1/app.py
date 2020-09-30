@@ -29,7 +29,7 @@ def hovedmeny():
 @app.route("/lagkunde" , methods=["GET", "POST"])
 def lagkunde():
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -65,7 +65,7 @@ def lagkunde():
 @app.route("/se_kunder" , methods=["GET", "POST"])
 def se_kunder(kunde_id=None):
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -94,7 +94,7 @@ def se_kunder(kunde_id=None):
 @app.route("/redigerkunde/<kunde_id>", methods=["GET", "POST"])
 def redigerkunde(kunde_id=None):
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -128,7 +128,7 @@ def redigerkunde(kunde_id=None):
 @app.route("/slettkunde/<kunde_id>")
 def slettkunde(kunde_id=None):
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -152,7 +152,7 @@ def slettkunde(kunde_id=None):
 @app.route("/aktiverkunde/<kunde_id>")
 def aktiverkunde(kunde_id=None):
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -175,7 +175,7 @@ def aktiverkunde(kunde_id=None):
 @app.route("/aktiverkonto/<bruker_id>")
 def aktiverkonto(bruker_id=None):
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -195,7 +195,7 @@ def aktiverkonto(bruker_id=None):
 @app.route("/kundestatus")
 def kundestatus():
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -247,7 +247,7 @@ def lagkonto():
 @app.route("/slettkonto" , methods=["GET", "POST"])
 def slettkonto():
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -268,7 +268,7 @@ def slettkonto():
 @app.route("/sekunder" , methods=["GET", "POST"])
 def sekunder():
     if "user" not in session:
-        return redirect(url_for("login"))        
+        return redirect(url_for("innlogging"))        
     if session["usert"]=="executive" or session["usert"]=="teller" or session["usert"]=="cashier":
         if request.method == "POST":
             bruker_id = request.form.get("bruker_id")
@@ -287,7 +287,7 @@ def sekunder():
 @app.route("/kontostatus" , methods=["GET", "POST"])
 def kontostatus():
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -304,7 +304,7 @@ def kontostatus():
 @app.route("/innskudd/<bruker_id>", methods=["GET","POST"])
 def innskudd(bruker_id=None):
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] == "executive":
         flash("Du har ikke tilgang til denne siden","advarsel")
         return redirect(url_for("hovedmeny"))
@@ -339,7 +339,7 @@ def innskudd(bruker_id=None):
 @app.route("/overforing/<kunde_id>",methods=["GET","POST"])
 def overforing(kunde_id=None):
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] == "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -394,7 +394,7 @@ def overforing(kunde_id=None):
 @app.route("/uttalelse" , methods=["GET", "POST"])
 def uttalelse():
     if "user" not in session:
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] == "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("hovedmeny"))       
@@ -428,7 +428,7 @@ def not_found(e):
 @app.route("/avlogging")
 def avlogging():
     session.pop("user", None)
-    return redirect(url_for("login"))
+    return redirect(url_for("innlogging"))
 
 # innlogging
 @app.route("/innlogging", methods=["GET", "POST"])
@@ -446,7 +446,7 @@ def innlogging():
                 session["navn"] = resultat.navn
                 session["usert"] = resultat.bruker_type
                 flash(f"{resultat.navn.capitalize()}, du er innlogget!", "vellykket")
-                return redirect(url_for("login"))
+                return redirect(url_for("innlogging"))
         flash("Beklager, email eller password er feil.", "fare")
     return render_template("login.html", login=True)
 
@@ -469,7 +469,7 @@ def api():
 def KundeLog():
     if "user" not in session:
         flash("Vennligst logg inn", "advarsel")
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne api", "advarsel")
         return redirect(url_for("hovedmeny"))
@@ -500,7 +500,7 @@ def KundeLog():
 def kontolog():
     if "user" not in session:
         flash("Venligst, logg inn", "advarsel")
-        return redirect(url_for("login"))
+        return redirect(url_for("innlogging"))
     if session["usert"] != "executive":
         flash("Du har ikke tilgang til denne api", "advarsel")
         return redirect(url_for("hovedmeny"))
