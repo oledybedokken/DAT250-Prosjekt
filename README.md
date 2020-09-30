@@ -2,7 +2,7 @@
   * Session problemer
   * Sikkerhet
 
-```
+
 Lage database 
 ```
 python database.py
