@@ -339,6 +339,7 @@ def innskudd(bruker_id=None):
 @app.route("/overforing/<kunde_id>",methods=["GET","POST"])
 def overforing(kunde_id=None):
     if "user" not in session:
+        print("not in session")
         return redirect(url_for("innlogging"))
     if session["usert"] == "executive":
         flash("Du har ikke tilgang til denne siden", "advarsel")
