@@ -21,6 +21,17 @@ Dra over til adressen nederst
  http://127.0.0.1:5000
 ```
 
+### To do:
+  * Ole:
+    1. 
+  * Jørgen:
+    1. 
+  * Pervaz:
+    1. 
+  * Espen:
+    1. 
+
+
 
 
 
