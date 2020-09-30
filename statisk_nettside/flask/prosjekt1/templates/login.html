@@ -3,12 +3,12 @@
 <head>
     <meta charset ="utf-8" />
     <title>Nettbank</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
 <body style="margin-top: 0px;">
     <div class="bakgrunnsbilde">
-        <img src = "images/Background.jpg">
+        <img src = "static/images/Background.jpg">
     </div>
     <div class="Background">
         <div class="Registry-box">
@@ -19,7 +19,7 @@
             </div>
 
             <div class="DnBlogo">
-                <img src="images/DNB.png">
+                <img src="static/images/DNB.png">
             </div>
 
             <form id="login" class="input-group">
