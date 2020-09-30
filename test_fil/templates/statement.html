@@ -15,7 +15,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="input col-md-1 col-xs-2">
-            <!--		Show Numbers Of Rows 		-->
             <select class="form-control" name="state" id="maxRows" style="margin-bottom: 10px;height: auto;width: auto;">
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -31,7 +30,7 @@
                 <thead>
                 <tr class="info">
 
-                        <th> Transaksjons-ID</th>
+                        <th> Transaksjon ID</th>
                         <th> Beskrivelse</th>
                         <th> Dato</th>
                         <th> Beløp</th>
@@ -72,23 +71,23 @@
 {%else%}
       <form action="statement" id="view_acc" method="POST">
         <div class="form-group input-group mb-3">
-            <label class="m-auto pr-3" for="konto_id">Konto-ID</label>
-           <input class="form-control" name="konto_id" id="konto_id" type="textfield" placeholder="Konto-ID" minlength="9" maxlength="9">
+            <label class="m-auto pr-3" for="konto_id">Konto ID</label>
+           <input class="form-control" name="konto_id" id="konto_id" type="textfield" placeholder="Konto ID" minlength="9" maxlength="9">
         </div>
         <div class="form-group input-group mb-3">
-            <label><input type="radio" name="Radio" value="red"> Last Transaksjoner</label></br>
-            <label><input type="radio" name="Radio" value="green"> Startdato, sluttdato</label>
+            <label><input type="radio" name="Radio" value="red">Sist transaksjon</label></br>
+            <label><input type="radio" name="Radio" value="green">Star dato, slutt dato</label>
 
         </div>
         <div class="red box" style="display: none;">
-            <label class="m-auto pr-3" for="number">  Siste nr. Transaksjon </label>
+            <label class="m-auto pr-3" for="number"> Sist antall transaksjoner</label>
             <input class="form-control" name="number" id="number" type="number" placeholder="Antall transaksjoner" maxlength="3">
           
         </div>
         <div class="green box" style="display: none;">
-            <label for="start_date">Startdato:</label>
+            <label for="start_date">Start dato:</label>
             <input type="date" id="start_date" name="start_date">
-             <label for="end_date">Sluttdato:</label>
+             <label for="end_date">Slutt dato:</label>
             <input type="date" id="end_date" name="end_date">
       
         </div>
@@ -109,59 +108,52 @@
 function getPagination(table) {
 
   $('#maxRows').on('change', function(e) {
-    $('.pagination').html(''); // reset pagination
-    var trnum = 0; // reset tr counter
-    var maxRows = parseInt($(this).val()); // get Max Rows from select option
-    var totalRows = $(table + ' tbody tr').length; // numbers of rows
-    $(table + ' tr:gt(0)').each(function() { // each TR in  table and not the header
-      trnum++; // Start Counter
-      if (trnum > maxRows) { // if tr number gt maxRows
+    $('.pagination').html(''); 
+    var trnum = 0; 
+    var maxRows = parseInt($(this).val()); 
+    var totalRows = $(table + ' tbody tr').length; 
+    $(table + ' tr:gt(0)').each(function() { 
+      trnum++; 
+      if (trnum > maxRows) { 
 
-        $(this).hide(); // fade it out
+        $(this).hide(); 
       }
       if (trnum <= maxRows) {
         $(this).show();
-      } // else fade in Important in case if it ..
-    }); //  was fade out to fade it in
-    if (totalRows > maxRows) { // if tr total rows gt max rows option
-      var pagenum = Math.ceil(totalRows / maxRows); // ceil total(rows/maxrows) to get ..
-      //	numbers of pages
-      for (var i = 1; i <= pagenum;) { // for each page append pagination li
+      } 
+    }); 
+    if (totalRows > maxRows) {
+      var pagenum = Math.ceil(totalRows / maxRows); 
+      for (var i = 1; i <= pagenum;) { 
         $('.pagination').append('<li class"wp" data-page="' + i + '">\
 <span>' + i++ + '<span class="sr-only">(current)</span></span>\
 </li>').show();
-      } // end for i
-    } // end if row count > max rows
-    $('.pagination li:first-child').addClass('active'); // add active class to the first li
-    $('.pagination li').on('click', function() { // on click each page
-      var pageNum = $(this).attr('data-page'); // get it's number
-      var trIndex = 0; // reset tr counter
-      $('.pagination li').removeClass('active'); // remove active class from all li
-      $(this).addClass('active'); // add active class to the clicked
-      $(table + ' tr:gt(0)').each(function() { // each tr in table not the header
-        trIndex++; // tr index counter
-        // if tr index gt maxRows*pageNum or lt maxRows*pageNum-maxRows fade if out
+      } 
+    } 
+    $('.pagination li:first-child').addClass('active');
+    $('.pagination li').on('click', function() { 
+      var pageNum = $(this).attr('data-page'); 
+      var trIndex = 0; 
+      $('.pagination li').removeClass('active'); 
+      $(this).addClass('active'); 
+      $(table + ' tr:gt(0)').each(function() { 
+        trIndex++; 
         if (trIndex > (maxRows * pageNum) || trIndex <= ((maxRows * pageNum) - maxRows)) {
           $(this).hide();
         } else {
           $(this).show();
-        } //else fade in
-      }); // end of for each tr in table
-    }); // end of on click pagination list
+        }
+      }); 
+    }); 
 
 
   });
 
-  // end of on select change
-
-
-
-  // END OF PAGINATION
 }
-// Radio button
+
 $(function() {
-    $('input[name="Transaksjoner"]').on('click', function() {
-        if ($(this).val() == 'Transaksjoner') {
+    $('input[name="Transactions"]').on('click', function() {
+        if ($(this).val() == 'Transactions') {
             $('#textboxes').show();
         }
         else if ($(this).val() == 'Dates') {

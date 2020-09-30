@@ -5,7 +5,7 @@ from flask import send_file
 from flask import Flask, session, render_template, request, redirect, url_for, flash, jsonify, Response
 from flask_bcrypt import Bcrypt
 from flask_session import Session
-from database_test import Base, Bruker, Kunder, Konto, KundeLog, Transaksjoner
+from database import Base, Bruker, Kunder, Konto, KundeLog, Transaksjoner
 from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import scoped_session, sessionmaker
 import datetime
@@ -20,14 +20,13 @@ engine = create_engine('sqlite:///database.db',connect_args={'check_same_thread'
 Base.metadata.bind = engine
 db = scoped_session(sessionmaker(bind=engine))
     
-# MAIN
 @app.route('/')
 @app.route("/dashboard")
 def dashboard():
     return render_template("home.html", home=True)
 
-@app.route("/lagkunde" , methods=["GET", "POST"])
-def lagkunde():
+@app.route("/leggtilkunde" , methods=["GET", "POST"])
+def leggtilkunde():
     if 'user' not in session:
         return redirect(url_for('login'))
     if session['usert'] != "executive":
@@ -35,32 +34,32 @@ def lagkunde():
         return redirect(url_for("dashboard"))
     if session['usert']=="executive":
         if request.method == "POST":
-            cust_ssn_id = int(request.form.get("cust_ssn_id"))
+            ssn_kunde_id = int(request.form.get("ssn_kunde_id"))
             name = request.form.get("name")
             adresse = request.form.get("adresse")
             age= int(request.form.get("age"))
             fylke = request.form.get("fylke")
             by = request.form.get("by")
-            resultat = db.execute("SELECT * from kunder WHERE cust_ssn_id = :c", {"c": cust_ssn_id}).fetchone()
+            resultat = db.execute("SELECT * from kunder WHERE ssn_kunde_id = :c", {"c": ssn_kunde_id}).fetchone()
             if resultat is None :
                 resultat = db.spor(Kunder).count()
                 if resultat == 0 :
-                    spor = Kunder(kunde_id=110110000,cust_ssn_id=cust_ssn_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
+                    spor = Kunder(kunde_id=110110000,ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
                 else:
-                    spor = Kunder(cust_ssn_id=cust_ssn_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
+                    spor = Kunder(ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
                 db.add(spor)
                 db.commit()
                 if spor.kunde_id is None:
                     flash("Data er ikke satt inn! Sjekk om informasjon er riktig", "fare")
                 else:
-                    temp = KundeLog(kunde_id=spor.kunde_id,melding_log="Kundelaget")
+                    temp = KundeLog(kunde_id=spor.kunde_id,log_message="Kundelaget")
                     db.add(temp)
                     db.commit()
                     flash(f"Kunde {spor.name} er opprettet med kunde-ID: {spor.kunde_id}.", "vellykket")
                     return redirect(url_for('se_kunde'))
-            flash(f"SSN-ID : {cust_ssn_id} er allerede i databasen.", "advarsel")
+            flash(f"SSN-ID : {ssn_kunde_id} er allerede i databasen.", "advarsel")
         
-    return render_template('lagkunde.html', lagkunde=True)
+    return render_template('leggtilkunde.html', leggtilkunde=True)
 
 @app.route("/se_kunde/<kunde_id>")
 @app.route("/se_kunde" , methods=["GET", "POST"])
@@ -72,9 +71,9 @@ def se_kunde(kunde_id=None):
         return redirect(url_for("dashboard"))
     if session['usert']=="executive":
         if request.method == "POST":
-            cust_ssn_id = request.form.get("cust_ssn_id")
+            ssn_kunde_id = request.form.get("ssn_kunde_id")
             kunde_id = request.form.get("kunde_id")
-            data = db.execute("SELECT * from kunder WHERE kunde_id = :c or cust_ssn_id = :d", {"c": kunde_id, "d": cust_ssn_id}).fetchone()
+            data = db.execute("SELECT * from kunder WHERE kunde_id = :c or ssn_kunde_id = :d", {"c": kunde_id, "d": ssn_kunde_id}).fetchone()
             if data is not None:
                 return render_template('se_kunde.html', se_kunde=True, data=data)
             
@@ -112,12 +111,12 @@ def redigkunde(kunde_id=None):
                 kunde_id = int(kunde_id)
                 name = request.form.get("name")
                 adresse = request.form.get("adresse")
-                age= int(request.form.get("age"))
+                age = int(request.form.get("age"))
                 resultat = db.execute("SELECT * from kunder WHERE kunde_id = :c and status = 'activate'", {"c": kunde_id}).fetchone()
                 if resultat is not None :
                     resultat = db.execute("UPDATE kunder SET name = :n , adresse = :add , age = :ag WHERE kunde_id = :a", {"n": name,"add": adresse,"ag": age,"a": kunde_id})
                     db.commit()
-                    temp = KundeLog(kunde_id=kunde_id,melding_log="Kundedata er oppdatert")
+                    temp = KundeLog(kunde_id=kunde_id,log_message="Kundedata er oppdatert")
                     db.add(temp)
                     db.commit()
                     flash(f"Kundedata er oppdatert.", "vellykket")
@@ -141,10 +140,10 @@ def slettkunde(kunde_id=None):
             if resultat is not None :
                 spor = db.execute("UPDATE kunder SET status='deactivate' WHERE kunde_id = :a", {"a": kunde_id})
                 db.commit()
-                temp = KundeLog(kunde_id=kunde_id,melding_log="Kunde deaktivert")
+                temp = KundeLog(kunde_id=kunde_id,log_message="Kunde deaktivert")
                 db.add(temp)
                 db.commit()
-                flash(f"Customer is deactivated.","success")
+                flash(f"Kunde er diaktivert.","success")
                 return redirect(url_for("dashboard"))
             else:
                 flash(f"Kunde med ID: {kunde_id} er allerede aktiv eller ikke til stede i databasen.", "advarsel")
@@ -165,7 +164,7 @@ def aktiverkunde(kunde_id=None):
             if resultat is not None :
                 spor = db.execute("UPDATE kunder SET status='activate' WHERE kunde_id = :a", {"a": kunde_id})
                 db.commit()
-                temp = KundeLog(kunde_id=kunde_id,melding_log="Kunden er aktiv.")
+                temp = KundeLog(kunde_id=kunde_id,log_message="Kunden er aktiv.")
                 db.add(temp)
                 db.commit()
                 flash(f"Kunden er aktiv.", "vellykket")
@@ -202,8 +201,7 @@ def kundestatus():
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("dashboard"))
     if session['usert']=="executive":
-        # join spor to get one log message per customer id
-        data = db.execute("SELECT kunder.kunde_id as id, kunder.cust_ssn_id as ssn_id, kundelog.melding_log as message, kundelog.time_stamp as date from (select kunde_id,melding_log,time_stamp from kundelog group by kunde_id ORDER by time_stamp desc) as kundelog JOIN kunder ON kunder.kunde_id = kundelog.kunde_id group by kundelog.kunde_id order by kundelog.time_stamp desc").fetchall()
+        data = db.execute("SELECT kunder.kunde_id as id, kunder.ssn_kunde_id as ssn_id, kundelog.log_message as message, kundelog.time_stamp as date from (select kunde_id,log_message,time_stamp from kundelog group by kunde_id ORDER by time_stamp desc) as kundelog JOIN kunder ON kunder.kunde_id = kundelog.kunde_id group by kundelog.kunde_id order by kundelog.time_stamp desc").fetchall()
         if data:
             return render_template('kundestatus.html',kundestatus=True , data=data)
         else:
@@ -221,7 +219,7 @@ def leggtilkonto():
         if request.method == "POST":
             kunde_id = int(request.form.get("kunde_id"))
             konto_type = request.form.get("konto_type")
-            belop = float(request.form.get("belop"))
+            belop= float(request.form.get("belop"))
             message = "Bruker skapelse er vellykket"
             resultat = db.execute("SELECT * from kunder WHERE kunde_id = :c", {"c": kunde_id}).fetchone()
             if resultat is not None :
@@ -245,27 +243,6 @@ def leggtilkonto():
                 flash(f"Kunde med ID : {kunde_id} er ikke til stede i databasen.", "advarsel")
 
     return render_template('leggtilkonto.html', leggtilkonto=True)
-
-@app.route("/slettkonto" , methods=["GET", "POST"])
-def slettkonto():
-    if 'user' not in session:
-        return redirect(url_for('login'))
-    if session['usert'] != "executive":
-        flash("Du har ikke tilgang til denne siden", "advarsel")
-        return redirect(url_for("dashboard"))
-    if session['usert']=="executive":
-        if request.method == "POST":
-            konto_id = int(request.form.get("konto_id"))
-            resultat = db.execute("SELECT * from konto WHERE konto_id = :a and status='active'", {"a": konto_id}).fetchone()
-            if resultat is not None :
-                message = "Konto deaktivert"
-                date = datetime.datetime.now()
-                spor = db.execute("UPDATE konto SET status='deactive', message= :m, last_update = :d WHERE konto_id = :a;", {"m":message,"d":date,"a": konto_id})
-                db.commit()
-                flash(f"Kunde er deaktivert.", "vellykket")
-                return redirect(url_for("dashboard"))
-            flash(f"Bruker med ID  : {konto_id} er allerede deaktiv eller ikke funnet.", "advarsel")
-    return render_template('slettkonto.html', slettkonto=True)
 
 @app.route("/se_konto" , methods=["GET", "POST"])
 def se_konto():
@@ -391,8 +368,8 @@ def overfor(kunde_id=None):
 
     return redirect(url_for("dashboard"))
 
-@app.route("/utskrift" , methods=["GET", "POST"])
-def utskrift():
+@app.route("/statement" , methods=["GET", "POST"])
+def statement():
     if 'user' not in session:
         return redirect(url_for('login'))
     if session['usert'] == "executive":
@@ -410,14 +387,105 @@ def utskrift():
             else:
                 data = db.execute("SELECT * FROM transaksjoner WHERE konto_id=:a between DATE(time_stamp) >= :s AND DATE(time_stamp) <= :e;",{"a":konto_id,"s":start_date,"e":end_date}).fetchall()
             if data:
-                return render_template('utskrift.html', utskrift=True, data=data, konto_id=konto_id)
+                return render_template('statement.html', statement=True, data=data, konto_id=konto_id)
             else:
                 flash("Ingen transaksjoner", "fare")
                 return redirect(url_for("dashboard"))
     else:
         flash("Du har ikke tilgang til denne siden", "advarsel")
         return redirect(url_for("dashboard"))
-    return render_template('utskrift.html', utskrift=True)
+    return render_template('statement.html', statement=True)
+
+@app.route('/pdf_xl_statement/<konto_id>')
+@app.route('/pdf_xl_statement/<konto_id>/<ftype>')
+def pdf_xl_statement(konto_id=None,ftype=None):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    if session['usert'] == "executive":
+        flash("Du har ikke tilgang til denne siden", "advarsel")
+        return redirect(url_for("dashboard"))       
+    if session['usert']=="teller" or session['usert']=="cashier":
+        if konto_id is not None:
+            data = db.execute("SELECT * FROM transaksjoner WHERE konto_id=:a order by time_stamp limit 20;",{"a":konto_id}).fetchall()
+            column_names = ['TransaksjonID', 'Beskrivelse', 'Dato', 'Beløp']
+            if data:
+                if ftype is None: 
+                    pdf = FPDF()
+                    pdf.add_page()
+                    
+                    page_width = pdf.w - 2 * pdf.l_margin
+                    
+                    pdf.set_font('Times','B',16.0) 
+                    pdf.cell(page_width, 0.0, "Retail Banking", align='C')
+                    pdf.ln(10)
+
+                    msg='Account Statment : '+str(konto_id)
+                    pdf.set_font('Times','',12.0) 
+                    pdf.cell(page_width, 0.0, msg, align='C')
+                    pdf.ln(10)
+
+                    pdf.set_font('Times', 'B', 11)
+                    pdf.ln(1)
+                    
+                    th = pdf.font_size
+                    
+                    pdf.cell(page_width/5, th, 'Transaksjon ID')
+                    pdf.cell(page_width/3, th, 'Beskrivelse')
+                    pdf.cell(page_width/3, th, 'Dato')
+                    pdf.cell(page_width/7, th, 'Beløp')
+                    pdf.ln(th)
+
+                    pdf.set_font('Times', '', 11)
+
+                    for row in data:
+                        pdf.cell(page_width/5, th, str(row.trans_id))
+                        pdf.cell(page_width/3, th, row.trans_melding)
+                        pdf.cell(page_width/3, th, str(row.time_stamp))
+                        pdf.cell(page_width/7, th, str(row.belop))
+                        pdf.ln(th)
+                    
+                    pdf.ln(10)
+
+                    bal = db.execute("SELECT saldo FROM konto WHERE konto_id=:a;",{"a":konto_id}).fetchone()
+                    
+                    pdf.set_font('Times','',10.0) 
+                    msg='Nåværende saldo : '+str(bal.saldo)
+                    pdf.cell(page_width, 0.0, msg, align='C')
+                    pdf.ln(5)
+
+                    pdf.cell(page_width, 0.0, '-- End of statement --', align='C')
+                    
+                    return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition':'inline;filename=statement.pdf'})
+                
+                elif ftype == 'xl':
+
+                    output = io.BytesIO()
+                    workbook = xlwt.Workbook()
+                    sh = workbook.add_sheet('Kontoutskrift')
+
+                    sh.write(0, 0, 'Transaksjon ID')
+                    sh.write(0, 1, 'Beskrivelse')
+                    sh.write(0, 2, 'Dato')
+                    sh.write(0, 3, 'Beløp')
+
+                    idx = 0
+                    for row in data:
+                        sh.write(idx+1, 0, str(row.trans_id))
+                        sh.write(idx+1, 1, row.trans_melding)
+                        sh.write(idx+1, 2, str(row.time_stamp))
+                        sh.write(idx+1, 3, str(row.belop))
+                        idx += 1
+
+                    workbook.save(output)
+                    output.seek(0)
+
+                    response = Response(output, mimetype="application/ms-excel", headers={"Content-Disposition":"attachment;filename=statment.xls"})
+                    return response
+            else:
+                flash("Ugyldig konto-ID", 'fare')
+        else:
+            flash("Vennligst, skriv inn Konto ID", "advarsel")
+    return redirect(url_for("dashboard"))
 
 @app.errorhandler(404)
 def ikke_funnet(e):
@@ -434,11 +502,11 @@ def login():
         return redirect(url_for("dashboard"))
     
     if request.method == "POST":
-        email = request.form.get("email").upper()
-        passord = request.form.get("passord").encode('utf-8')
+        email = request.form.get("email")
+        passw = request.form.get("password").encode('utf-8')
         resultat = db.execute("SELECT * FROM bruker WHERE id = :u", {"u": email}).fetchone()
         if resultat is not None:
-            if bcrypt.check_password_hash(resultat['passord'], passord) is True:
+            if bcrypt.check_password_hash(resultat['password'], passw) is True:
                 session['user'] = email
                 session['namet'] = resultat.name
                 session['usert'] = resultat.bruker_type
@@ -447,7 +515,6 @@ def login():
         flash("Beklager, email eller passord er feil.", "fare")
     return render_template("login.html", login=True)
 
-# Api
 @app.route('/api')
 @app.route('/api/v1')
 def api():
@@ -456,7 +523,7 @@ def api():
     <ol>
         <li>
             <a href="/api/v1/kundelog">Kunde Log</a>
-            <a href="/api/v1/kontolog">Konto Log</a>
+            <a href="/api/v1/kontolog">Account Log</a>
         </li>
     </ol>
     """
@@ -468,31 +535,30 @@ def kundelog():
         flash("Vennligst logg inn", "advarsel")
         return redirect(url_for('login'))
     if session['usert'] != "executive":
-        flash("Beklager, email eller passord er feil.", "fare")
+        flash("Beklager, email eller password er feil.", "fare")
         return redirect(url_for("dashboard"))
     if session['usert']=="executive":
         if request.method == "POST":
             kunde_id = request.json['kunde_id']
-            data = db.execute("SELECT melding_log,time_stamp from kundelog where kunde_id= :c ORDER by time_stamp desc",{'c':kunde_id}).fetchone()
+            data = db.execute("SELECT log_message,time_stamp from kundelog where kunde_id= :c ORDER by time_stamp desc",{'c':kunde_id}).fetchone()
             t = {
-                    "message" : data.melding_log,
-                    "date" : data.time_stamp
+                    "melding" : data.log_message,
+                    "dato" : data.time_stamp
                 }
             return jsonify(t)
         else:
             dict_data = []
-            data = db.execute("SELECT kunder.kunde_id as id, kunder.cust_ssn_id as ssn_id, kundelog.melding_log as message, kundelog.time_stamp as date from kundelog JOIN kunder ON kunder.kunde_id = kundelog.kunde_id order by kundelog.time_stamp desc limit 50").fetchall()
+            data = db.execute("SELECT kunder.kunde_id as id, kunder.ssn_kunde_id as ssn_id, kundelog.log_message as message, kundelog.time_stamp as date from kundelog JOIN kunder ON kunder.kunde_id = kundelog.kunde_id order by kundelog.time_stamp desc limit 50").fetchall()
             for row in data:
                 t = {
                     "id" : row.id,
                     "ssn_id" : row.ssn_id,
-                    "message" : row.message,
-                    "date" : row.date
+                    "melding" : row.message,
+                    "dato" : row.date
                 }
                 dict_data.append(t)
             return jsonify(dict_data)
 
-# Api for update perticular Account log change in html table onClick of refresh
 @app.route('/kontolog', methods=["GET", "POST"])
 @app.route('/api/v1/kontolog', methods=["GET", "POST"])
 def kontolog():
@@ -500,7 +566,7 @@ def kontolog():
         flash("Vennligst logg inn", "advarsel")
         return redirect(url_for('login'))
     if session['usert'] != "executive":
-        flash("Beklager, email eller passord er feil.", "fare")
+        flash("Beklager, email eller password er feil.", "fare")
         return redirect(url_for("dashboard"))
     if session['usert']=="executive":
         if request.method == "POST":
@@ -508,8 +574,8 @@ def kontolog():
             data = db.execute("SELECT status,message,last_update as time_stamp from konto where konto_id= :c;",{'c':konto_id}).fetchone()
             t = {
                     "status" : data.status,
-                    "message" : data.message,
-                    "date" : data.time_stamp
+                    "melding" : data.message,
+                    "dato" : data.time_stamp
                 }
             return jsonify(t)
         else:
@@ -521,8 +587,8 @@ def kontolog():
                     "konto_id" : row.konto_id,
                     "konto_type" : row.konto_type,
                     "status" : row.status,
-                    "message" : row.message,
-                    "date" : row.last_update
+                    "melding" : row.message,
+                    "dato" : row.last_update
                 }
                 dict_data.append(t)
             return jsonify(dict_data)

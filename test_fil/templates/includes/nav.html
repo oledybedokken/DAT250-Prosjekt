@@ -7,27 +7,27 @@
       <div class="subnav">
         <button class="subnavbtn">Kundebehandling <i class="fa fa-caret-down"></i></button>
         <div class="subnav-content">
-          <a href="{{ url_for('addcustomer') }}" class="nav-link {% if addcustomer %}active{% endif %}">Legg til kunde</a>
-          <a href="{{ url_for('viewcustomer') }}" class="nav-link {% if viewcustomer %}active{% endif %}" >Se kunden</a>
-          <a href="{{ url_for('editcustomer') }}" class="nav-link {% if editcustomer %}active{% endif %}">Rediger kunde</a>
-          <a href="{{ url_for('customerstatus') }}" class="nav-link {% if customerstatus %}active{% endif %}">Kundestatus</a>
+          <a href="{{ url_for('leggtilkunde') }}" class="nav-link {% if leggtilkunde %}active{% endif %}">Legg til kunde</a>
+          <a href="{{ url_for('se_kunde') }}" class="nav-link {% if se_kunde %}active{% endif %}" >Vis kunde</a>
+          <a href="{{ url_for('redigkunde') }}" class="nav-link {% if redigkunde %}active{% endif %}">Rediger kunde</a>
+          <a href="{{ url_for('kundestatus') }}" class="nav-link {% if kundestatus %}active{% endif %}">Kunde status</a>
 
 
         </div>
       </div>
       <div class="subnav">
-        <button class="subnavbtn">Kontoadministrasjon <i class="fa fa-caret-down"></i></button>
+        <button class="subnavbtn">Kundebehandling <i class="fa fa-caret-down"></i></button>
         <div class="subnav-content">
           <a href="{{ url_for('addaccount') }}" class="nav-link {% if addaccount %}active{% endif %}">Legg til konto</a>
-          <a href="{{ url_for('viewaccount') }}" class="nav-link {% if viewaccount %}active{% endif %}">Vis konto</a>
-          <a href="{{ url_for('viewaccountstatus') }}" class="nav-link {% if viewaccountstatus %}active{% endif %}">Konto status</a>
+          <a href="{{ url_for('se_konto') }}" class="nav-link {% if se_konto %}active{% endif %}">Vis konto</a>
+          <a href="{{ url_for('se_kontostatus') }}" class="nav-link {% if se_kontostatus %}active{% endif %}">Konto status</a>
         </div>
       </div>
     {% elif session['usert']=="teller" or session['usert']=="cashier" %}
       <div class="subnav">
-        <button class="subnavbtn">Kontoadministrasjon <i class="fa fa-caret-down"></i></button>
+        <button class="subnavbtn">Kundebehandling <i class="fa fa-caret-down"></i></button>
         <div class="subnav-content">
-          <a href="{{ url_for('viewaccount') }}" class="nav-link {% if viewaccount %}active{% endif %}">Vis konto</a>
+          <a href="{{ url_for('se_konto') }}" class="nav-link {% if se_konto %}active{% endif %}">Vis konto</a>
           <a href="{{ url_for('statement') }}" class="nav-link {% if statement %}active{% endif %}">Kontoutskrift</a>
         </div>
       </div>

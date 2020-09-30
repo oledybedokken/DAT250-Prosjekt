@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}Lag konto{% endblock %}
+
+{% block content %}
+<div class = "row mb-3">
+    <div class="card">
+        <div class="card-header" style="color:#000;text-align:center; font-weight: bold; font-size:22px ">
+            Lag konto
+        </div>
+        <div class="card-body">
+            <form action="leggtilkonto" method="POST">
+            
+                <div class="form-group input-group mb-3">
+                    <label class="m-auto pr-3" for="kunde_id" style="color:#000; font-weight: bold; font-size:18px ">Kunde ID <span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" name="kunde_id" id="kunde_id" type="textfield" placeholder="Kunde ID" required maxlength="9">
+                </div>
+                <div class="form-group input-group mb-3">
+                    <label for="konto_type" style="color:#000; font-weight: bold; font-size:18px ">Veld konto type:<span style="color:#ff0000"><sup>*</sup></span></label>
+                    <select class="form-control" id="konto_type" name="konto_type">
+                        <option value="current" style="color:#000; font-weight: bold; font-size:15px ">Nåværende</option>
+                        <option value="savings" style="color:#000; font-weight: bold; font-size:15px ">Sparing</option>
+                    </select>
+                  </div>
+                
+                <div class="form-group input-group mb-3">
+                    <label class="m-auto pr-3" for="belop" style="color:#000; font-weight: bold; font-size:18px ">Innskuddsbeløp<span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" name="belop" id="belop" type="textfield" placeholder="belop" required>
+                </div>
+                <span style="color:#ff0000; font-weight:bold;"><p><b>(<sup> * </sup>) Obligatoriske felt </b></p></span>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn float-left login_btn" style="color:#000; font-weight: bold; font-size:18px ">
+                    <button class="reset_btn btn float-right" style="color:#000; font-weight: bold; font-size:18px ">Gjennopprett</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
