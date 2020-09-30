@@ -61,6 +61,13 @@ def lagkunde():
         
     return render_template("lagkunde.html", lagkunde=True)
 
+@app.route('/overview')
+def overview():
+    if "navn" not in session:
+        return redirect(url_for("hovedmeny"))
+
+    return render_template('Oversikt.html')
+
 @app.route("/se_kunder/<kunde_id>")
 @app.route("/se_kunder" , methods=["GET", "POST"])
 def se_kunder(kunde_id=None):
@@ -434,7 +441,7 @@ def avlogging():
 # innlogging
 @app.route("/innlogging", methods=["GET", "POST"])
 def innlogging():
-    if "user" in session:
+    if "navn" not in session:
         return redirect(url_for("hovedmeny"))
     
     if request.method == "POST":
@@ -448,7 +455,7 @@ def innlogging():
                 session["navn"] = resultat.navn
                 session["usert"] = resultat.bruker_type
                 flash(f"{resultat.navn.capitalize()}, du er innlogget!", "vellykket")
-                return redirect(url_for("overforing"))
+                return redirect(url_for("overview"))
         flash("Beklager, email eller password er feil.", "fare")
     return render_template("login.html", login=True)
 
