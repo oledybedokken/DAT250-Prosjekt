@@ -42,20 +42,20 @@ def leggtilkunde():
             by = request.form.get("by")
             resultat = db.execute("SELECT * from kunder WHERE ssn_kunde_id = :c", {"c": ssn_kunde_id}).fetchone()
             if resultat is None :
-                resultat = db.spor(Kunder).count()
+                resultat = db.query(Kunder).count()
                 if resultat == 0 :
-                    spor = Kunder(kunde_id=110110000,ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
+                    query = Kunder(kunde_id=110110000,ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
                 else:
-                    spor = Kunder(ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
-                db.add(spor)
+                    query = Kunder(ssn_kunde_id=ssn_kunde_id,name=name,adresse=adresse,age=age,fylke=fylke,by=by,status='activate')
+                db.add(query)
                 db.commit()
-                if spor.kunde_id is None:
+                if query.kunde_id is None:
                     flash("Data er ikke satt inn! Sjekk om informasjon er riktig", "fare")
                 else:
-                    temp = KundeLog(kunde_id=spor.kunde_id,log_message="Kundelaget")
+                    temp = KundeLog(kunde_id=query.kunde_id,log_message="Kundelaget")
                     db.add(temp)
                     db.commit()
-                    flash(f"Kunde {spor.name} er opprettet med kunde-ID: {spor.kunde_id}.", "vellykket")
+                    flash(f"Kunde {query.name} er opprettet med kunde-ID: {query.kunde_id}.", "vellykket")
                     return redirect(url_for('se_kunde'))
             flash(f"SSN-ID : {ssn_kunde_id} er allerede i databasen.", "advarsel")
         
@@ -138,7 +138,7 @@ def slettkunde(kunde_id=None):
             kunde_id = int(kunde_id)
             resultat = db.execute("SELECT * from kunder WHERE kunde_id = :a and status = 'activate'", {"a": kunde_id}).fetchone()
             if resultat is not None :
-                spor = db.execute("UPDATE kunder SET status='deactivate' WHERE kunde_id = :a", {"a": kunde_id})
+                query = db.execute("UPDATE kunder SET status='deactivate' WHERE kunde_id = :a", {"a": kunde_id})
                 db.commit()
                 temp = KundeLog(kunde_id=kunde_id,log_message="Kunde deaktivert")
                 db.add(temp)
@@ -162,7 +162,7 @@ def aktiverkunde(kunde_id=None):
             kunde_id = int(kunde_id)
             resultat = db.execute("SELECT * from kunder WHERE kunde_id = :a and status = 'deactivate'", {"a": kunde_id}).fetchone()
             if resultat is not None :
-                spor = db.execute("UPDATE kunder SET status='activate' WHERE kunde_id = :a", {"a": kunde_id})
+                query = db.execute("UPDATE kunder SET status='activate' WHERE kunde_id = :a", {"a": kunde_id})
                 db.commit()
                 temp = KundeLog(kunde_id=kunde_id,log_message="Kunden er aktiv.")
                 db.add(temp)
@@ -186,7 +186,7 @@ def aktiverkonto(konto_id=None):
             resultat = db.execute("SELECT * from konto WHERE konto_id = :a and status = 'deactive'", {"a": konto_id}).fetchone()
             if resultat is not None :
                 date = datetime.datetime.now()
-                spor = db.execute("UPDATE konto SET status='active', message='Konto aktiv igjen', last_update = :d WHERE konto_id = :a", {"d":date,"a": konto_id})
+                query = db.execute("UPDATE konto SET status='active', message='Konto aktiv igjen', last_update = :d WHERE konto_id = :a", {"d":date,"a": konto_id})
                 db.commit()
                 flash(f"Kunden er aktiv.", "vellykket")
                 return redirect(url_for("dashboard"))
@@ -225,17 +225,17 @@ def leggtilkonto():
             if resultat is not None :
                 resultat = db.execute("SELECT * from konto WHERE kunde_id = :c and konto_type = :at", {"c": kunde_id, "at": konto_type}).fetchone()
                 if resultat is None:
-                    resultat = db.spor(Konto).count()
+                    resultat = db.query(Konto).count()
                     if resultat == 0 :
-                        spor = Konto(konto_id=360110000,konto_type=konto_type,saldo=belop,kunde_id=kunde_id,status='active',message=message,last_update=datetime.datetime.now())
+                        query = Konto(konto_id=360110000,konto_type=konto_type,saldo=belop,kunde_id=kunde_id,status='active',message=message,last_update=datetime.datetime.now())
                     else:
-                        spor = Konto(konto_type=konto_type,saldo=belop,kunde_id=kunde_id,status='active',message=message,last_update=datetime.datetime.now())
-                    db.add(spor)
+                        query = Konto(konto_type=konto_type,saldo=belop,kunde_id=kunde_id,status='active',message=message,last_update=datetime.datetime.now())
+                    db.add(query)
                     db.commit()
-                    if spor.konto_id is None:
+                    if query.konto_id is None:
                         flash("Data er ikke satt inn! Sjekk om informasjon er riktig", "fare")
                     else:
-                        flash(f"{spor.konto_type} konto er skapt med konto-ID : {spor.konto_id}.", "vellykket")
+                        flash(f"{query.konto_type} konto er skapt med konto-ID : {query.konto_id}.", "vellykket")
                         return redirect(url_for("dashboard"))
                 else:
                     flash(f"Kunde med ID : {kunde_id} har allerede {konto_type} konto.", "advarsel")
@@ -295,7 +295,7 @@ def inskudd(konto_id=None):
                 data = db.execute("SELECT * from konto where konto_id = :a and status='active'",{"a":konto_id}).fetchone()
                 if data is not None:
                     saldo = int(belop) + int(data.saldo)
-                    spor = db.execute("UPDATE konto SET saldo= :b WHERE konto_id = :a", {"b":saldo,"a": data.konto_id})
+                    query = db.execute("UPDATE konto SET saldo= :b WHERE konto_id = :a", {"b":saldo,"a": data.konto_id})
                     db.commit()
                     flash(f"{belop} beløp deponert på konto: {data.konto_id}.", "vellykket")
                     temp = Transaksjoner(konto_id=data.konto_id,trans_melding="Beløp satt inn",belop=belop)
