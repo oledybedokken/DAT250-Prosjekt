@@ -5,8 +5,12 @@ import random
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin,current_user, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask
+from flask_bcrypt import Bcrypt
+
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 app.secret_key = "brusjanbank"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -66,7 +70,7 @@ def login_post():
 
     # Sjekk om bruker faktisk eksiterer
     # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
-    if not user or not check_password_hash(user.password, password): 
+    if not user or not bcrypt.check_password_hash(user.password, password): 
         flash('Please check your login details and try again.')
         return redirect(url_for('login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
 
@@ -96,7 +100,8 @@ def signup_post():
         return redirect(url_for('signup'))
 
     # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+    p_hash = bcrypt.generate_password_hash(password).decode("utf-8")
+    new_user = User(email=email, name=name, password=p_hash)
 
     # legg til den nye brukeren til databasen
     db.session.add(new_user)
