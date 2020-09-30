@@ -17,7 +17,7 @@ bcrypt = Bcrypt(app)
 def brukere():
     email = "sjoko@gmail.com"
     name = "Pervaz"
-    usert = "teller"
+    usert = "executive" # Admin
     passwd = "Admin123!12"
     passord_hash = bcrypt.generate_password_hash(passwd).decode("utf-8")
     db.execute("INSERT INTO bruker (id,name, bruker_type, password) VALUES (:u,:n,:t,:p)", {"u": email,"n":name,"t":usert ,"p": passord_hash})
