@@ -1,10 +1,12 @@
-{% block title %}Legg til kunde{% endblock %}
+{% extends "layout.html" %}
+
+{% block title %}Add Customer{% endblock %}
 
 {% block content %}
 <div class = "row col-md-8 my-5">
     <div class="card col-md-8 mx-auto px-0">
         <div class="card-header">
-            Se kundeinformasjon
+            View Customer Details
         </div>
         <div class="card-body">
             {% if data %}
@@ -13,7 +15,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                Kunde ID
+                                Kunde-ID
                             </td>
                             <td>
                                 {{ data.kunde_id }}
@@ -32,7 +34,15 @@
                                 Navn
                             </td>
                             <td>
-                                {{ data.navn }}
+                                {{ data.name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Alder
+                            </td>
+                            <td>
+                                {{ data.age }}
                             </td>
                         </tr>
                         <tr>
@@ -73,38 +83,38 @@
             <div class="row mb-4">
                 <div class="form-group col-md-12">
                     <div class="float-left">
-                        <a href="{{ url_for('redigerkunde',kunde_id=data.kunde_id ) }}">
-                            <button class="btn">Rediger</button>
+                        <a href="{{ url_for('redigkunde',kunde_id=data.kunde_id ) }}">
+                            <button class="btn">Edit</button>
                         </a>
                     </div>
                     {% if data.status == 'deactivate' %}
                     <div class="float-right">
                         <a href="{{ url_for('aktiverkunde',kunde_id=data.kunde_id ) }}">
-                            <button class="btn" onclick="alert('Er du sikker på at du vil aktivere denne kunden?')">Aktiver</button>
+                            <button class="btn" onclick="alert('Er du sikker du vil aktivere denne kunden?')">Aktiver</button>
                         </a>
                     </div>
                     {% else %}
                     <div class="float-right">
                         <a href="{{ url_for('slettkunde',kunde_id=data.kunde_id ) }}">
-                            <button class="btn" onclick="alert('Er du sikker på at du vil deaktivere denne kunden?')">Slett</button>
+                            <button class="btn" onclick="alert('Er du sikker du vil aktivere denne kunden?')">Slett</button>
                         </a>
                     </div>
                     {% endif %}
                 </div>
             </div>
             {%else%}
-            <form action="{{ url_for('se_kunder') }}" id="view_cust" method="POST">
+            <form action="{{ url_for('se_kunde') }}" id="view_cust" method="POST">
                 <table class="col-md-12">
                     <tbody>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="m-auto float-left" for="kunde_id">Kunde ID</label>
+                                    <label class="m-auto float-left" for="kunde_id">Kunde-ID</label>
                                 </div>
                             </th>
                             <th>
                                 <div class="form-group input-group">
-                                    <input class="form-control" navn="kunde_id" id="kunde_id" type="textfield" placeholder="Kunde ID" maxlength="9">
+                                    <input class="form-control" name="kunde_id" id="kunde_id" type="textfield" placeholder="Kunde-ID" maxlength="9">
                                 </div>
                             </th>
                         </tr>
@@ -118,12 +128,12 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="m-auto float-left" for="ssn_kunde_id">Kunde SSN ID</label>
+                                    <label class="m-auto float-left" for="ssn_kunde_id">Kunde SSN-ID</label>
                                 </div>
                             </th>
                             <th>
                                 <div class="form-group input-group">
-                                   <input class="form-control" navn="ssn_kunde_id" id="ssn_kunde_id" type="textfield" placeholder="Kunde SSN ID" maxlength="9">
+                                   <input class="form-control" name="ssn_kunde_id" id="ssn_kunde_id" type="textfield" placeholder="Kunde SSN-ID" maxlength="9">
                                 </div>
                             </th>
                         </tr>

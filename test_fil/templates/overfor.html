@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+
 {% block title %}Overfør beløp{% endblock %}
 
 {% block content %}
@@ -8,13 +10,13 @@
         </div>
         <div class="card-body">
             {% if kunde_id %}
-            <form action="{{ url_for('overfor', kunde_id=kunde_id) }}" method="POST">
+            <form action="{{ url_for('overfor',kunde_id=kunde_id) }}" method="POST">
                 <table class="col-md-12">
                     <tbody>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Customer ID</label>
+                                    <label class="pl-3">Kunde ID</label>
                                 </div>
                             </th>
                             <th>
@@ -27,16 +29,16 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Kildekontotype</label>
+                                    <label class="pl-3">Mottaker konto type:</label>
                                 </div>
                                 
                             </th>
                             <th>
                                 <div class="form-group input-group pl-3">
                                     <select class="form-control sel_type" id="src_type" name="src_type">
-                                        <option value="" disabled>--Velg Type--</option>
-                                        <option value="navaerende">Nåværende</option>
-                                        <option value="besparelser">Besparelser</option>
+                                        <option value="" disabled>--Velg type--</option>
+                                        <option value="naverende">Nåværende</option>
+                                        <option value="sparing">Sparing</option>
                                     </select>
                                 </div>
                             </th>
@@ -44,16 +46,16 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Målkontotype</label>
+                                    <label class="pl-3">Target Account Type</label>
                                 </div>
                                 
                             </th>
                             <th>
                                 <div class="form-group input-group pl-3">
-                                    <select class="form-control sel_type" id="til_data" name="til_data">
-                                        <option value="" disabled>--Velg Type--</option>
-                                        <option value="navaerende">Nåværende</option>
-                                        <option value="besparelser">Besparelser</option>
+                                    <select class="form-control sel_type" id="trg_type" name="trg_type">
+                                        <option value="" disabled>--Velg type--</option>
+                                        <option value="sparing">Sparing</option>
+                                        <option value="naverende">Nåværende</option>
                                     </select>
                                 </div>
                                 
@@ -68,14 +70,14 @@
                             <th>
                                 <div class="form-group input-group pl-3">
                                     <input class="form-control" name="kunde_id" id="kunde_id" value="{{ kunde_id }}" type="hidden" disabled>
-                                    <input class="form-control" name="belop" id="belop" type="textfield" placeholder="Overfør beløp">
+                                    <input class="form-control" name="belop" id="belop" type="textfield" placeholder="overfor beløp">
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th colspan="2">
                                 <div class="form-group input-group mt-3">
-                                    <input type="submit" value="submit" onclick="alert('Er du sikker, du vil overføre?')" class="btn mx-auto">
+                                    <input type="submit" value="submit" onclick="alert('Er du sikker du vil overføre?')" class="btn mx-auto">
                                 </div>
                             </th>
                         </tr>

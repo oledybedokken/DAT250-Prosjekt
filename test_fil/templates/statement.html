@@ -1,4 +1,6 @@
-{% block title %}Uttalelse{% endblock %}
+{% extends "layout.html" %}
+
+{% block title %}Utskrift{% endblock %}
 
 {% block content %}
 <html>
@@ -13,7 +15,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="input col-md-1 col-xs-2">
-            <!--		Show nummers Of Rows 		-->
             <select class="form-control" name="state" id="maxRows" style="margin-bottom: 10px;height: auto;width: auto;">
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -24,7 +25,7 @@
     
     <div class="row col-md-12 col-xs-12">
         <div class="table-responsive">
-            <h3 style="text-align: center;">Konto Uttalelse</h3>
+            <h3 style="text-align: center;">Kontoutskrift</h3>
             <table class="table table-striped table-hover table-condensed table-bordered" id="Tabla">
                 <thead>
                 <tr class="info">
@@ -57,10 +58,10 @@
                 </nav>
             </div>
           <div class="center">
-            <a href="{{ url_for('pdf_xl_statement',bruker_id=bruker_id ) }}">
+            <a href="{{ url_for('pdf_xl_statement',konto_id=konto_id ) }}">
               <button class="btn">Last ned som PDF</button>
             </a>
-            <a href="{{ url_for('pdf_xl_statement',bruker_id=bruker_id, ftype='xl' ) }}">
+            <a href="{{ url_for('pdf_xl_statement',konto_id=konto_id, ftype='xl' ) }}">
               <button class="btn">Last ned som XL</button>
             </a>
           </div>
@@ -70,23 +71,23 @@
 {%else%}
       <form action="statement" id="view_acc" method="POST">
         <div class="form-group input-group mb-3">
-            <label class="m-auto pr-3" for="bruker_id">Konto ID</label>
-           <input class="form-control" name="bruker_id" id="bruker_id" type="textfield" placeholder="Konto ID" minlength="9" maxlength="9">
+            <label class="m-auto pr-3" for="konto_id">Konto ID</label>
+           <input class="form-control" name="konto_id" id="konto_id" type="textfield" placeholder="Konto ID" minlength="9" maxlength="9">
         </div>
         <div class="form-group input-group mb-3">
-            <label><input type="radio" name="Radio" value="red"> Sist transaksjon</label></br>
-            <label><input type="radio" name="Radio" value="green"> Start Date, End Date</label>
+            <label><input type="radio" name="Radio" value="red">Sist transaksjon</label></br>
+            <label><input type="radio" name="Radio" value="green">Star dato, slutt dato</label>
 
         </div>
         <div class="red box" style="display: none;">
-            <label class="m-auto pr-3" for="nummer">  Sist antall transaksjon </label>
-            <input class="form-control" name="nummer" id="nummer" type="nummer" placeholder="antall av transaksjoner" maxlength="3">
+            <label class="m-auto pr-3" for="number"> Sist antall transaksjoner</label>
+            <input class="form-control" name="number" id="number" type="number" placeholder="Antall transaksjoner" maxlength="3">
           
         </div>
         <div class="green box" style="display: none;">
-            <label for="start_date">Start Date:</label>
+            <label for="start_date">Start dato:</label>
             <input type="date" id="start_date" name="start_date">
-             <label for="end_date">End Date:</label>
+             <label for="end_date">Slutt dato:</label>
             <input type="date" id="end_date" name="end_date">
       
         </div>
@@ -94,7 +95,7 @@
       
      
         <div class="form-group">
-            <input type="submit" value="View" class="btn">
+            <input type="submit" value="Bekreft" class="btn">
         </div>
     </form>
 {% endif %}
@@ -112,16 +113,16 @@ function getPagination(table) {
     var maxRows = parseInt($(this).val()); 
     var totalRows = $(table + ' tbody tr').length; 
     $(table + ' tr:gt(0)').each(function() { 
-      trnum++;
-      if (trnum > maxRows) 
+      trnum++; 
+      if (trnum > maxRows) { 
 
-        $(this).hide();
+        $(this).hide(); 
       }
       if (trnum <= maxRows) {
         $(this).show();
       } 
     }); 
-    if (totalRows > maxRows) { 
+    if (totalRows > maxRows) {
       var pagenum = Math.ceil(totalRows / maxRows); 
       for (var i = 1; i <= pagenum;) { 
         $('.pagination').append('<li class"wp" data-page="' + i + '">\
@@ -129,7 +130,7 @@ function getPagination(table) {
 </li>').show();
       } 
     } 
-    $('.pagination li:first-child').addClass('active'); 
+    $('.pagination li:first-child').addClass('active');
     $('.pagination li').on('click', function() { 
       var pageNum = $(this).attr('data-page'); 
       var trIndex = 0; 
@@ -143,14 +144,16 @@ function getPagination(table) {
           $(this).show();
         }
       }); 
-    });
+    }); 
 
 
   });
+
 }
+
 $(function() {
-    $('input[name="Transaksjon"]').on('click', function() {
-        if ($(this).val() == 'Transaksjon') {
+    $('input[name="Transactions"]').on('click', function() {
+        if ($(this).val() == 'Transactions') {
             $('#textboxes').show();
         }
         else if ($(this).val() == 'Dates') {
