@@ -5,6 +5,7 @@ from flask import send_file
 from flask import Flask, session, render_template, request, redirect, url_for, flash, jsonify, Response
 from flask_bcrypt import Bcrypt
 from flask_session import Session
+from flask_sqlalchemy import sqlalchemy
 from database import Base, Konto, Bruker, Kunder, KundeLog, Transaksjoner
 from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -13,12 +14,12 @@ import xlwt
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.secret_key = os.urandom(24) # Bytt til noe høyere når ferdig
+app.config['SECRET_KEY'] = 'thisismysecretkeydonotstealit'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
 
+db = sqlalchemy
 # Setter databasen.
-engine = create_engine("sqlite:///database.db", connect_args={"check_same_thread": False}, echo=True)
-Base.metadata.bind = engine
-db = scoped_session(sessionmaker(bind=engine))
+
     
 # Hovedmeny
 @app.route("/")

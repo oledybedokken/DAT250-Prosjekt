@@ -1,15 +1,16 @@
-from flask import (
-    Flask,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for
-)
+from flask import Flask,g, redirect, render_template, request,session, url_for, flash
 import datetime as dt
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.secret_key = "brusjanbank"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.permanent_session_lifetime = timedelta(days=5)
+
+db = SQLAlchemy(app)
 
 class User:
     def __init__(self, id, username, password,saldo, dato):
@@ -82,7 +83,7 @@ users.append(User(id = 2, username= "Pervaz", password ="password2", saldo=500,d
 users.append(User(id = 3, username= "Espen", password ="69420123", saldo=1000, dato =dt.date(2002, 5, 6)))
 users.append(User(id = 4, username= "Jørgen", password ="password3", saldo=600 , dato =dt.date(2002, 5, 6)))
 
-for user in users:
+'''for brukers in users:
     user.kontoer.append(BankAccount(name = "Brukskonto", kontotype ="bruk", user_id = user.id, saldo = 1300))
     user.kontoer.append(BankAccount(name = "Regninger", kontotype = "bruk", user_id = user.id, saldo = 7200))
     user.kontoer.append(BankAccount(name = "Sparekonto", kontotype = "spar", user_id = user.id, saldo = 4))
@@ -94,9 +95,11 @@ for user in users:
     print(f"{user.kontoer[1].name}: {user.kontoer[1].id}")
     print(f"{user.kontoer[2].name}: {user.kontoer[2].id}")
     print()
+'''
 
-app = Flask(__name__)
-app.secret_key = 'brusjanbank'
+@app.route("/")
+def home():
+    return render_template("index.html")
 
 @app.before_request
 def before_request():
@@ -106,29 +109,50 @@ def before_request():
         user = [x for x in users if x.id == session['user_id']][0]
         g.user = user
         
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST','GET'])
 def login():
     if request.method == 'POST':
-        session.pop('user_id', None)
-        print("riktig")
-        username = request.form['username']
-        password = request.form['password']
+        session.permanent = True
+        user = request.form["username"]
+        session["user"] = user
+        flash("Login Succesful!")
+        return redirect(url_for("user"))
+    else:
+        if "user" in session:
+            flash("Already logged in!")
+            return redirect(url_for("user"))
+        return render_template('login.html')
         
-        user = [x for x in users if x.username == username][0]
-        if user and user.password == password:
-            session['user_id'] = user.id
-            return redirect(url_for('profile'))
+        #user = [x for x in users if x.username == username][0]
+        #if user and user.password == password:
+            #session['user_id'] = user.id
+           # return redirect(url_for('profile'))
 
-        return redirect(url_for('login'))
+       # return redirect(url_for('login'))\
 
-    return render_template('login.html')
+    
 
-@app.route('/profile')
-def profile():
-    if not g.user:
-        return redirect(url_for('login'))
+@app.route('/user', methods=["POST", "GET"])
+def user():
+    if "user" in session:
+        user = session["user"]
+
+        if request.method == "POST":
+            email = request.method["email"]
+            session["email"] = email
+        return render_template("user.html", user = user)
+    else:
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
 
     return render_template('profile.html')
+
+@app.route("/logout")
+def logout():
+    flash("you have been logged out, {user}", "info")
+    session.pop("user", None)
+    return redirect(url_for("login"))
+
 
 @app.route('/transaction', methods=['GET', 'POST'])
 def transaction():
@@ -202,3 +226,7 @@ def account(account_id):
         return render_template('account.html', konto=kontoen)
 
     return redirect(url_for('account'))
+
+if __name__=="__main__":
+    db.create_all()
+    app.run(debug=True)

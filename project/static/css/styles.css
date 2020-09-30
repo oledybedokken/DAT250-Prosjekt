@@ -260,7 +260,7 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
   }
   
   /* Full-width input fields */
- input[type=text], input[type=password], input[type=email]  {
+ input[type=text], input[type=password],input[type=email] {
     padding: 15px 15px;
     margin: 5px 10px 22px 10px;
     display: inline-block;
@@ -269,7 +269,7 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     border-radius: 10px;
   }
   
-  input[type=text]:focus, input[type=password]:focus,input [type=email]:focus {
+  input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
     background-color: #edf2f7;
     outline: none;
   }
@@ -313,7 +313,6 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
  /* PROFIL-SIDEN */
 
  #profil-container{
-    
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -321,14 +320,15 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
 #profil-container h1{
     display: flex;
     flex-direction: row;
+    font-size: 1.4em;
+    color: #324154;
     border-color: white white #324154 white;
     border-style: solid;
-    color: rgb(37, 37, 37);
+    /* color: rgb(37, 37, 37); */
     text-align: center;
     margin-top: 100px;
     height: 50px;
     justify-content: space-between;
-
 }
 .profil-bilde{
     font-size: 2em;
@@ -338,8 +338,6 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     width: 200px;
     border-radius: 200px;
 }
-
-
 
 .profil-venstre{
     margin-top: 8rem;
@@ -351,31 +349,6 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     color: black;
     text-decoration: none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* White registry box */

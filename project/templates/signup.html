@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="title">Sign Up</h3>
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}. Go to <a href="{{ url_for('login') }}">login page</a>.
+            </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="/signup">
+            <div class="info-container">
+                <input type="email" name="email" placeholder="Email" autofocus="">
+            </div>
+            <div class="info-container">
+                <input type="text" name="name" placeholder="Name" autofocus="">
+            </div>
+            <div class="info-container">
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <!-- -->
+            <div class="button-container">
+                <button>Sign Up</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
