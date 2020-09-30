@@ -50,7 +50,7 @@ def index():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', name=current_user.name)
+    return render_template('profile.html', name=current_user.name, email =current_user.email)
 
 @app.route('/login')
 def login():
@@ -77,6 +77,10 @@ def login_post():
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
+
+@app.route('/brukere')
+def brukere():
+    return render_template('brukere.html', values=User.query.all())
 
 @app.route('/signup', methods=['POST'])
 def signup_post():
