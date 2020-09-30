@@ -22,6 +22,7 @@ Dra over til adressen nederst
 ```
 
 ### To do:
+### Legg til ting du holder på med
   * Ole:
     1. 
   * Jørgen:
