@@ -1,36 +1,38 @@
+{% extends "layout.html" %}
+
 {% block title %}Rediger kunde{% endblock %}
 
 {% block content %}
 <div class = "row col-md-8 my-5">
     <div class="card col-md-8 mx-auto px-0">
         <div class="card-header">
-            Rediger kundedetaljer
+            Rediger kunde-ID
         </div>
         <div class="card-body">
-            <form action="{{ url_for('redigerkunde',cust_id=data.cust_id) }}" method="POST">
+            <form action="{{ url_for('redigkunde',kunde_id=data.kunde_id) }}" method="POST">
                 <table class="col-md-12">
                     <tbody>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Kunde SSN ID</label>
+                                    <label class="pl-3">Kunde SSN-ID</label>
                                 </div>
                             </th>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-5">{{ data.cust_ssn_id }}</label>
+                                    <label class="pl-5">{{ data.ssn_kunde_id }}</label>
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Kunde ID</label>
+                                    <label class="pl-3">Kunde-ID</label>
                                 </div>
                             </th>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-5">{{ data.cust_id }}</label>
+                                    <label class="pl-5">{{ data.kunde_id }}</label>
                                 </div>
                             </th>
                         </tr>
@@ -42,26 +44,26 @@
                             </th>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-5">{{ data.navn }}</label>
+                                    <label class="pl-5">{{ data.name }}</label>
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3" for="navn">Nytt navn</label>
+                                    <label class="pl-3" for="name">Nytt navn</label>
                                 </div>
                             </th>
                             <th>
                                 <div class="form-group input-group pl-3">
-                                   <input class="form-control" name="navn" id="navn" type="textfield" placeholder="Nytt navn" required maxlength="50">
+                                   <input class="form-control" name="name" id="name" type="textfield" placeholder="Nytt navn" required maxlength="50">
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Forrige Adresse</label>
+                                    <label class="pl-3">Forrige adresse</label>
                                 </div>
                             </th>
                             <th>
@@ -78,14 +80,38 @@
                             </th>
                             <th>
                                 <div class="form-group input-group pl-3">
-                                   <input class="form-control" name="adresse" id="adresse" type="textfield" placeholder="New adresse" maxlength="100">
+                                   <input class="form-control" name="adresse" id="adresse" type="textfield" placeholder="Nytt adresse" maxlength="100">
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="form-group input-group">
+                                    <label class="pl-3">Forrige Alder</label>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group input-group">
+                                    <label class="pl-5">{{ data.age }}</label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="form-group input-group">
+                                    <label class="pl-3" for="age">Forrige Alder</label>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="form-group input-group pl-3">
+                                   <input class="form-control" name="age" id="age" type="textfield" placeholder="Nytt alder" maxlength="3">
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th colspan="2">
                                 <div class="form-group input-group mt-3">
-                                    <input type="submit" value="Rediger" onclick="alert('Er du sikker på at du vil redigere kundeinformasjonen?')" class="btn mx-auto">
+                                    <input type="submit" value="Bekreft" onclick="alert('Er du sikker du vil redigere denne kunden?')" class="btn mx-auto">
                                 </div>
                             </th>
                         </tr>

@@ -1,20 +1,22 @@
-{% block title %}Add Customer{% endblock %}
+{% extends "layout.html" %}
+
+{% block title %}Lag kunde{% endblock %}
 
 {% block content %}
 <div class = "row col-md-8 my-5">
     <div class="card col-md-8 mx-auto px-0">
         <div class="card-header">
-            Innskudsbeløp
+            Inskudsbeløp
         </div>
         <div class="card-body">
             {% if data.status == 'active' %}
-            <form action="{{ url_for('innskudd', bruker_id=data.bruker_id) }}" method="POST">
+            <form action="{{ url_for('inskudd',konto_id=data.konto_id) }}" method="POST">
                 <table class="col-md-12">
                     <tbody>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Kunde-ID</label>
+                                    <label class="pl-3">Kunde ID</label>
                                 </div>
                             </th>
                             <th>
@@ -27,26 +29,26 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Bruker-ID</label>
+                                    <label class="pl-3">Konto ID</label>
                                 </div>
                                 
                             </th>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">{{ data.bruker_id }}</label>
+                                    <label class="pl-3">{{ data.konto_id }}</label>
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Bruker type</label>
+                                    <label class="pl-3">Konto type</label>
                                 </div>
                                 
                             </th>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">{{ data.acc_type }}</label>
+                                    <label class="pl-3">{{ data.konto_type }}</label>
                                 </div>
                                 
                             </th>
@@ -68,21 +70,21 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Innskuddsbeløp</label>
+                                    <label class="pl-3">Inskudsbeløp</label>
                                 </div>
                                 
                             </th>
                             <th>
                                 <div class="form-group input-group pl-3">
-                                    <input type="hidden" name="bruker_id" id="bruker_id" value="{{ data.bruker_id }}" disabled>
-                                    <input class="form-control" name="belop" id="belop" type="textfield" placeholder="Innskudd beløp">
+                                    <input type="hidden" name="konto_id" id="konto_id" value="{{ data.konto_id }}" disabled>
+                                    <input class="form-control" name="belop" id="belop" type="textfield" placeholder="inskudsbeløp">
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th colspan="2">
                                 <div class="form-group input-group mt-3">
-                                    <input type="submit" value="submit" onclick="alert('Er du sikker på at du vil sette inn?')" class="btn mx-auto">
+                                    <input type="submit" value="submit" onclick="alert('Er du sikker på at du vil sette inn penger?')" class="btn mx-auto">
                                 </div>
                             </th>
                         </tr>

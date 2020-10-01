@@ -1,0 +1,40 @@
+@media (max-width:364px){
+    
+
+    .navbarlogo .brand .logoisme {
+        width:60px;
+        height:60px;
+        float: left;
+    }
+    .navbarlogo .brand .logonitj {
+        width:60px;
+        height:60px;
+        float: right;
+        margin-right: 0px;
+    }
+    .navbarlogo .brand p  {
+        text-align: center;
+        width: 100%;
+        margin-top: 10px;
+        margin-right: 0px;
+        font-size: 16px;
+        line-height: 15px;
+    }
+    .resp_isme_title{
+        border: 1px solid red;
+    }
+    .headerContent{
+        font-size: 13px;
+    }
+}
+
+.resp_isme_title{
+    border: none;
+}
+.headerContent{
+    display:block;
+    font-size: 20px;
+}
+.resp_header_content{
+
+}

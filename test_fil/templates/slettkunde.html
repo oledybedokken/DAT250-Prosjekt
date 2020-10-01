@@ -1,4 +1,6 @@
-{% block title %}Skap Konto{% endblock %}
+{% extends "layout.html" %}
+
+{% block title %}Legg til Konto{% endblock %}
 
 {% block content %}
 <div class = "row mb-3">
@@ -7,15 +9,15 @@
             Slett Konto
         </div>
         <div class="card-body">
-            <form action="slettkonto" method="POST">
+            <form action="slettkunde" method="POST">
             
                 <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="cust_id">Konto ID</label>
-                   <input class="form-control" name="acc_id" id="acc_id" type="textfield" placeholder="Konto ID" required maxlength="9">
-                </div>       
+                    <label class="m-auto pr-3" for="kunde_id">Konto ID</label>
+                   <input class="form-control" name="konto_id" id="konto_id" type="textfield" placeholder="Konto ID" required maxlength="9">
+                </div>
                 <div class="form-group">
                     <input type="submit" value="Submit" class="btn float-left login_btn">
-                    <button class="reset_btn btn float-right">Reset</button>
+                    <button class="reset_btn btn float-right">Gjennopprett</button>
                 </div>
             </form>
         </div>

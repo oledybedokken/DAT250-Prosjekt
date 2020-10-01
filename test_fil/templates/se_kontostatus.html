@@ -1,35 +1,37 @@
-{% block title %}Add Customer{% endblock %}
+{% extends "layout.html" %}
+
+{% block title %}Lag Kunde{% endblock %}
 
 {% block content %}
 <div class = "row mb-3">
     <div class="card">
         <div class="card-header text-center">
-            <h4>Account Status</h4>
+            <h4>Konto Status</h4>
         </div>
         <div class="card-body">
             {% if data %}
             <table class="table">
                 <thead>
                   <tr>
-                    <th> Kunde-ID</th>
-                    <th> Konto-ID</th>
-                    <th> Konto type</th>
-                    <th> Konto status</th>
+                    <th> Kunde ID</th>
+                    <th> Konto ID</th>
+                    <th> Konto Type</th>
+                    <th> Konto Status</th>
                     <th> Melding</th>
-                    <th> Sist oppdatert</th>
-                    <th> Operations</th>
+                    <th> Sist Oppdatert</th>
+                    <th> Operasjoner</th>
                   </tr>
                 </thead>
                 <tbody>
                     {% for i in data %}
                   <tr>
                     <td> {{ i.kunde_id }}</td>
-                    <td>  {{ i.bruker_id }}</td>
-                    <td> {{ i.bruker_type }}</td>
+                    <td>  {{ i.konto_id }}</td>
+                    <td> {{ i.konto_type }}</td>
                     <td>   {{ i.status }}</td>
-                    <td>   {{ i.melding }}</td>
+                    <td>   {{ i.message }}</td>
                     <td>   {{ i.last_update }}</td>
-                    <td><a href="javaScript:void(0)" class="refresh_acc" data-bruker_id={{ i.bruker_id }}>Refresh</a></td>
+                    <td><a href="javaScript:void(0)" class="refresh_acc" data-konto_id={{ i.konto_id }}>Refresh</a></td>
                   </tr>
                 
                     
@@ -42,8 +44,8 @@
             <div class="row">
               <div class="form-group col-md-12 text-center">
                   <div class="float-right">
-                      <a href="{{ url_for('kontostatus') }}">
-                          <button class="btn">Oppdater listen</button>
+                      <a href="{{ url_for('se_kontostatus') }}">
+                          <button class="btn">Refresh listen</button>
                       </a>
                   </div>
               </div>
