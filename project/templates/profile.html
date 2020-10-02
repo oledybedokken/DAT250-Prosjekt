@@ -1,10 +1,32 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-    <p></p>
-<h1 class="title">
+<div id="profil-container">
+    
+    <div class="profil-venstre">
+        <div class="profil-bilde">
+            <img src="/static/images/erna.png">
+            <a href="#"><i class="material-icons settings-icon">add_a_photo</i></a>
+            <p>Hei, {{ name }}!</p>
+        </div>
+        <div class="profil-konto">
+            <h1>Kontoer</h1>
+        </div>
+    </div>
+    <div class="profil-høyre">
+        <div class="profil-informasjon">
+            <h1>Generell informasjon <a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
 
-  Velkommen, {{ name }}, Mailen din er: {{ email }} !
-</h1>
-{% endblock %}
+        </div>
+        <div class="profil-mail">
+            <h1>Email addresse<a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
+        </div>
+        <div class="profil-mobil">
+            <h1>Mobil<a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
+        </div>
+        <div class="profil-sikkerhet">
+            <h1>Sikkerhet<a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
+        </div>
+    </div>
+</div>
+{% endblock content %}
