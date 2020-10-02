@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from datetime import datetime, timedelta
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -11,7 +12,8 @@ def create_app():
 
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
-
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False    
+    app.permanent_session_lifetime = timedelta(days=5)
     db.init_app(app)
 
     login_manager = LoginManager()
