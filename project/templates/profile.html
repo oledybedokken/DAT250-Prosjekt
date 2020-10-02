@@ -2,12 +2,24 @@
 
 {% block content %}
 <div id="profil-container">
+
+    <!--
+        Skal kunne trykke på tannhjulet, 
+        også skal det gå ann å endre verdiene til input-feltene
+
+        Deretter skal det dukke op en lagre-knapp som skal pushe tilbake til appen.
+        Også lagre dataen i databasen. 
+
+    -->
+
+
+
     
     <div class="profil-venstre">
         <div class="profil-bilde">
             <img src="/static/images/erna.png">
             <a href="#"><i class="material-icons settings-icon">add_a_photo</i></a>
-            <p>Hei, {{ name }}!</p>
+            <p>Hei, {{ fornavn }} {{ etternavn }}!</p>
         </div>
         <div class="profil-konto">
             <h1>Kontoer</h1>
@@ -16,17 +28,41 @@
     <div class="profil-høyre">
         <div class="profil-informasjon">
             <h1>Generell informasjon <a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
+            <div>
+                Fornavn: <input type="text" value='{{ fornavn }}' readonly></input><br>
+                Etternavn: <input type="text" value='{{ etternavn }}' readonly></input><br>
+                Kjønn: <input type="text" value='{{ kjonn }}' readonly></input><br>
+                Fødselsdato: <input type="text" value='{{ fodselsdato }}' readonly></input><br>
+                
 
+            </div>
         </div>
         <div class="profil-mail">
             <h1>Email addresse<a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
+            <div>
+                Email: <input type="text" value='{{ email }}' readonly></input><br>
+                Mobilnr: <input type="number" value="12345678" readonly></input>
+            </div>
         </div>
+        <!-- Kan legge til når man får ting å legge her
         <div class="profil-mobil">
             <h1>Mobil<a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
+            <div>
+               
+            </div>
         </div>
+
+        -->
         <div class="profil-sikkerhet">
-            <h1>Sikkerhet<a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
+            <h1>Bosted<a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
+            <div>
+                Addresse: <input type="text" value='{{ addresse }}' readonly></input><br>
+                Post Kode: <input type="text" value='{{ postkode }}' readonly></input><br>
+                Fylke: <input type="text" value='{{ fylke }}' readonly></input><br>
+            </div>
         </div>
+        
+
     </div>
 </div>
 {% endblock content %}
