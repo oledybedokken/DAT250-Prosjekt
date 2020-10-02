@@ -25,11 +25,6 @@
         </table>
         <div class="tabell-scroll">
         <table class="transaksjoner">
-            {% if konto.ingen_transaksjoner() %}
-            <tr>
-                <td>Transaksjonshistorikken er tom</td>
-            </tr>
-            {% endif %}
             {% for transaksjon in transaksjoner %}
             {% if transaksjon.avsender == konto.id %}
             <tr>

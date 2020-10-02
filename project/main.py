@@ -1,8 +1,7 @@
 from flask import Flask,g, redirect, render_template, request,session, url_for, flash, Blueprint
 from flask_login import login_required, current_user
-from .models import User, Transaction, Loan, BankAccount
+from .models import db, User, Transaction, Loan, BankAccount
 import random
-from . import db
 
 main = Blueprint('main', __name__)
 
@@ -26,7 +25,7 @@ def overview():
 def account(account_id):
     kontoen = BankAccount.query.filter_by(id=int(account_id)).first()
     print(f"{kontoen.navn}: {kontoen.id}")
-    transaksjoner = Transaction.query.filter_by(avsender=account_id).all().filter_by(id=c.row.id)
+    transaksjoner = Transaction.query.filter_by(avsender=account_id).all()
 
     return render_template('account.html', konto=kontoen, transaksjoner=transaksjoner)
 
@@ -84,7 +83,7 @@ def transaction_post():
     # Oppdater databsen
     avsender_konto.saldo -= pengesum
     mottaker_konto.saldo += pengesum
-    transaksjon = Transaction(trans_type=trans_type, verdi=pengesum, avsender=avsender_konto, mottaker=mottaker_konto)
+    transaksjon = Transaction(trans_type=trans_type, verdi=pengesum, avsender=avsender_konto_id, mottaker=mottaker_konto_id)
 
     db.session.add(transaksjon)
     db.session.commit()
