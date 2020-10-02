@@ -46,8 +46,8 @@ class Transaksjoner(db.Model):
 
 class Loan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    verdi = db.Column(db.Integer,nullable = False,)
-    rente = verdi = db.Column(db.Integer, nullable = False,)
+    verdi = db.Column(db.Integer,nullable = False)
+    rente = db.Column(db.Integer, nullable = False)
 
 @login_manager.user_loader
 def load_user(user_id):
