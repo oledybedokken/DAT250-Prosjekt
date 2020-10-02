@@ -39,7 +39,7 @@ class Transaksjoner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
     verdi = db.Column(db.Integer)
-    KID = db.Column(db.String(11))#KIDnr skal være 11 lange 
+    KID = db.Column(db.String(15))#KIDnr skal være 15 lange ifølge ole
     konto = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 
