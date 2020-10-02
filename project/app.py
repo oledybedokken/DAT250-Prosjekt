@@ -74,11 +74,21 @@ def profile():
 @app.route('/overview')
 @login_required
 def overview():
-    kontoer = [BankAccount.query.filter_by(user_id=current_user.id).all()]
-    print(current_user.id)
-    print(kontoer)
-    print(kontoer[0][1])
-    return render_template('overview.html', kontoer=kontoer, antall_kontoer = len(kontoer))
+    kontoer=BankAccount.query.all()
+    return render_template('overview.html', kontoer=kontoer)
+
+@app.route('/create_bank_account', methods=['GET', 'POST'])
+@login_required
+def create_bank_account():
+    if request.method == 'POST':
+        kontotype = request.form['kontotype']
+        kontonavn = request.form['kontonavn']
+        new_account = BankAccount(id = int(random.randint(1e15, 1e16)), navn = kontonavn, kontotype = kontotype, saldo=int(0), user_id = current_user.id)
+        db.session.add(new_account)
+        db.session.commit()
+        return redirect(url_for('overview'))
+
+    return render_template('create_bank_account.html')
 
 @app.route('/login')
 def login():
