@@ -16,6 +16,11 @@ class User(UserMixin, db.Model):
     kjonn = db.Column(db.String(50),nullable=False)
     fodselsdato = db.Column(db.String(50),nullable=False)
 
+class Withdraw(db.Model):
+    amount = db.Column(db.Integer(50), nullable = False)
+
+class Deposit(db.Model):
+    amount = db.Column(db.Integer(50), nullable = False)
 
 class Transaksjoner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
