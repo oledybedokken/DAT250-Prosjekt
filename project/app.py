@@ -2,7 +2,7 @@ from flask import Flask,g, redirect, render_template, request,session, url_for, 
 import datetime as dt
 from datetime import datetime, timedelta
 import random
-from models import User, Transaksjoner, Loan, BankAccount
+from models import User, Transaksjoner, Loan, BankAccount, Withdraw, Deposit
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin,current_user, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -120,6 +120,10 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for('login'))
+
+@app.errorhandler(404)
+def ikke_funnet(e):
+    return render_template("404.html")
 
 @app.route('/logout')
 @login_required
