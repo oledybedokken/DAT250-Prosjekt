@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{{article.navn}}
+{% endblock title %}
+
+{% block content %}
+
+<h1>{{article.navn}}</h1>
+<p>{{article.konto}}</p>
+<p>{{article.saldo}}</p>
+{% endblock content %}

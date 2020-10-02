@@ -1,0 +1,40 @@
+{% block title %}Legg til kunde{% endblock %}
+
+{% block content %}
+<div class = "row mb-3">
+    <div class="card">
+        <div class="card-header" style="color:#000;text-align:center; font-weight: bold; font-size:22px ">
+            Legg til kunde
+        </div>
+        <div class="card-body">
+            <form action="lagkunde" method="POST">
+                <div class="form-group input-group mb-3">
+                    <label class="m-auto pr-3" for="ssn_kunde_id" style="color:#000; font-weight: bold; font-size:18px ">Kunde SSN ID<span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" navn="ssn_kunde_id" id="ssn_kunde_id" type="textfield" placeholder="Kunde SSN ID" required minlength="9" maxlength="9">
+                </div>
+                <div class="form-group input-group mb-3">
+                    <label class="m-auto pr-3" for="navn" style="color:#000; font-weight: bold; font-size:18px ">Kundenavn <span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" navn="navn" id="navn" type="textfield" placeholder="Navn" required maxlength="50">
+                </div>
+                <div class="form-group input-group mb-3">
+                    <label class="m-auto pr-3" for="adresse" style="color:#000; font-weight: bold; font-size:18px ">Adresse<span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" navn="adresse" id="adresse" type="textfield" placeholder="Adresse" required maxlength="100">
+                </div>
+                <div class="form-group input-group mb-3">
+                    <label class="m-auto pr-3" for="fylke" style="color:#000; font-weight: bold; font-size:18px ">Fylke<span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" navn="fylke" id="fylke" type="textfield" placeholder="Fylke" required maxlength="20">
+                </div>
+                <div class="form-group input-group mb-3">
+                    <label class="m-auto pr-3" for="by" style="color:#000; font-weight: bold; font-size:18px ">By<span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" navn="by" id="by" type="textfield" placeholder="By" required maxlength="20">
+                </div>
+                <span style="color:#ff0000; font-weight:bold;"><p><b>(<sup> * </sup>) Felter er obligatoriske </b></p></span>
+                <div class="form-group" style="background-color:#ffff66; color:#000; font-weight: bold; font-size:22px ">
+                    <input type="submit" value="Submit" class="btn float-left login_btn" style="font-weight:bold; font-size:18px;">
+                    <button class="reset_btn btn float-right" style="font-weight:bold; font-size:18px;">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

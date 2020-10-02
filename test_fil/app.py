@@ -513,7 +513,26 @@ def login():
                 flash(f"{resultat.name.capitalize()}, du er innlogget!", "vellykket")
                 return redirect(url_for("dashboard"))
         flash("Beklager, email eller passord er feil.", "fare")
+
     return render_template("login.html", login=True)
+
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if 'user' in session:
+        return redirect(url_for("dashboard"))
+    
+    if request.method == "POST":
+        email = request.form.get("email")
+        name = request.form.get("name")
+        passw = request.form.get("password")
+        usert = "teller" # Teller?
+        passord_hash = bcrypt.generate_password_hash(passw).decode("utf-8")
+        db.execute("INSERT INTO bruker (id,name, bruker_type, password) VALUES (:u,:n,:t,:p)", {"u": email,"n":name,"t":usert ,"p": passord_hash})
+        db.commit()
+        print("Konto er skapt ............................................ ")
+        return redirect(url_for("login"))
+        
+    return render_template("signup.html")
 
 @app.route('/api')
 @app.route('/api/v1')
