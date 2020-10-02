@@ -4,15 +4,16 @@
 {% block content %}
 
 <div id="register-container">
-    {% with messages = get_flashed_messages() %}
+
+    <form method="POST" action="/signup">
+        <div style="text-align: center;">
+                {% with messages = get_flashed_messages() %}
     {% if messages %}
         <div class="notification is-danger">
             {{ messages[0] }}. Go to <a href="{{ url_for('login') }}">login page</a>.
         </div>
     {% endif %}
     {% endwith %}
-    <form method="POST" action="/signup">
-        <div style="text-align: center;">
           <h1>Registrer</h1>
           <p>Vennligst fyll inn skjemaet for å lage kontoen.</p>
           <hr>
@@ -31,7 +32,7 @@
             <div class="register-row">
                 <div class="register-input">
                 <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="bob.bobsen@mail.no" name="email" id="email" required>
+                <input type="email" placeholder="bob.bobsen@mail.no" name="email" id="email" required>
                 </div>
                 <div class="register-input">
                 <label for="postAddresse"><b>Post Addresse</b></label>

@@ -12,14 +12,16 @@
             <nav>
                 <div class="nav-wrapper">
                     <div class="left-side">
+                        {% if current_user.is_authenticated %}
                         <div class="nav-link-wrapper">
                             <a href="{{ url_for('index') }}">Home</a>
                         </div>
-                        <div class="nav-link-wrapper">
-                        {% if current_user.is_authenticated %}
-                            <a href="{{ url_for('profile') }}" >Profile</a>
                         {% endif %}
+                        {% if current_user.is_authenticated %}
+                        <div class="nav-link-wrapper">
+                            <a href="{{ url_for('profile') }}" >Profile</a>
                         </div>
+                        {% endif %}
                         {% if not current_user.is_authenticated %}
                         <div class="nav-link-wrapper">   
                             <a href="{{ url_for('login') }}" >Login</a>

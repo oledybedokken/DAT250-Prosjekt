@@ -26,7 +26,14 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(50),nullable=False)
-    name = db.Column(db.String(50),nullable=False)
+    fornavn = db.Column(db.String(50),nullable=False)
+    etternavn = db.Column(db.String(50),nullable=False)
+    postAddresse = db.Column(db.String(50),nullable=False)
+    postKode = db.Column(db.String(50),nullable=False)
+    fylke = db.Column(db.String(50),nullable=False)
+    kjonn = db.Column(db.String(50),nullable=False)
+    fodselsdato = db.Column(db.String(50),nullable=False)
+
 
 class Transaksjoner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -88,10 +95,17 @@ def brukere():
 
 @app.route('/signup', methods=['POST'])
 def signup_post():
-
+    #Henter all informasjonen fra form til variabler
+    fornavn = request.form.get('fornavn')
+    etternavn = request.form.get('etternavn')
     email = request.form.get('email')
-    name = request.form.get('name')
-    password = request.form.get('password')
+    postAddresse = request.form.get('postAddresse')
+    postKode = request.form.get('postKode')
+    fylke = request.form.get('fylke')
+    kjonn = request.form.get('Kjonn')
+    fodselsdato = request.form.get('Fodselsdato')
+    password = request.form.get('psw')
+    repeatPassword = request.form.get('psw-repeat')
 
     user = User.query.filter_by(email=email).first() # Hvis dette retunerer en bruker, da finnes allerede mailen i databasen
 
@@ -99,9 +113,15 @@ def signup_post():
         flash('Email address already exists')
         return redirect(url_for('signup'))
 
+    if password is not repeatPassword:
+        flash('Ditt passord er ikke lik på gjenta passord. Prøv igjen!')
+        return redirect(url_for('signup'))
+
+
     # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
     p_hash = bcrypt.generate_password_hash(password).decode("utf-8")
-    new_user = User(email=email, name=name, password=p_hash)
+
+    new_user = User(email=email, fornavn=fornavn, password=p_hash, etternavn=etternavn, postAddresse = postAddresse, postKode = postKode, fylke = fylke, kjonn = kjonn, fodselsdato = fodselsdato)
 
     # legg til den nye brukeren til databasen
     db.session.add(new_user)
