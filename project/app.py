@@ -69,7 +69,7 @@ def index():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', name=current_user.fornavn, email =current_user.email)
+    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato)
 
 @app.route('/overview')
 @login_required
