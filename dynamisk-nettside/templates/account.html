@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div id="konto-container">
+    <!-- Overskrift -->
+    <div class="konto-overskrift">
+        <div>
+            <h1>Transaksjons Rapport</h1>
+        </div>
+        <div>
+            <h4>Viser transaksjoner for konto: {{ konto.name }}</h4>
+        </div>
+    </div>
+    <!-- Tabell for transaksjonene -->
+    <div class="konto-tabell">
+        <table class="transaksjoner">
+            <!-- Kunne trykke på th og sortere -->
+            <tr>
+                <th><a href="#">Konto </a></th>
+                <th><a href="#">Transaksjons Type</a></th>
+                <th><a href="#">Dato</a></th>
+                <th><a href="#">Mengde</a></th>
+                <th><a href="#">Saldo</a></th>
+            </tr>
+        </table>
+        <div class="tabell-scroll">
+        <table class="transaksjoner">
+            {% if konto.ingen_transaksjoner() %}
+            <tr>
+                <td>Transaksjonshistorikken er tom</td>
+            </tr>
+            {% endif %}
+            {% for transaksjon in konto.transactions %}
+            <tr>
+                <td>{{ transaksjon.konto2 }}</td>
+                <td> {{ transaksjon.transaksjonstype }}</td>
+                <td> {{ transaksjon.dato }}</td>
+                <td> {{ transaksjon.pengesum }} kr</td>
+                <td> {{ transaksjon.ny_saldo }} kr</td>
+            </tr>
+            {% endfor %}
+            <table class="saldo-visning">
+                <tr>
+                    <td colspan="3"></td>
+                    <td>Saldo</td>
+                    <td>{{ konto.saldo }} kr</td>
+                </tr>
+            </table>
+        </table>
+</div>
+{% endblock content %}

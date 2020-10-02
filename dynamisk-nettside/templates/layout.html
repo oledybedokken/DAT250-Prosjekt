@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Nettbank</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="nav-wrapper">
+                    <div class="left-side">
+                        <div class="nav-link-wrapper">
+                            <a href="Registrer.html">Registrer</a>
+                        </div>
+                        <div class="nav-link-wrapper">
+                            <a href="profile">Profil</a>
+                        </div>
+                        <div class="nav-link-wrapper">
+                            <a href="transaction">Betaling</a>
+                        </div>
+                        <div class="nav-link-wrapper">
+                            <a href="overview">Oversikt</a>
+                        </div>
+                    </div>
+                    <div class="mid-side">
+                        <div class="nav-logo-BB">
+                            <a href="#"><img src="/static/images/LOGO-med-skygge-morkere.png"></a>
+                        </div>
+                    </div>
+                    <div class="right-side">
+                        <div class="nav-logo-LoggUt">
+                            <button class="logout-btn">Logg ut</button>    
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            {% block content %}
+
+            {% endblock content %}
+        </main>
+        <footer>
+            <!-- Kontaktinformasjonen til banken -->
+            <p> Kontakt oss: <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">DuErEnKødd@mail.no</a></p>
+            <p> Eller ring oss på tlf: 12345678 </p>
+            <p> For mer hjelp, trykk inn <a href="Support.html">HER</a>.</p>
+        </footer>
+    </body>
+</html>
