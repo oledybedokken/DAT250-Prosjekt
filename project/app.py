@@ -10,12 +10,13 @@ from flask import Flask
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-bcrypt = Bcrypt(app)
+
 app.secret_key = "brusjanbank"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(days=5)
 
+bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()

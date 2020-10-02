@@ -1,8 +1,6 @@
-# models.py
-
 from flask_login import UserMixin
-import datetime as dt
 from datetime import datetime, timedelta
+from . import db
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
