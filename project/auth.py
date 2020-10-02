@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
-from .models import User, Transaksjoner, Loan, BankAccount
+from .models import User, Transaction, Loan, BankAccount
 from . import db
 from flask_bcrypt import Bcrypt
 
@@ -24,7 +24,7 @@ def login_post():
     # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
     if not user or not bcrypt.check_password_hash(user.password, password): 
         flash('Please check your login details and try again.')
-        return redirect(url_for('login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
+        return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
 
     # Hvis det over ikke skjer, logg inn og ta til profile siden
     login_user(user, remember=remember)

@@ -15,16 +15,13 @@ class User(UserMixin, db.Model):
     kjonn = db.Column(db.String(50),nullable=False)
     fodselsdato = db.Column(db.String(50),nullable=False)
 
-class Transaksjoner(db.Model):
-    __tablename__ = 'transaksjoner'
+class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
-    beskrivelse = db.Column(db.Text)
+    trans_type = db.Column(db.String(50), unique=True, nullable=False)
     verdi = db.Column(db.Integer)
-    KID = db.Column(db.String(15))#KIDnr skal være 15 lange ifølge ole
-    konto = db.Column(db.Integer)
-    date = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
-    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    avsender = db.Column(db.Integer, nullable = False)
+    mottaker = db.Column(db.Integer, nullable = False)
+    tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
 
 class Loan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
