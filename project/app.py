@@ -61,7 +61,7 @@ def index():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', name=current_user.name, email =current_user.email)
+    return render_template('profile.html', name=current_user.fornavn, email =current_user.email)
 
 @app.route('/login')
 def login():
