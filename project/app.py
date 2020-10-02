@@ -2,7 +2,7 @@ from flask import Flask,g, redirect, render_template, request,session, url_for, 
 import datetime as dt
 from datetime import datetime, timedelta
 import random
-from models import User, Transaksjoner, Loan, Bankaccount
+from models import User, Transaksjoner, Loan, BankAccount
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin,current_user, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
