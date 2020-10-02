@@ -531,7 +531,7 @@ def signup():
         db.commit()
         print("Konto er skapt ............................................ ")
         return redirect(url_for("login"))
-
+        
     return render_template("signup.html")
 
 @app.route('/api')
