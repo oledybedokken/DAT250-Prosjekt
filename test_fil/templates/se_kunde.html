@@ -87,16 +87,16 @@
                             <button class="btn">Edit</button>
                         </a>
                     </div>
-                    {% if data.status == 'deactivate' %}
+                    {% if data.status == 'ikke aktiv' %}
                     <div class="float-right">
                         <a href="{{ url_for('aktiverkunde',kunde_id=data.kunde_id ) }}">
-                            <button class="btn" onclick="alert('Er du sikker du vil aktivere denne kunden?')">Aktiver</button>
+                            <button class="btn" onclick="alert('Er du sikker du vil starte denne kunden?')">Aktiver</button>
                         </a>
                     </div>
                     {% else %}
                     <div class="float-right">
                         <a href="{{ url_for('slettkunde',kunde_id=data.kunde_id ) }}">
-                            <button class="btn" onclick="alert('Er du sikker du vil aktivere denne kunden?')">Slett</button>
+                            <button class="btn" onclick="alert('Er du sikker du vil slette denne kunden?')">Slett</button>
                         </a>
                     </div>
                     {% endif %}
@@ -121,7 +121,7 @@
                         <tr>
                             <th colspan="2">
                                 <div class="form-group input-group">
-                                    <label class="m-auto">or</label>
+                                    <label class="m-auto"></label>
                                 </div>
                             </th>
                         </tr>
@@ -140,7 +140,7 @@
                         <tr>
                             <th colspan="2">
                                 <div class="form-group input-group">
-                                    <input type="submit" value="View" class="btn mx-auto">
+                                    <input type="submit" value="Bekreft" class="btn mx-auto">
                                 </div>
                             </th>
                         </tr>

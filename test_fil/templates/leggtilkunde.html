@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
 
-{% block title %}Lag kunde{% endblock %}
+{% block title %}Legg til kunde{% endblock %}
 
 {% block content %}
 <div class = "row mb-3">
     <div class="card">
         <div class="card-header" style="color:#000;text-align:center; font-weight: bold; font-size:22px ">
-            Lag kunde
+            Legg til kunde
         </div>
         <div class="card-body">
             <form action="leggtilkunde" method="POST">
                 <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="cust_ssn_id" style="color:#000; font-weight: bold; font-size:18px ">Kunde SSN-ID<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="cust_ssn_id" id="cust_ssn_id" type="textfield" placeholder="Kunde SSN-ID" required minlength="9" maxlength="9">
+                    <label class="m-auto pr-3" for="ssn_kunde_id" style="color:#000; font-weight: bold; font-size:18px ">Kunde SSN-ID<span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" name="ssn_kunde_id" id="ssn_kunde_id" type="textfield" placeholder="Kunde SSN-ID" required minlength="9" maxlength="9">
                 </div>
                 <div class="form-group input-group mb-3">
                     <label class="m-auto pr-3" for="name" style="color:#000; font-weight: bold; font-size:18px ">Kunde Navn <span style="color:#ff0000"><sup>*</sup></span></label>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group input-group mb-3">
                     <label class="m-auto pr-3" for="adresse" style="color:#000; font-weight: bold; font-size:18px ">Adresse<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="adresse" id="adresse" type="textfield" placeholder="Adresse" required maxlength="100">
+                   <input class="form-control" name="adresse" id="adresse" type="textfield" placeholder="Adresse" required maxlength="32">
                 </div>
                 <div class="form-group input-group mb-3">
                     <label class="m-auto pr-3" for="age"style="color:#000; font-weight: bold; font-size:18px ">Alder<span style="color:#ff0000"><sup>*</sup></span></label>

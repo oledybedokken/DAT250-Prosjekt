@@ -18,7 +18,7 @@
       <div class="subnav">
         <button class="subnavbtn">Kundebehandling <i class="fa fa-caret-down"></i></button>
         <div class="subnav-content">
-          <a href="{{ url_for('leggtilkunde') }}" class="nav-link {% if addaccount %}active{% endif %}">Legg til konto</a>
+          <a href="{{ url_for('leggtilkunde') }}" class="nav-link {% if leggtilkunde %}active{% endif %}">Legg til konto</a>
           <a href="{{ url_for('se_konto') }}" class="nav-link {% if se_konto %}active{% endif %}">Vis konto</a>
           <a href="{{ url_for('se_kontostatus') }}" class="nav-link {% if se_kontostatus %}active{% endif %}">Konto status</a>
         </div>
