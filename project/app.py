@@ -2,60 +2,26 @@ from flask import Flask,g, redirect, render_template, request,session, url_for, 
 import datetime as dt
 from datetime import datetime, timedelta
 import random
+from models import User, Transaksjoner, Loan, BankAccount, Withdraw, Deposit
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin,current_user, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask
 from flask_bcrypt import Bcrypt
 
-
 app = Flask(__name__)
-bcrypt = Bcrypt(app)
+
 app.secret_key = "brusjanbank"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(days=5)
 
+bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
-
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(50),nullable=False)
-    fornavn = db.Column(db.String(50),nullable=False)
-    etternavn = db.Column(db.String(50),nullable=False)
-    postAddresse = db.Column(db.String(50),nullable=False)
-    postKode = db.Column(db.String(50),nullable=False)
-    fylke = db.Column(db.String(50),nullable=False)
-    kjonn = db.Column(db.String(50),nullable=False)
-    fodselsdato = db.Column(db.String(50),nullable=False)
-
-
-class Transaksjoner(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
-    verdi = db.Column(db.Integer)
-    KID = db.Column(db.String(15))#KIDnr skal være 15 lange ifølge ole
-    konto = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-
-
-class Loan(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    verdi = db.Column(db.Integer,nullable = False)
-    rente = db.Column(db.Integer, nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-
-class BankAccount(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    navn = db.Column(db.String(50),nullable=False)
-    kontotype = db.Column(db.String(50),nullable=False)
-    saldo = db.Column(db.Integer,nullable = False)
-    user_id = db.Column(db.Integer, nullable = False)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -163,6 +129,10 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for('login'))
+
+@app.errorhandler(404)
+def ikke_funnet(e):
+    return render_template("404.html")
 
 @app.route('/logout')
 @login_required

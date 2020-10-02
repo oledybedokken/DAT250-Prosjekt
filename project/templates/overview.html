@@ -9,16 +9,18 @@
         </div>
         <!-- -->
         {% for konto in kontoer %}
+        {% if konto.kontotype == "bruk" %}
                 <div class="info-container">
                     <a href="Konto.html">
                         <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
                         <h3>{{ konto.saldo }}</h3>
                     </a>
                 </div>
+        {% endif %}
         {% endfor %}
         <!-- -->
         <div class="info-container">
-            <a href={{url_for('create_bank_account')}}>
+            <a href="{{url_for('create_bank_account')}}">
                 <h2><i class='fas fa-plus-circle'></i>Opprett konto</h2>
             </a>
         </div>
@@ -29,15 +31,19 @@
             <h1><i class="material-icons">account_balance</i>MIN SPARING</h1>
         </div>
         <!-- -->
-        <div class="info-container">
-            <a href="Konto.html">
-                <h2><i class='fas fa-chevron-right'></i>Kontonavn</h2>
-                <h3>Beløp</h3>
-            </a>
-        </div>
+        {% for konto in kontoer %}
+        {% if konto.kontotype == "spar" %}
+                <div class="info-container">
+                    <a href="Konto.html">
+                        <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
+                        <h3>{{ konto.saldo }}</h3>
+                    </a>
+                </div>
+        {% endif %}
+        {% endfor %}
         <!-- -->
         <div class="info-container">
-            <a href="#">
+            <a href="{{url_for('create_bank_account')}}">
                 <h2><i class='fas fa-plus-circle'></i>Opprett sparekonto</h2>
             </a>
         </div>
