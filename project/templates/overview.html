@@ -8,19 +8,16 @@
             <h1><i class="material-icons">payment</i>DAGLIG BRUK</h1>
         </div>
         <!-- -->
-        <div class="info-container">
-            <a href="Konto.html">
-                <h2><i class='fas fa-chevron-right'></i>Kontonavn</h2>
-                <h3>Beløp</h3>
-            </a>
-        </div>
-        <!-- -->
-        <div class="info-container">
-            <a href="Konto.html">
-                <h2><i class='fas fa-chevron-right'></i>Kontonavn</h2>
-                <h3>Beløp</h3>
-            </a>
-        </div>
+        {% if antall_kontoer >= 1 %}
+            {% for konto in kontoer %}
+                    <div class="info-container">
+                        <a href="Konto.html">
+                            <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
+                            <h3>{{ konto.saldo }}</h3>
+                        </a>
+                    </div>
+            {% endfor %}
+        {% endif %}
         <!-- -->
         <div class="info-container">
             <a href="Opprett_Konto.html">

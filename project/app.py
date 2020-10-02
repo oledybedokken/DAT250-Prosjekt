@@ -48,14 +48,14 @@ class Loan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     verdi = db.Column(db.Integer,nullable = False)
     rente = db.Column(db.Integer, nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('luser.id'), nullable = False)
 
 class BankAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     navn = db.Column(db.String(50),nullable=False)
     kontotype = db.Column(db.String(50),nullable=False)
     saldo = db.Column(db.Integer,nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    user_id = db.Column(db.Integer, nullable = False)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -74,7 +74,11 @@ def profile():
 @app.route('/overview')
 @login_required
 def overview():
-    return render_template('overview.html')
+    kontoer = [BankAccount.query.filter_by(user_id=current_user.id).all()]
+    print(current_user.id)
+    print(kontoer)
+    print(kontoer[0][1])
+    return render_template('overview.html', kontoer=kontoer, antall_kontoer = len(kontoer))
 
 @app.route('/login')
 def login():
