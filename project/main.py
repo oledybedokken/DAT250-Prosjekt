@@ -2,6 +2,7 @@ from flask import Flask,g, redirect, render_template, request,session, url_for, 
 from flask_login import login_required, current_user
 from .models import User, Transaksjoner, Loan, BankAccount
 import random
+from . import db
 
 main = Blueprint('main', __name__)
 
@@ -29,6 +30,6 @@ def create_bank_account():
         new_account = BankAccount(id = int(random.randint(1e15, 1e16)), navn = kontonavn, kontotype = kontotype, saldo=int(0), user_id = current_user.id)
         db.session.add(new_account)
         db.session.commit()
-        return redirect(url_for('overview'))
+        return redirect(url_for('main.overview'))
 
     return render_template('create_bank_account.html')
