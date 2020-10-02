@@ -113,7 +113,7 @@ def signup_post():
         flash('Email address already exists')
         return redirect(url_for('signup'))
 
-    if password is not repeatPassword:
+    if str(password) != str(repeatPassword):
         flash('Ditt passord er ikke lik på gjenta passord. Prøv igjen!')
         return redirect(url_for('signup'))
 
