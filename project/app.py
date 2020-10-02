@@ -61,7 +61,7 @@ def index():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', name=current_user.name, email =current_user.email)
+    return render_template('profile.html', name=current_user.fornavn, email =current_user.email)
 
 @app.route('/login')
 def login():
@@ -113,7 +113,7 @@ def signup_post():
         flash('Email address already exists')
         return redirect(url_for('signup'))
 
-    if password is not repeatPassword:
+    if str(password) != str(repeatPassword):
         flash('Ditt passord er ikke lik på gjenta passord. Prøv igjen!')
         return redirect(url_for('signup'))
 
