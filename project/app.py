@@ -48,7 +48,7 @@ class Loan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     verdi = db.Column(db.Integer,nullable = False)
     rente = db.Column(db.Integer, nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('luser.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 
 class BankAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -74,7 +74,7 @@ def profile():
 @app.route('/overview')
 @login_required
 def overview():
-    kontoer=BankAccount.query.all()
+    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
     return render_template('overview.html', kontoer=kontoer)
 
 @app.route('/create_bank_account', methods=['GET', 'POST'])
