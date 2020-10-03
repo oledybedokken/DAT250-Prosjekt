@@ -39,7 +39,7 @@ def create_bank_account():
 def create_bank_account_post():
     kontotype = request.form['kontotype']
     kontonavn = request.form['kontonavn']
-    new_account = BankAccount(id = int(random.randint(1e15, 1e16)), navn = kontonavn, kontotype = kontotype, saldo=int(0), user_id = current_user.id)
+    new_account = BankAccount(id = int(random.randint(1e15, 1e16)), navn = kontonavn, kontotype = kontotype, saldo=int(10000), user_id = current_user.id)
     db.session.add(new_account)
     db.session.commit()
     return redirect(url_for('main.overview'))
