@@ -22,7 +22,7 @@ class Transaction(db.Model):
     verdi = db.Column(db.Integer)
     avsender = db.Column(db.Integer, nullable = False)
     mottaker = db.Column(db.Integer, nullable = False)
-    tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.utcnow)
+    tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
 class Loan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
