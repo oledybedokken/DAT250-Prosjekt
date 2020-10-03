@@ -36,9 +36,6 @@ def create_app():
         app.register_blueprint(main_blueprint)
 
         # Create Database Models
-        print()
-        print("CREATES DATABASE")
-        print()
         db.create_all()
 
         return app

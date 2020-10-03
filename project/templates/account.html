@@ -31,7 +31,7 @@
                 <td>{{ transaksjon.mottaker }}</td>
                 <td> {{ transaksjon.trans_type }}</td>
                 <td> {{ transaksjon.tidspunkt }}</td>
-                <td> {{ transaksjon.verdi }} kr</td>
+                <td> -{{ transaksjon.verdi }} kr</td>
                 <td> {{ konto.saldo }} kr</td>
             </tr>
             {% endif %}
@@ -40,7 +40,7 @@
                 <td>{{ transaksjon.avsender }}</td>
                 <td> {{ transaksjon.trans_type }}</td>
                 <td> {{ transaksjon.tidspunkt }}</td>
-                <td> {{ -transaksjon.verdi }} kr</td>
+                <td> +{{ transaksjon.verdi }} kr</td>
                 <td> {{ konto.saldo }} kr</td>
             </tr>
             {% endif %}
