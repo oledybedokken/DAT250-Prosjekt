@@ -2,6 +2,7 @@ from flask import Flask,g, redirect, render_template, request,session, url_for, 
 from flask_login import login_required, current_user
 from .models import db, User, Transaction, Loan, BankAccount
 import random
+from sqlalchemy import desc, or_
 
 main = Blueprint('main', __name__)
 
@@ -24,9 +25,7 @@ def overview():
 @login_required
 def account(account_id):
     kontoen = BankAccount.query.filter_by(id=int(account_id)).first()
-    sendt = Transaction.query.filter_by(avsender=account_id).all()
-    mottatt = Transaction.query.filter_by(mottaker=account_id).all()
-    transaksjoner = sendt + mottatt
+    transaksjoner = Transaction.query.filter(or_(Transaction.avsender==account_id, Transaction.mottaker==account_id)).all()
 
     return render_template('account.html', konto=kontoen, transaksjoner=transaksjoner)
 
