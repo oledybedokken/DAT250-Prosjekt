@@ -26,7 +26,7 @@
         <div class="tabell-scroll">
         <table class="transaksjoner">
             {% for transaksjon in transaksjoner %}
-            {% if transaksjon.avsender == konto.id %}
+            {% if transaksjon.avsender == konto.kontonr %}
             <tr>
                 <td>{{ transaksjon.mottaker }}</td>
                 <td> {{ transaksjon.trans_type }}</td>
@@ -35,7 +35,7 @@
                 <td> {{ konto.saldo }} kr</td>
             </tr>
             {% endif %}
-            {% if transaksjon.mottaker == konto.id %}
+            {% if transaksjon.mottaker == konto.kontonr %}
             <tr>
                 <td>{{ transaksjon.avsender }}</td>
                 <td> {{ transaksjon.trans_type }}</td>

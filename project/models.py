@@ -26,12 +26,13 @@ class Transaction(db.Model):
 
 class Loan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    laan_type = db.Column(db.String(50), nullable=False)
     verdi = db.Column(db.Integer,nullable = False)
-    rente = db.Column(db.Integer, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 
 class BankAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    kontonr = db.Column(db.Integer)
     navn = db.Column(db.String(50),nullable=False)
     kontotype = db.Column(db.String(50),nullable=False)
     saldo = db.Column(db.Integer,nullable = False)
