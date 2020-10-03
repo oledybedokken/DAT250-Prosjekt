@@ -3,8 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from datetime import datetime, timedelta
+from .models import db
 
-db = SQLAlchemy()
 bcrypt = Bcrypt()
 
 def create_app():
@@ -20,7 +20,7 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
-    from .models import User
+    from .models import User, Transaction, BankAccount, Loan
 
     @login_manager.user_loader
     def load_user(user_id):
@@ -36,6 +36,9 @@ def create_app():
         app.register_blueprint(main_blueprint)
 
         # Create Database Models
+        print()
+        print("CREATES DATABASE")
+        print()
         db.create_all()
 
         return app

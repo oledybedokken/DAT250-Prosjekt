@@ -24,8 +24,9 @@ def overview():
 @login_required
 def account(account_id):
     kontoen = BankAccount.query.filter_by(id=int(account_id)).first()
-    print(f"{kontoen.navn}: {kontoen.id}")
-    transaksjoner = Transaction.query.filter_by(avsender=account_id).all()
+    sendt = Transaction.query.filter_by(avsender=account_id).all()
+    mottatt = Transaction.query.filter_by(mottaker=account_id).all()
+    transaksjoner = sendt + mottatt
 
     return render_template('account.html', konto=kontoen, transaksjoner=transaksjoner)
 
