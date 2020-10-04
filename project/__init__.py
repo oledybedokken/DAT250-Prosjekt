@@ -5,7 +5,6 @@ from flask_bcrypt import Bcrypt
 from datetime import datetime, timedelta
 from .models import db
 
-bcrypt = Bcrypt()
 
 def create_app():
     app = Flask(__name__)

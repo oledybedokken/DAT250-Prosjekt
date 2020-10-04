@@ -25,7 +25,7 @@ def login_post():
 
     # Sjekk om bruker faktisk eksiterer
     # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
-    if not user or not check_password_hash('password', p_hash, salt): 
+    if not user or not check_password_hash(password, user.password, salt): 
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
 
@@ -64,7 +64,7 @@ def signup_post():
 
 
     # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
-    p_hash = generate_password_hash('password', salt)
+    p_hash = generate_password_hash(password, salt)
 
     new_user = User(email=email, fornavn=fornavn, password=p_hash, etternavn=etternavn, postAddresse = postAddresse, postKode = postKode, fylke = fylke, kjonn = kjonn, fodselsdato = fodselsdato)
 
