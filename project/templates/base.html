@@ -14,17 +14,22 @@
                     <div class="left-side">
                         {% if current_user.is_authenticated %}
                         <div class="nav-link-wrapper">
-                            <a href="{{ url_for('index') }}">Home</a>
+                            <a href="{{ url_for('main.index') }}">Hjem</a>
                         </div>
                         {% endif %}
                         {% if current_user.is_authenticated %}
                         <div class="nav-link-wrapper">
-                            <a href="{{ url_for('main.profile') }}" >Profile</a>
+                            <a href="{{ url_for('main.profile') }}" >Profil</a>
                         </div>
                         {% endif %}
                         {% if current_user.is_authenticated %}
                         <div class="nav-link-wrapper">
-                            <a href="{{ url_for('overview') }}" >Oversikt</a>
+                            <a href="{{ url_for('main.overview') }}" >Oversikt</a>
+                        </div>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                        <div class="nav-link-wrapper">
+                            <a href="{{ url_for('main.transaction') }}" >Betaling</a>
                         </div>
                         {% endif %}
                         {% if not current_user.is_authenticated %}
@@ -47,7 +52,7 @@
                 <div class="right-side">
                     <div class="nav-logo-LoggUt">
                         {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('logout') }}"><button class="logout-btn">Logg ut</button></a>
+                        <a href="{{ url_for('auth.logout') }}"><button class="logout-btn">Logg ut</button></a>
                         {% endif %}    
                     </div>
                 </div>

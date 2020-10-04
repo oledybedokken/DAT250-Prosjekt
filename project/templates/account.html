@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="konto-container">
+    <!-- Overskrift -->
+    <div class="konto-overskrift">
+        <div>
+            <h1>Transaksjons Rapport</h1>
+        </div>
+        <div>
+            <h4>Viser transaksjoner for konto: {{ konto.navn }}</h4>
+        </div>
+    </div>
+    <!-- Tabell for transaksjonene -->
+    <div class="konto-tabell">
+        <table class="transaksjoner">
+            <!-- Kunne trykke på th og sortere -->
+            <tr>
+                <th><a href="#">Konto </a></th>
+                <th><a href="#">Transaksjons Type</a></th>
+                <th><a href="#">Dato</a></th>
+                <th><a href="#">Mengde</a></th>
+                <th><a href="#">Saldo</a></th>
+            </tr>
+        </table>
+        <div class="tabell-scroll">
+        <table class="transaksjoner">
+            {% for transaksjon in transaksjoner %}
+            {% if transaksjon.avsender == konto.kontonr %}
+            <tr>
+                <td>{{ transaksjon.mottaker }}</td>
+                <td> {{ transaksjon.trans_type }}</td>
+                <td> {{ transaksjon.tidspunkt }}</td>
+                <td> -{{ transaksjon.verdi }} kr</td>
+                <td> {{ konto.saldo }} kr</td>
+            </tr>
+            {% endif %}
+            {% if transaksjon.mottaker == konto.kontonr %}
+            <tr>
+                <td>{{ transaksjon.avsender }}</td>
+                <td> {{ transaksjon.trans_type }}</td>
+                <td> {{ transaksjon.tidspunkt }}</td>
+                <td> +{{ transaksjon.verdi }} kr</td>
+                <td> {{ konto.saldo }} kr</td>
+            </tr>
+            {% endif %}
+            {% endfor %} 
+            <table class="saldo-visning">
+                <tr>
+                    <td colspan="3"></td>
+                    <td>Saldo</td>
+                    <td>{{ konto.saldo }} kr</td>
+                </tr>
+            
+            </table>
+        </table>
+</div>
+{% endblock content %}

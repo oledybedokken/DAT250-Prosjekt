@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
-from .models import User
+from .models import User, Transaction, Loan, BankAccount
 from . import db
 from flask_bcrypt import Bcrypt
 
@@ -20,12 +20,13 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
 
-
-    if not user or not check_password_hash(user.password, password): 
+    # Sjekk om bruker faktisk eksiterer
+    # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
+    if not user or not bcrypt.check_password_hash(user.password, password): 
         flash('Please check your login details and try again.')
-        return redirect(url_for('auth.login')) # if user doesn't exist or password is wrong, reload the page
+        return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
 
-    # if the above check passes, then we know the user has the right credentials
+    # Hvis det over ikke skjer, logg inn og ta til profile siden
     login_user(user, remember=remember)
     return redirect(url_for('main.profile'))
 
@@ -68,7 +69,7 @@ def signup_post():
     db.session.add(new_user)
     db.session.commit()
 
-    return redirect(url_for('login'))
+    return redirect(url_for('auth.login'))
 
 @auth.route('/logout')
 @login_required
