@@ -1,10 +1,9 @@
-# auth.py
-
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, logout_user, login_required
-from .models import User
+from flask_login import login_user, logout_user, login_required, current_user
+from .models import User, Transaction, Loan, BankAccount
 from . import db
+from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
 
 auth = Blueprint('auth', __name__)
 
@@ -20,13 +19,17 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
 
-    # check if user actually exists
-    # take the user supplied password, hash it, and compare it to the hashed password in database
-    if not user or not check_password_hash(user.password, password): 
-        flash('Please check your login details and try again.')
-        return redirect(url_for('auth.login')) # if user doesn't exist or password is wrong, reload the page
+    # Sjekk om bruker faktisk eksiterer
+    # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
+    if not check_password_hash(password, user.password, user.salt): 
+        flash('Passordet er feil')
+        return redirect(url_for('auth.login'))
 
-    # if the above check passes, then we know the user has the right credentials
+    if not user: 
+        flash('Brukeren finnes ikke, trykk på signup for å registrere')
+        return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
+
+    # Hvis det over ikke skjer, logg inn og ta til profile siden
     login_user(user, remember=remember)
     return redirect(url_for('main.profile'))
 
@@ -37,20 +40,48 @@ def signup():
 @auth.route('/signup', methods=['POST'])
 def signup_post():
 
+    #Henter all informasjonen fra form til variabler
+    fornavn = request.form.get('fornavn')
+    etternavn = request.form.get('etternavn')
     email = request.form.get('email')
-    name = request.form.get('name')
-    password = request.form.get('password')
+    postAddresse = request.form.get('postAddresse')
+    postKode = request.form.get('postKode')
+    fylke = request.form.get('fylke')
+    kjonn = request.form.get('Kjonn')
+    fodselsdato = request.form.get('Fodselsdato')
+    password = request.form.get('psw')
+    repeatPassword = request.form.get('psw-repeat')
+    salt = generate_random_salt()
 
-    user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
+    #if database not exist, create database
+    
+    user = User.query.filter_by(email=email).first() # Hvis dette retunerer en bruker, da finnes allerede mailen i databasen
 
-    if user: # if a user is found, we want to redirect back to signup page so user can try again  
+    if user: # Hvis brukeren allerede finnes, sendes den tilbake til signup page med flash message. 
         flash('Email address already exists')
         return redirect(url_for('auth.signup'))
 
-    # create new user with the form data. Hash the password so plaintext version isn't saved.
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+    if str(password) != str(repeatPassword):
+        flash('Ditt passord er ikke lik. Prøv igjen!')
+        return redirect(url_for('auth.signup'))
 
-    # add the new user to the database
+
+    # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
+    p_hash = generate_password_hash(password, salt)
+
+    new_user = User(email=email, 
+                    fornavn=fornavn, 
+                    password=p_hash, 
+                    etternavn=etternavn, 
+                    postAddresse = postAddresse, 
+                    postKode = postKode, 
+                    fylke = fylke, 
+                    kjonn = kjonn, 
+                    fodselsdato = fodselsdato, 
+                    salt = salt
+                    )
+
+    # legg til den nye brukeren til databasen
     db.session.add(new_user)
     db.session.commit()
 

@@ -1,10 +1,125 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-    <p></p>
-<h1 class="title">
+<div id="profil-container">
 
-  Velkommen, {{ name }}, Mailen din er: {{ email }} !
-</h1>
-{% endblock %}
+    <!--
+        Skal kunne trykke på tannhjulet, 
+        også skal det gå ann å endre verdiene til input-feltene
+
+        Deretter skal det dukke op en lagre-knapp som skal pushe tilbake til appen.
+        Også lagre dataen i databasen. 
+
+
+
+return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato)
+
+        @app.route('/profile', methods=['POST'])
+@login_required
+def profile_post():
+    #Oppdatere data inne i profil
+    #skal kunne hente data fra db, og sjekke opp mot data i Profil. 
+    #Om data er annerledes, oppdater data
+    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato)
+    -->
+
+
+
+    
+    <div class="profil-venstre">
+        <div class="profil-bilde">
+        
+            <img src="/static/images/erna.png">
+            <a href="#"><i class="material-icons settings-icon">add_a_photo</i></a>
+            
+            <p>Hei, {{ fornavn }} {{ etternavn }}!</p>  
+                    
+        
+
+        </div>
+        <div class="profil-konto">
+            <h1>Kontoer</h1>
+            {% for konto in kontoer %}
+            {% if konto.kontotype == "bruk" %}
+                    <div class="info-container">
+                        <a href="{{url_for('main.account', kontonr=konto.kontonr)}}">
+                            <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
+                            <h3>{{ konto.saldo }} kr</h3>
+                        </a>
+                    </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="profil-høyre">
+        <div class="profil-informasjon">
+            <form method="POST" action="/profile">
+            <h1>Generell informasjon <a href="#profil-informasjon" onclick="generellEdit()"><i class="material-icons settings-icon" >settings</i></a></h1>
+            <div>
+                
+                Fornavn: <input class="generellInput" type="text" name="fornavn"value='{{ fornavn }}' readonly></input><br>
+                Etternavn: <input class="generellInput" type="text" name="etternavn" value='{{ etternavn }}' readonly></input><br>
+                Kjønn: <input class="generellInput" type="text" name="kjonn" value='{{ kjonn }}' readonly></input><br>
+                Fødselsdato: <input class="generellInput" type="text" name="fodselsdato" value='{{ fodselsdato }}' readonly></input><br>
+
+                <button type="submit" class="registerbtn" id="profilKnapp" style="display: none;">Lagre informasjon</button>
+
+            </div>
+        </div>
+        <div class="profil-mail">
+            <h1>Email addresse<a href="#profil-mail" onclick="emailEdit()"><i class="material-icons settings-icon" >settings</i></a></h1>
+            <div>
+                Email: <input type="text" class="emailInput" name="email" value='{{ email }}' readonly></input><br>
+                <button type="submit" class="registerbtn" id="emailKnapp" style="display: none;">Lagre informasjon</button>
+                <!--Mobilnr: <input type="number" value="12345678" readonly></input>-->
+            </div>
+        </div>
+        <!-- Kan legge til når man får ting å legge her
+        <div class="profil-mobil">
+            <h1>Mobil<a href="#"><i class="material-icons settings-icon">settings</i></a></h1>
+            <div>
+               
+            </div>
+        </div>
+
+        -->
+        <div class="profil-sikkerhet">
+            <h1>Bosted<a href="#profil-sikkerhet" onclick="boEdit()"><i class="material-icons settings-icon" >settings</i></a></h1>
+            <div>
+                Addresse: <input class="boInput" name="postAddresse" type="text" value='{{ addresse }}' readonly></input><br>
+                Post Kode: <input class="boInput" name="postKode" type="text" value='{{ postkode }}' readonly></input><br>
+                Fylke: <input class="boInput" name="fylke" type="text" value='{{ fylke }}' readonly></input><br>
+
+                <button type="submit" class="registerbtn" id="boKnapp" style="display: none;">Lagre informasjon</button>
+
+            </div>
+        </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+
+//bytt readonly og legg til submit når settings trykkes
+
+
+function generellEdit(){
+    
+    els = document.getElementsByClassName('generellInput');
+    [].forEach.call(els, function (el) {el.readOnly = false;});
+    document.getElementById('profilKnapp').style.display='block';
+}
+function boEdit(){
+    els = document.getElementsByClassName('boInput');
+    [].forEach.call(els, function (el) {el.readOnly = false;});
+    document.getElementById('boKnapp').style.display='block';
+}
+function emailEdit(){
+    els = document.getElementsByClassName('emailInput');
+    [].forEach.call(els, function (el) {el.readOnly = false;});
+    document.getElementById('emailKnapp').style.display='block';
+}
+
+</script>
+{% endblock content %}

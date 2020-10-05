@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="container">
+    <!-- -->
+    <div class="sub-container">
+        <div class="oversikt-container">
+            <h1><i class="fas fa-exchange-alt"></i>OVERFØRE</h1>
+        </div>
+        <!-- -->
+        <form method="POST">
+            <div class="info-container">
+                <label for="fra_konto"><h2>Fra konto</h2></label>
+                <select name="fra_konto" id="fra_konto">
+                    {% for konto in bruker_kontoer %}
+                    <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.saldo }} kr</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- -->
+            <div class="info-container">
+                <label for="til_konto"><h2>Til konto</h2></label>
+                <select name="til_konto" id="til_konto">
+                    {% for konto in bruker_kontoer %}
+                    <option value="{{ konto.kontonr }}">{{ konto.navn }}: {{ konto.saldo }} kr</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- -->
+            <div class="info-container">
+                <label for="psum"><h2>Sum<input type="psum" id="psum" name="pengesum" placeholder="kr"></h2></label>
+            </div>
+            <!-- -->
+            <div class="button-container">
+                <button type="submit" name="btn" value="overfør">OVERFØR</button>
+            </div>
+        </form>
+    </div>
+    <!-- -->
+    <div class="sub-container">
+        <div class="oversikt-container">
+            <h1><i class="fas fa-money-check"></i>BETALE</h1>
+        </div>
+        <!-- -->
+        <form method="POST">
+            <div class="info-container">
+                <label for="avsender_konto" id ="ddl"><h2>Fra konto</h2></label>
+                <select name="avsender_konto" id="avsender_konto">
+                    {% for konto in bruker_kontoer %}
+                    <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.saldo }} kr</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- -->
+            <div class="info-container">
+                <label for="mottaker_konto"><h2>Til konto</h2></label>
+                <select name="mottaker_konto" id="mottaker_konto">
+                    {% for konto in andre_kontoer.keys() %}
+                    <option value="{{ konto.kontonr }}"> {{ andre_kontoer[konto] }} ({{ konto.kontonr }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- -->
+            <div class="info-container">
+                <label for="psum"><h2>Sum<input type="psum" id="psum" name="pengesum" placeholder="kr"></h2></label>
+            </div>
+            <!-- -->
+            <div class="button-container">
+                <button type="submit" name="btn" value="betal">BETAL</button>
+            </div>
+        </form>
+    </div>
+    <!-- -->
+</div>
+{% endblock content %}

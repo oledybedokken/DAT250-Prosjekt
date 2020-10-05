@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="container">
+    <!-- -->
+    <div class="sub-container">
+        <div class="oversikt-container">
+            <h1><i class='fas fa-plus-circle'></i>Opprett låneavtale</h1>
+        </div>
+        <!-- -->
+        <form method="POST">
+            <div class="info-container">
+                <label for="kontoer"><h2>Lån</h2></label>
+                <select name="kontotype" id="kontotype">
+                    <option value="Forbrukslån">Forbrukslån</option>
+                    <option value="Huslån">Huslån</option>
+                    <option value="Billån">Billån</option>
+                </select>
+            </div>
+            <!-- -->
+            <div class="info-container">
+                <label for="lverdi"><h2>Verdi<input type="lverdi" id="lverdi" name="laan_verdi" placeholder="Skriv inn beløp"></h2></label>
+            </div>
+            <!-- -->
+            <div class="button-container">
+                <button type="submit">OPPRETT</button>
+            </div>
+        </form>
+    </div>
+    <!-- -->
+</div>
+{% endblock content %}
