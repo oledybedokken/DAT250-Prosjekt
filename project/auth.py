@@ -57,6 +57,8 @@ def signup_post():
     repeatPassword = request.form.get('psw-repeat')
 
     #if database not exist, create database
+
+    
     user = User.query.filter_by(email=email).first() # Hvis dette retunerer en bruker, da finnes allerede mailen i databasen
 
     if user: # Hvis brukeren allerede finnes, sendes den tilbake til signup page med flash message. 
