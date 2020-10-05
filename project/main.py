@@ -13,7 +13,7 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato)
+    return render_template('profile.html')
 
 @main.route('/profile', methods=['POST'])
 @login_required
@@ -21,7 +21,7 @@ def profile_post():
     #Oppdatere data inne i profil
     #skal kunne hente data fra db, og sjekke opp mot data i Profil. 
     #Om data er annerledes, oppdater data
-    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato)
+    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato, password = current_user.password)
 
 @main.route('/overview')
 @login_required
