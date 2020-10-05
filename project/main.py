@@ -43,7 +43,6 @@ def profile_post():
     user.kjonn = kjonn
     user.fodselsdato = fodselsdato
 
-
     db.session.commit()
 
 
