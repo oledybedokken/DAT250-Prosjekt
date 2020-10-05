@@ -13,15 +13,41 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html')
+    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
+    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato, password = current_user.password, kontoer=kontoer )
 
 @main.route('/profile', methods=['POST'])
 @login_required
 def profile_post():
+    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
     #Oppdatere data inne i profil
     #skal kunne hente data fra db, og sjekke opp mot data i Profil. 
     #Om data er annerledes, oppdater data
-    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato, password = current_user.password)
+    fornavn = request.form.get('fornavn')
+    etternavn = request.form.get('etternavn')
+    email = request.form.get('email')
+    postAddresse = request.form.get('postAddresse')
+    postKode = request.form.get('postKode')
+    fylke = request.form.get('fylke')
+    kjonn = request.form.get('kjonn')
+    fodselsdato = request.form.get('fodselsdato')
+    
+    user = User.query.filter_by(id=current_user.id).first()
+
+    user.email = email
+    user.fornavn = fornavn
+    user.etternavn = etternavn
+    user.postAddresse = postAddresse
+    user.postKode = postKode
+    user.fylke = fylke
+    user.kjonn = kjonn
+    user.fodselsdato = fodselsdato
+
+
+    db.session.commit()
+
+
+    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato, password = current_user.password, kontoer=kontoer)
 
 @main.route('/overview')
 @login_required
