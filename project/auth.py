@@ -60,7 +60,7 @@ def signup_post():
 
     if str(password) != str(repeatPassword):
         flash('Ditt passord er ikke lik på gjenta passord. Prøv igjen!')
-        return redirect(url_for('signup'))
+        return redirect(url_for('auth.signup'))
 
 
     # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
