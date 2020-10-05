@@ -13,15 +13,40 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html')
+    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
+    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato, password = current_user.password, kontoer=kontoer )
 
 @main.route('/profile', methods=['POST'])
 @login_required
 def profile_post():
+    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
     #Oppdatere data inne i profil
     #skal kunne hente data fra db, og sjekke opp mot data i Profil. 
     #Om data er annerledes, oppdater data
-    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato, password = current_user.password)
+    fornavn = request.form.get('fornavn')
+    etternavn = request.form.get('etternavn')
+    email = request.form.get('email')
+    postAddresse = request.form.get('postAddresse')
+    postKode = request.form.get('postKode')
+    fylke = request.form.get('fylke')
+    kjonn = request.form.get('kjonn')
+    fodselsdato = request.form.get('fodselsdato')
+    
+    user = User.query.filter_by(id=current_user.id).first()
+
+    user.email = email
+    user.fornavn = fornavn
+    user.etternavn = etternavn
+    user.postAddresse = postAddresse
+    user.postKode = postKode
+    user.fylke = fylke
+    user.kjonn = kjonn
+    user.fodselsdato = fodselsdato
+
+    db.session.commit()
+
+
+    return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato, password = current_user.password, kontoer=kontoer)
 
 @main.route('/overview')
 @login_required
@@ -52,6 +77,29 @@ def create_bank_account_post():
     db.session.add(new_account)
     db.session.commit()
     return redirect(url_for('main.overview'))
+
+# Sletting av bank konto, dette er template for viedere development - ikke ferdig
+@main.route('/delete_bank_account')
+@login_required
+def delete_bank_account():
+    return render_template('delete_bank_account.html')
+
+@main.route('/delete_bank_account',  methods=['POST'])
+def delete_bank_account_post():
+    kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
+    if BankAccount is None: # Om bankkonto er tom
+        print('Du har ikke bruker å slette.')
+    if BankAccount is not None: # Om bakkonto ikke er tom
+        if kontoen.saldo == 0: # om saldo er null, den slettes.
+            db.session.delete()
+            print('Konto er slettet.')
+        else:
+            print('Konto må være tom for sletting.') # Om den ikke er tom, feilmelding
+    return redirect(url_for('main.overview'))
+
+# om bruker ikke finnes, gi feilmelding
+# om bruker finnes i database, ikke ha penger
+# om bruker finnes og ikke har penger, slett. 
 
 @main.route('/create_loan')
 @login_required
