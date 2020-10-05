@@ -21,6 +21,8 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
 
+
+
     # Sjekk om bruker faktisk eksiterer
     # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
     if not check_password_hash(password, user.password, salt): 
