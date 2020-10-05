@@ -91,10 +91,20 @@ def create_bank_account_post():
     return redirect(url_for('main.overview'))
 
 # Sletting av bank konto, dette er template for viedere development - ikke ferdig
-@main.route('/delete_bank_account')
+@main.route('/delete_bank_account<int:kontonr>')
 @login_required
-def delete_bank_account():
-    return render_template('delete_bank_account.html')
+def delete_bank_account(kontonr):
+    kontoen = BankAccount.query.filter_by(kontonr=int(kontonr)).first()
+    if BankAccount is None: # Om bankkonto er tom
+        print('Du har ikke bruker å slette.')
+    if BankAccount is not None: # Om bakkonto ikke er tom
+        if kontoen.saldo == 0: # om saldo er null, den slettes.
+            db.session.delete(kontoen)
+            db.session.commit()
+            print('Konto er slettet.')
+        else:
+            print('Konto må være tom for sletting.') # Om den ikke er tom, feilmelding
+    return redirect(url_for('main.overview'))
 
 @main.route('/delete_bank_account',  methods=['POST'])
 def delete_bank_account_post():
@@ -151,10 +161,7 @@ def transaction():
         if konto not in bruker_kontoer:
             bruker = User.query.filter_by(id=konto.user_id).first()
             andre_kontoer[konto] = bruker.fornavn + " " + bruker.etternavn
-            print(andre_kontoer)
 
-    for konto in bruker_kontoer:
-        print(f"{konto.navn}: {konto.kontonr}")
     return render_template('transaction.html', bruker_kontoer=bruker_kontoer, andre_kontoer=andre_kontoer)
 
 @main.route('/transaction', methods=['POST'])

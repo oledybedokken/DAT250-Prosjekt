@@ -8,7 +8,12 @@
             <h1>Transaksjons Rapport</h1>
         </div>
         <div>
-            <h4>Viser transaksjoner for konto: {{ konto.navn }}</h4>
+            <h4>Viser transaksjoner for konto: {{ konto.navn }} <br/> Kontonummer: {{ konto.kontonr }} </h4>
+        </div>
+        <div class="button-container">
+            <a href="{{url_for('main.delete_bank_account', kontonr=konto.kontonr)}}">
+                <button type="submit" name="btn" value="overfør">Slett konto</button>
+            </a>
         </div>
     </div>
     <!-- Tabell for transaksjonene -->
