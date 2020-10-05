@@ -63,7 +63,7 @@ def signup_post():
         return redirect(url_for('auth.signup'))
 
     if str(password) != str(repeatPassword):
-        flash('Ditt passord er ikke lik på gjenta passord. Prøv igjen!')
+        flash('Ditt passord er ikke lik. Prøv igjen!')
         return redirect(url_for('auth.signup'))
 
 
