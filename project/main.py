@@ -92,6 +92,7 @@ def delete_bank_account_post():
     if BankAccount is not None: # Om bakkonto ikke er tom
         if kontoen.saldo == 0: # om saldo er null, den slettes.
             db.session.delete()
+            db.session.commit()
             print('Konto er slettet.')
         else:
             print('Konto må være tom for sletting.') # Om den ikke er tom, feilmelding
