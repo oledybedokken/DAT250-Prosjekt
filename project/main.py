@@ -15,7 +15,7 @@ def index():
 def profile():
     return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato)
 
-@app.route('/profile', methods=['POST'])
+@main.route('/profile', methods=['POST'])
 @login_required
 def profile_post():
     #Oppdatere data inne i profil
