@@ -55,6 +55,13 @@ def overview():
     laan=Loan.query.filter_by(user_id=current_user.id).all()
     return render_template('overview.html', kontoer=kontoer, laan=laan)
 
+@main.route('/overview', methods=['POST'])
+@login_required
+def overview_post():
+    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
+    laan=Loan.query.filter_by(user_id=current_user.id).all()
+    return render_template('overview.html', kontoer=kontoer, laan=laan)
+
 @main.route('/account<int:account_id>')
 @login_required
 def account(account_id):
