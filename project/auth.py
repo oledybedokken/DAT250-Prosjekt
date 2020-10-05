@@ -25,7 +25,11 @@ def login_post():
 
     # Sjekk om bruker faktisk eksiterer
     # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
-    if not user or not check_password_hash(password, user.password, salt): 
+    if not check_password_hash(password, user.password, salt): 
+        flash('Passordet er feil')
+        return redirect(url_for('auth.login'))
+        
+    if not user: 
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
 
@@ -56,7 +60,7 @@ def signup_post():
 
     if user: # Hvis brukeren allerede finnes, sendes den tilbake til signup page med flash message. 
         flash('Email address already exists')
-        return redirect(url_for('signup'))
+        return redirect(url_for('auth.signup'))
 
     if str(password) != str(repeatPassword):
         flash('Ditt passord er ikke lik på gjenta passord. Prøv igjen!')
