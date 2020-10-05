@@ -56,6 +56,8 @@ def signup_post():
     salt = generate_random_salt()
 
     #if database not exist, create database
+
+    
     user = User.query.filter_by(email=email).first() # Hvis dette retunerer en bruker, da finnes allerede mailen i databasen
 
     if user: # Hvis brukeren allerede finnes, sendes den tilbake til signup page med flash message. 
@@ -63,7 +65,7 @@ def signup_post():
         return redirect(url_for('auth.signup'))
 
     if str(password) != str(repeatPassword):
-        flash('Ditt passord er ikke lik på gjenta passord. Prøv igjen!')
+        flash('Ditt passord er ikke lik. Prøv igjen!')
         return redirect(url_for('auth.signup'))
 
 
