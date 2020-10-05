@@ -56,6 +56,12 @@ def create_bank_account_post():
 @main.route('/create_loan')
 @login_required
 def create_loan():
+    kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
+    if not kontoen:
+        print("Finner ikke en gyldig konto")
+        flash('Du må opprette en konto først!') #FÅ DENNE TIL Å VISES
+        return redirect(url_for('main.overview'))
+
     return render_template('create_loan.html')
 
 @main.route('/create_loan', methods=['POST'])
@@ -66,21 +72,29 @@ def create_loan_post():
     db.session.add(new_loan)
 
     kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
-    print(kontoen.navn)
-    print(kontoen.saldo)
     kontoen.saldo += verdi
-    print(kontoen.saldo)
 
+    transaksjon = Transaction(trans_type=laan_type, verdi=verdi, avsender="", mottaker=kontoen.kontonr)
+    db.session.add(transaksjon)
     db.session.commit()
+
     return redirect(url_for('main.overview'))
 
 @main.route('/transaction')
 @login_required
 def transaction():
-    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
-    for konto in kontoer:
+    bruker_kontoer = BankAccount.query.filter_by(user_id=current_user.id).all()
+    alle_kontoer = BankAccount.query.all()
+    andre_kontoer = {}
+    for konto in alle_kontoer:
+        if konto not in bruker_kontoer:
+            bruker = User.query.filter_by(id=konto.user_id).first()
+            andre_kontoer[konto] = bruker.fornavn + " " + bruker.etternavn
+            print(andre_kontoer)
+
+    for konto in bruker_kontoer:
         print(f"{konto.navn}: {konto.kontonr}")
-    return render_template('transaction.html', kontoer=kontoer)
+    return render_template('transaction.html', bruker_kontoer=bruker_kontoer, andre_kontoer=andre_kontoer)
 
 @main.route('/transaction', methods=['POST'])
 def transaction_post():
@@ -115,10 +129,6 @@ def transaction_post():
     avsender_konto.saldo -= pengesum
     mottaker_konto.saldo += pengesum
     transaksjon = Transaction(trans_type=trans_type, verdi=pengesum, avsender=avsender_kontonr, mottaker=mottaker_kontonr)
-    print(transaksjon.trans_type)
-    print(transaksjon.verdi)
-    print(transaksjon.avsender)
-    print(transaksjon.mottaker)
     db.session.add(transaksjon)
     db.session.commit()
     return redirect(url_for('main.overview'))
