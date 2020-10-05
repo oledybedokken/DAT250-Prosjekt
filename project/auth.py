@@ -23,9 +23,11 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
 
+
+
     # Sjekk om bruker faktisk eksiterer
     # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
-    if not user or not check_password_hash('password', p_hash, salt): 
+    if not user or not check_password_hash(password, p_hash, salt): 
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
 
