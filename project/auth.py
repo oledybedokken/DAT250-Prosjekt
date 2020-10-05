@@ -3,9 +3,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
 from .models import User, Transaction, Loan, BankAccount
 from . import db
-from flask_bcrypt import Bcrypt
+from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
 
-bcrypt = Bcrypt()
+salt = generate_random_salt()
+password_hash = generate_password_hash('mypassword', salt)
+
+
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
@@ -22,7 +25,7 @@ def login_post():
 
     # Sjekk om bruker faktisk eksiterer
     # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
-    if not user or not bcrypt.check_password_hash(user.password, password): 
+    if not user or not check_password_hash('password', p_hash, salt): 
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
 
@@ -61,7 +64,7 @@ def signup_post():
 
 
     # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
-    p_hash = bcrypt.generate_password_hash(password).decode("utf-8")
+    p_hash = generate_password_hash('password', salt)
 
     new_user = User(email=email, fornavn=fornavn, password=p_hash, etternavn=etternavn, postAddresse = postAddresse, postKode = postKode, fylke = fylke, kjonn = kjonn, fodselsdato = fodselsdato)
 
