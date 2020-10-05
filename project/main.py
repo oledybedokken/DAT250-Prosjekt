@@ -44,7 +44,6 @@ def profile_post():
     user.kjonn = kjonn
     user.fodselsdato = fodselsdato
 
-
     db.session.commit()
 
 
@@ -80,7 +79,7 @@ def create_bank_account_post():
     db.session.commit()
     return redirect(url_for('main.overview'))
 
-# Sletting av bank konto, dette er template - ikke ferdig
+# Sletting av bank konto, dette er template for viedere development - ikke ferdig
 @main.route('/delete_bank_account')
 @login_required
 def delete_bank_account():
@@ -89,14 +88,15 @@ def delete_bank_account():
 @main.route('/delete_bank_account',  methods=['POST'])
 def delete_bank_account_post():
     kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
-    if BankAccount is None:
+    if BankAccount is None: # Om bankkonto er tom
         print('Du har ikke bruker å slette.')
-    if BankAccount is not None:
-        if kontoen.saldo != 0:
+    if BankAccount is not None: # Om bakkonto ikke er tom
+        if kontoen.saldo == 0: # om saldo er null, den slettes.
             db.session.delete()
+            db.session.commit()
             print('Konto er slettet.')
         else:
-            print('Konto må være tom for sletting.')
+            print('Konto må være tom for sletting.') # Om den ikke er tom, feilmelding
     return redirect(url_for('main.overview'))
 
 # om bruker ikke finnes, gi feilmelding
@@ -106,6 +106,12 @@ def delete_bank_account_post():
 @main.route('/create_loan')
 @login_required
 def create_loan():
+    kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
+    if not kontoen:
+        print("Finner ikke en gyldig konto")
+        flash('Du må opprette en konto først!') #FÅ DENNE TIL Å VISES
+        return redirect(url_for('main.overview'))
+
     return render_template('create_loan.html')
 
 @main.route('/create_loan', methods=['POST'])
@@ -116,21 +122,29 @@ def create_loan_post():
     db.session.add(new_loan)
 
     kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
-    print(kontoen.navn)
-    print(kontoen.saldo)
     kontoen.saldo += verdi
-    print(kontoen.saldo)
 
+    transaksjon = Transaction(trans_type=laan_type, verdi=verdi, avsender="", mottaker=kontoen.kontonr)
+    db.session.add(transaksjon)
     db.session.commit()
+
     return redirect(url_for('main.overview'))
 
 @main.route('/transaction')
 @login_required
 def transaction():
-    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
-    for konto in kontoer:
+    bruker_kontoer = BankAccount.query.filter_by(user_id=current_user.id).all()
+    alle_kontoer = BankAccount.query.all()
+    andre_kontoer = {}
+    for konto in alle_kontoer:
+        if konto not in bruker_kontoer:
+            bruker = User.query.filter_by(id=konto.user_id).first()
+            andre_kontoer[konto] = bruker.fornavn + " " + bruker.etternavn
+            print(andre_kontoer)
+
+    for konto in bruker_kontoer:
         print(f"{konto.navn}: {konto.kontonr}")
-    return render_template('transaction.html', kontoer=kontoer)
+    return render_template('transaction.html', bruker_kontoer=bruker_kontoer, andre_kontoer=andre_kontoer)
 
 @main.route('/transaction', methods=['POST'])
 def transaction_post():
@@ -165,10 +179,6 @@ def transaction_post():
     avsender_konto.saldo -= pengesum
     mottaker_konto.saldo += pengesum
     transaksjon = Transaction(trans_type=trans_type, verdi=pengesum, avsender=avsender_kontonr, mottaker=mottaker_kontonr)
-    print(transaksjon.trans_type)
-    print(transaksjon.verdi)
-    print(transaksjon.avsender)
-    print(transaksjon.mottaker)
     db.session.add(transaksjon)
     db.session.commit()
     return redirect(url_for('main.overview'))

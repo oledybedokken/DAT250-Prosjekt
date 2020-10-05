@@ -15,12 +15,13 @@ class User(UserMixin, db.Model):
     fylke = db.Column(db.String(50),nullable=False)
     kjonn = db.Column(db.String(50),nullable=False)
     fodselsdato = db.Column(db.String(50),nullable=False)
+    salt = db.Column(db.String(50))
 
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     trans_type = db.Column(db.String(50), nullable=False)
     verdi = db.Column(db.Integer)
-    avsender = db.Column(db.Integer, nullable = False)
+    avsender = db.Column(db.Integer)
     mottaker = db.Column(db.Integer, nullable = False)
     tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.now)
 
