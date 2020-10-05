@@ -79,6 +79,29 @@ def create_bank_account_post():
     db.session.commit()
     return redirect(url_for('main.overview'))
 
+# Sletting av bank konto, dette er template - ikke ferdig
+@main.route('/delete_bank_account')
+@login_required
+def delete_bank_account():
+    return render_template('delete_bank_account.html')
+
+@main.route('/delete_bank_account',  methods=['POST'])
+def delete_bank_account_post():
+    kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
+    if BankAccount is None:
+        print('Du har ikke bruker å slette.')
+    if BankAccount is not None:
+        if kontoen.saldo != 0:
+            db.session.delete()
+            print('Konto er slettet.')
+        else:
+            print('Konto må være tom for sletting.')
+    return redirect(url_for('main.overview'))
+
+# om bruker ikke finnes, gi feilmelding
+# om bruker finnes i database, ikke ha penger
+# om bruker finnes og ikke har penger, slett. 
+
 @main.route('/create_loan')
 @login_required
 def create_loan():
