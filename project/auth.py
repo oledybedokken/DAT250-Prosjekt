@@ -5,7 +5,7 @@ from .models import User, Transaction, Loan, BankAccount
 from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
 
-salt = generate_random_salt()
+salt = 'f1nd1ngn3m0'
 
 auth = Blueprint('auth', __name__)
 
