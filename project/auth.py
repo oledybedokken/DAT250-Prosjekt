@@ -5,8 +5,6 @@ from .models import User, Transaction, Loan, BankAccount
 from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
 
-salt = 'f1nd1ngn3m0'
-
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
@@ -56,7 +54,6 @@ def signup_post():
     salt = generate_random_salt()
 
     #if database not exist, create database
-
     
     user = User.query.filter_by(email=email).first() # Hvis dette retunerer en bruker, da finnes allerede mailen i databasen
 
@@ -72,7 +69,17 @@ def signup_post():
     # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
     p_hash = generate_password_hash(password, salt)
 
-    new_user = User(email=email, fornavn=fornavn, password=p_hash, etternavn=etternavn, postAddresse = postAddresse, postKode = postKode, fylke = fylke, kjonn = kjonn, fodselsdato = fodselsdato, salt = salt)
+    new_user = User(email=email, 
+                    fornavn=fornavn, 
+                    password=p_hash, 
+                    etternavn=etternavn, 
+                    postAddresse = postAddresse, 
+                    postKode = postKode, 
+                    fylke = fylke, 
+                    kjonn = kjonn, 
+                    fodselsdato = fodselsdato, 
+                    salt = salt
+                    )
 
     # legg til den nye brukeren til databasen
     db.session.add(new_user)
