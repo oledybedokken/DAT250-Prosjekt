@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from .models import User, Transaction, Loan, BankAccount
 from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
@@ -21,10 +21,9 @@ def login_post():
 
     user = User.query.filter_by(email=email).first()
 
-
     # Sjekk om bruker faktisk eksiterer
     # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
-    if not check_password_hash(password, user.password, salt): 
+    if not check_password_hash(password, user.password, user.salt): 
         flash('Passordet er feil')
         return redirect(url_for('auth.login'))
 
@@ -54,6 +53,7 @@ def signup_post():
     fodselsdato = request.form.get('Fodselsdato')
     password = request.form.get('psw')
     repeatPassword = request.form.get('psw-repeat')
+    salt = generate_random_salt()
 
     #if database not exist, create database
     user = User.query.filter_by(email=email).first() # Hvis dette retunerer en bruker, da finnes allerede mailen i databasen
@@ -70,7 +70,7 @@ def signup_post():
     # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
     p_hash = generate_password_hash(password, salt)
 
-    new_user = User(email=email, fornavn=fornavn, password=p_hash, etternavn=etternavn, postAddresse = postAddresse, postKode = postKode, fylke = fylke, kjonn = kjonn, fodselsdato = fodselsdato)
+    new_user = User(email=email, fornavn=fornavn, password=p_hash, etternavn=etternavn, postAddresse = postAddresse, postKode = postKode, fylke = fylke, kjonn = kjonn, fodselsdato = fodselsdato, salt = salt)
 
     # legg til den nye brukeren til databasen
     db.session.add(new_user)
