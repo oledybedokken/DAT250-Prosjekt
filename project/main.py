@@ -67,10 +67,16 @@ def overview_post():
 @login_required
 def account(kontonr):
     kontoen = BankAccount.query.filter_by(kontonr=int(kontonr)).first()
-    print(kontonr)
-    transaksjoner = Transaction.query.filter(or_(Transaction.avsender==kontonr, Transaction.mottaker==kontonr)).all()
-
-    return render_template('account.html', konto=kontoen, transaksjoner=transaksjoner)
+    transaksjoner = Transaction.query.order_by(desc(Transaction.tidspunkt)).filter(or_(Transaction.avsender==kontonr, Transaction.mottaker==kontonr)).all()
+    saldoer = {}
+    rest = 0
+    for transaksjon in transaksjoner:
+        saldoer[transaksjon] = kontoen.saldo + rest
+        if transaksjon.mottaker == kontoen.kontonr:
+            rest -= transaksjon.verdi
+        if transaksjon.avsender == kontoen.kontonr:
+            rest += transaksjon.verdi
+    return render_template('account.html', konto=kontoen, transaksjoner=transaksjoner, saldoer=saldoer)
 
 @main.route('/create_bank_account')
 @login_required
@@ -85,7 +91,7 @@ def create_bank_account_post():
     while BankAccount.query.filter_by(kontonr=kontonummer).first():
         kontonummer = int(random.randint(1e15, 1e16))
 
-    new_account = BankAccount(kontonr = kontonummer, navn = kontonavn, kontotype = kontotype, saldo=int(10000), user_id = current_user.id)
+    new_account = BankAccount(kontonr = kontonummer, navn = kontonavn, kontotype = kontotype, saldo=int(0), user_id = current_user.id)
     db.session.add(new_account)
     db.session.commit()
     return redirect(url_for('main.overview'))
@@ -95,34 +101,15 @@ def create_bank_account_post():
 @login_required
 def delete_bank_account(kontonr):
     kontoen = BankAccount.query.filter_by(kontonr=int(kontonr)).first()
-    if BankAccount is None: # Om bankkonto er tom
-        print('Du har ikke bruker å slette.')
-    if BankAccount is not None: # Om bakkonto ikke er tom
+    if BankAccount is not None: # Om bakkontoen finnes
         if kontoen.saldo == 0: # om saldo er null, den slettes.
             db.session.delete(kontoen)
             db.session.commit()
-            print('Konto er slettet.')
+            flash('Kontoen er slettet.')
+            return redirect(url_for('main.overview'))
         else:
-            print('Konto må være tom for sletting.') # Om den ikke er tom, feilmelding
-    return redirect(url_for('main.overview'))
-
-@main.route('/delete_bank_account',  methods=['POST'])
-def delete_bank_account_post():
-    kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
-    if BankAccount is None: # Om bankkonto er tom
-        print('Du har ikke bruker å slette.')
-    if BankAccount is not None: # Om bakkonto ikke er tom
-        if kontoen.saldo == 0: # om saldo er null, den slettes.
-            db.session.delete()
-            db.session.commit()
-            print('Konto er slettet.')
-        else:
-            print('Konto må være tom for sletting.') # Om den ikke er tom, feilmelding
-    return redirect(url_for('main.overview'))
-
-# om bruker ikke finnes, gi feilmelding
-# om bruker finnes i database, ikke ha penger
-# om bruker finnes og ikke har penger, slett. 
+            flash('Kontoen må være tom før den kan slettes.') # Om den ikke er tom, feilmelding
+            return redirect(url_for('main.account', kontonr=kontoen.kontonr))
 
 @main.route('/create_loan')
 @login_required
@@ -182,15 +169,15 @@ def transaction_post():
     mottaker_konto = BankAccount.query.filter_by(kontonr=int(mottaker_kontonr)).first()
 
     if not BankAccount.query.filter_by(kontonr=int(mottaker_kontonr)).all():
-        print("Ugyldig konto")
+        flash("Ugyldig konto")
         return redirect(url_for('main.transaction'))
 
     if avsender_konto == mottaker_konto:
-        print("Kontoene er like")
+        flash("Kontoene er like")
         return redirect(url_for('main.transaction'))
 
     if avsender_konto.saldo < pengesum:
-        print("Du har ikke nok penger")
+        flash("Du har ikke nok penger")
         return redirect(url_for('main.transaction'))
 
     # Oppdater databsen

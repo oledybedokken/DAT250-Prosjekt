@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div style="text-align: center;">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+</div>
 <div id="konto-container">
     <!-- Overskrift -->
     <div class="konto-overskrift">
@@ -37,7 +46,7 @@
                 <td> {{ transaksjon.trans_type }}</td>
                 <td> {{ transaksjon.tidspunkt }}</td>
                 <td> -{{ transaksjon.verdi }} kr</td>
-                <td> {{ konto.saldo }} kr</td>
+                <td> {{ saldoer[transaksjon] }} kr</td>
             </tr>
             {% endif %}
             {% if transaksjon.mottaker == konto.kontonr %}
@@ -46,7 +55,7 @@
                 <td> {{ transaksjon.trans_type }}</td>
                 <td> {{ transaksjon.tidspunkt }}</td>
                 <td> +{{ transaksjon.verdi }} kr</td>
-                <td> {{ konto.saldo }} kr</td>
+                <td> {{ saldoer[transaksjon] }} kr</td>
             </tr>
             {% endif %}
             {% endfor %} 
