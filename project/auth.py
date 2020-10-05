@@ -6,8 +6,6 @@ from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
 
 salt = generate_random_salt()
-password_hash = generate_password_hash('mypassword', salt)
-
 
 auth = Blueprint('auth', __name__)
 
@@ -28,7 +26,7 @@ def login_post():
     if not check_password_hash(password, user.password, salt): 
         flash('Passordet er feil')
         return redirect(url_for('auth.login'))
-        
+
     if not user: 
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
