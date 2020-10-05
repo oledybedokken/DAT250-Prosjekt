@@ -88,14 +88,14 @@ def delete_bank_account():
 @main.route('/delete_bank_account',  methods=['POST'])
 def delete_bank_account_post():
     kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
-    if BankAccount is None:
+    if BankAccount is None: # Om bankkonto er tom
         print('Du har ikke bruker å slette.')
-    if BankAccount is not None:
-        if kontoen.saldo != 0:
+    if BankAccount is not None: # Om bakkonto ikke er tom
+        if kontoen.saldo == 0: # om saldo er null, den slettes.
             db.session.delete()
             print('Konto er slettet.')
         else:
-            print('Konto må være tom for sletting.')
+            print('Konto må være tom for sletting.') # Om den ikke er tom, feilmelding
     return redirect(url_for('main.overview'))
 
 # om bruker ikke finnes, gi feilmelding
