@@ -79,7 +79,7 @@ def create_bank_account_post():
     db.session.commit()
     return redirect(url_for('main.overview'))
 
-# Sletting av bank konto, dette er template - ikke ferdig
+# Sletting av bank konto, dette er template for viedere development - ikke ferdig
 @main.route('/delete_bank_account')
 @login_required
 def delete_bank_account():
