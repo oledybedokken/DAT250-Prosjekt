@@ -63,12 +63,12 @@ def overview_post():
     laan=Loan.query.filter_by(user_id=current_user.id).all()
     return render_template('overview.html', kontoer=kontoer, laan=laan)
 
-@main.route('/account<int:account_id>')
+@main.route('/account<int:kontonr>')
 @login_required
-def account(account_id):
-    kontoen = BankAccount.query.filter_by(kontonr=int(account_id)).first()
-    print(account_id)
-    transaksjoner = Transaction.query.filter(or_(Transaction.avsender==account_id, Transaction.mottaker==account_id)).all()
+def account(kontonr):
+    kontoen = BankAccount.query.filter_by(kontonr=int(kontonr)).first()
+    print(kontonr)
+    transaksjoner = Transaction.query.filter(or_(Transaction.avsender==kontonr, Transaction.mottaker==kontonr)).all()
 
     return render_template('account.html', konto=kontoen, transaksjoner=transaksjoner)
 
@@ -81,7 +81,11 @@ def create_bank_account():
 def create_bank_account_post():
     kontotype = request.form['kontotype']
     kontonavn = request.form['kontonavn']
-    new_account = BankAccount(kontonr = int(random.randint(1e15, 1e16)), navn = kontonavn, kontotype = kontotype, saldo=int(10000), user_id = current_user.id)
+    kontonummer = int(random.randint(1e15, 1e16))
+    while BankAccount.query.filter_by(kontonr=kontonummer).first():
+        kontonummer = int(random.randint(1e15, 1e16))
+
+    new_account = BankAccount(kontonr = kontonummer, navn = kontonavn, kontotype = kontotype, saldo=int(10000), user_id = current_user.id)
     db.session.add(new_account)
     db.session.commit()
     return redirect(url_for('main.overview'))

@@ -33,7 +33,7 @@ class Loan(db.Model):
 
 class BankAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    kontonr = db.Column(db.Integer)
+    kontonr = db.Column(db.Integer, unique=True)
     navn = db.Column(db.String(50),nullable=False)
     kontotype = db.Column(db.String(50),nullable=False)
     saldo = db.Column(db.Integer,nullable = False)

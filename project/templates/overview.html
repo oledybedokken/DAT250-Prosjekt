@@ -20,7 +20,7 @@
         {% for konto in kontoer %}
         {% if konto.kontotype == "bruk" %}
                 <div class="info-container">
-                    <a href="{{url_for('main.account', account_id=konto.kontonr)}}">
+                    <a href="{{url_for('main.account', kontonr=konto.kontonr)}}">
                         <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
                         <h3>{{ konto.saldo }} kr</h3>
                     </a>
@@ -43,7 +43,7 @@
         {% for konto in kontoer %}
         {% if konto.kontotype == "spar" %}
                 <div class="info-container">
-                    <a href="{{url_for('main.account', account_id=konto.kontonr)}}">
+                    <a href="{{url_for('main.account', kontonr=konto.kontonr)}}">
                         <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
                         <h3>{{ konto.saldo }} kr</h3>
                     </a>
