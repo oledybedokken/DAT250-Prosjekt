@@ -34,7 +34,8 @@ def profile_post():
     
     user = User.query.filter_by(id=current_user.id).first()
 
-    user.email = email
+    #Burde ikke kunne sette lik mail som allerede er i databasen
+    #user.email = email
     user.fornavn = fornavn
     user.etternavn = etternavn
     user.postAddresse = postAddresse
@@ -99,6 +100,7 @@ def delete_bank_account_post():
     if BankAccount is not None: # Om bakkonto ikke er tom
         if kontoen.saldo == 0: # om saldo er null, den slettes.
             db.session.delete()
+            db.session.commit()
             print('Konto er slettet.')
         else:
             print('Konto må være tom for sletting.') # Om den ikke er tom, feilmelding
