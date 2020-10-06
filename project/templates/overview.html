@@ -64,21 +64,22 @@
             <h1><i class="material-icons">assessment</i>MINE LÅN</h1>
         </div>
         <!-- -->
-        {% for item in laan %}
-            <div class="info-container">
-                <h2><i class='fas fa-chevron-right'></i>{{ item.laan_type }}</h2>
-                <h3>{{ item.verdi }} kr</h3>
-            </a>
-            </div>
+        {% for konto in kontoer %}
+        {% if konto.kontotype == "lån" %}
+                <div class="info-container">
+                    <a href="{{url_for('main.account', kontonr=konto.kontonr)}}">
+                        <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
+                        <h3>{{ konto.saldo }} kr</h3>
+                    </a>
+                </div>
+        {% endif %}
         {% endfor %}
         <!-- -->
-        <form method="POST">
-            <div class="info-container">
-                <a href="{{url_for('main.create_loan')}}">
-                    <h2><i class='fas fa-plus-circle'></i>Opprett låneavtale</h2>
-                </a>
-            </div>
-        </form>
+        <div class="info-container">
+            <a href="{{url_for('main.create_loan')}}">
+                <h2><i class='fas fa-plus-circle'></i>Opprett låneavtale</h2>
+            </a>
+        </div>
     </div>
 </div>
 {% endblock content %}

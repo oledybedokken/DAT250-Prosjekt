@@ -1,6 +1,6 @@
 from flask import Flask,g, redirect, render_template, request,session, url_for, flash, Blueprint
 from flask_login import login_required, current_user
-from .models import db, User, Transaction, Loan, BankAccount
+from .models import db, User, Transaction, BankAccount
 import random
 from sqlalchemy import desc, or_
 
@@ -53,20 +53,13 @@ def profile_post():
 @login_required
 def overview():
     kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
-    laan=Loan.query.filter_by(user_id=current_user.id).all()
-    return render_template('overview.html', kontoer=kontoer, laan=laan)
-
-@main.route('/overview', methods=['POST'])
-@login_required
-def overview_post():
-    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
-    laan=Loan.query.filter_by(user_id=current_user.id).all()
-    return render_template('overview.html', kontoer=kontoer, laan=laan)
+    return render_template('overview.html', kontoer=kontoer)
 
 @main.route('/account<int:kontonr>')
 @login_required
 def account(kontonr):
     kontoen = BankAccount.query.filter_by(kontonr=int(kontonr)).first()
+    brukskontoer = BankAccount.query.filter_by(user_id=current_user.id, kontotype="bruk").all()
     transaksjoner = Transaction.query.order_by(desc(Transaction.tidspunkt)).filter(or_(Transaction.avsender==kontonr, Transaction.mottaker==kontonr)).all()
     saldoer = {}
     rest = 0
@@ -76,7 +69,43 @@ def account(kontonr):
             rest -= transaksjon.verdi
         if transaksjon.avsender == kontoen.kontonr:
             rest += transaksjon.verdi
-    return render_template('account.html', konto=kontoen, transaksjoner=transaksjoner, saldoer=saldoer)
+
+    if request.method == 'POST':
+        return redirect(url_for('main.overview'))
+
+    return render_template('account.html', konto=kontoen, brukskontoer=brukskontoer, transaksjoner=transaksjoner, saldoer=saldoer)
+
+@main.route('/account<int:kontonr>', methods=['POST'])
+def account_post(kontonr):
+    laanet = BankAccount.query.filter_by(kontonr=int(kontonr)).first()
+    avsender_kontonr = request.form['fra_konto']
+    avsender_konto = BankAccount.query.filter_by(kontonr=int(avsender_kontonr)).first()
+    if not request.form["pengesum"].isdigit() or int(request.form['pengesum']) <= 0:
+        flash("Ugyldig sum")
+        return redirect(url_for('main.account', kontonr=laanet.kontonr))
+        
+    pengesum = int(request.form['pengesum'])
+    trans_type = "Nedbetaling"
+
+    if abs(laanet.saldo) < pengesum:
+        flash(f"Du kan maks nedbetale {abs(laanet.saldo)} kr")
+        return redirect(url_for('main.account', kontonr=laanet.kontonr))
+
+    # Oppdater databsen
+    avsender_konto.saldo -= pengesum
+    laanet.saldo += pengesum
+    transaksjon = Transaction(trans_type=trans_type, verdi=pengesum, avsender=avsender_konto.kontonr, mottaker=laanet.kontonr)
+    db.session.add(transaksjon)
+    db.session.commit()
+
+    if laanet.saldo == 0:
+        db.session.delete(laanet)
+        db.session.commit()
+        flash("Du har nedbetalt hele lånet")
+        return redirect(url_for('main.overview'))
+    else:
+        flash(f"Vellykket nedbetaling på {pengesum} kr av lånet")
+        return redirect(url_for('main.account', kontonr=laanet.kontonr))
 
 @main.route('/create_bank_account')
 @login_required
@@ -116,7 +145,6 @@ def delete_bank_account(kontonr):
 def create_loan():
     kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
     if not kontoen:
-        print("Finner ikke en gyldig konto")
         flash('Du må opprette en konto først!') #FÅ DENNE TIL Å VISES
         return redirect(url_for('main.overview'))
 
@@ -124,15 +152,20 @@ def create_loan():
 
 @main.route('/create_loan', methods=['POST'])
 def create_loan_post():
-    laan_type = request.form['kontotype']
+    kontonavn = request.form['kontotype']
+    kontotype = "lån"
     verdi = int(request.form['laan_verdi'])
-    new_loan = Loan(laan_type=laan_type, verdi=verdi, user_id = current_user.id)
+    kontonummer = int(random.randint(1e15, 1e16))
+    while BankAccount.query.filter_by(kontonr=kontonummer).first():
+        kontonummer = int(random.randint(1e15, 1e16))
+
+    new_loan = BankAccount(kontonr = kontonummer, navn = kontonavn, kontotype = kontotype, saldo=-int(verdi), user_id = current_user.id)
     db.session.add(new_loan)
 
-    kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
+    kontoen = BankAccount.query.filter_by(user_id=current_user.id, kontotype="bruk").first()
     kontoen.saldo += verdi
 
-    transaksjon = Transaction(trans_type=laan_type, verdi=verdi, avsender="", mottaker=kontoen.kontonr)
+    transaksjon = Transaction(trans_type="Lån", verdi=verdi, avsender=kontonummer, mottaker=kontoen.kontonr)
     db.session.add(transaksjon)
     db.session.commit()
 
@@ -156,14 +189,18 @@ def transaction_post():
     if request.form["btn"] == "overfør":
         avsender_kontonr = request.form["fra_konto"]
         mottaker_kontonr = request.form["til_konto"]
-        pengesum = int(request.form["pengesum"])
         trans_type = "Overføring"
         
     if request.form["btn"] == "betal":
         avsender_kontonr = request.form["avsender_konto"]
         mottaker_kontonr = request.form["mottaker_konto"]
-        pengesum = int(request.form["pengesum"])
         trans_type = "Betaling"
+
+    if not request.form["pengesum"].isdigit() or int(request.form['pengesum']) <= 0:
+        flash("Ugyldig sum")
+        return redirect(url_for('main.transaction'))
+
+    pengesum = int(request.form['pengesum'])
 
     avsender_konto = BankAccount.query.filter_by(kontonr=int(avsender_kontonr)).first()
     mottaker_konto = BankAccount.query.filter_by(kontonr=int(mottaker_kontonr)).first()
@@ -176,7 +213,7 @@ def transaction_post():
         flash("Kontoene er like")
         return redirect(url_for('main.transaction'))
 
-    if avsender_konto.saldo < pengesum:
+    if avsender_konto.saldo < pengesum or avsender_konto.saldo <= 0:
         flash("Du har ikke nok penger")
         return redirect(url_for('main.transaction'))
 

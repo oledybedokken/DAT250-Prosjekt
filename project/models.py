@@ -25,12 +25,6 @@ class Transaction(db.Model):
     mottaker = db.Column(db.Integer, nullable = False)
     tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.now)
 
-class Loan(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    laan_type = db.Column(db.String(50), nullable=False)
-    verdi = db.Column(db.Integer,nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-
 class BankAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kontonr = db.Column(db.Integer, unique=True)

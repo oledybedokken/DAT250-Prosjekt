@@ -16,6 +16,7 @@
         <div>
             <h1>Transaksjons Rapport</h1>
         </div>
+        {% if konto.kontotype != "lån" %}
         <div>
             <h4>Viser transaksjoner for konto: {{ konto.navn }} <br/> Kontonummer: {{ konto.kontonr }} </h4>
         </div>
@@ -24,7 +25,31 @@
                 <button type="submit" name="btn" value="overfør">Slett konto</button>
             </a>
         </div>
+        {% else %}
+        <div>
+            <h4>Viser transaksjoner for lån: {{ konto.navn }} </h4>
+        </div>
+        <div class="button-container">
+                <button type="submit" onclick="nedbetal()">Nedbetal lån</button>
+        </div>
     </div>
+    <form method="POST">
+        <div class="sub-container" id="hiddenDIV" style="display: none;">
+                <div class="info-container">
+                    <label for="fra_konto"><h2>Fra konto</h2> </label>
+                    <select name="fra_konto" id="fra_konto">
+                        {% for konto in brukskontoer %}
+                        <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.saldo }} kr</option>
+                        {% endfor %}
+                    </select>
+                    <label for="psum"><h2>Sum<input type="psum" id="psum" name="pengesum" placeholder="kr"></h2></label>
+                    <div class="button-container">
+                        <button type="submit" name="btn" value="nedbetal">NEDBETAL</button>
+                    </div>
+                </div>
+        </div>
+    </form>
+    {% endif %}
     <!-- Tabell for transaksjonene -->
     <div class="konto-tabell">
         <table class="transaksjoner">
@@ -68,5 +93,20 @@
             
             </table>
         </table>
+        </div>
+    </div>
 </div>
+<script>
+
+function nedbetal() {
+    var x = document.getElementById("hiddenDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+</script>
+
 {% endblock content %}
