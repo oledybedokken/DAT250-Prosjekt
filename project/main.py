@@ -188,7 +188,7 @@ def transaction():
 def transaction_post():
     if request.form["btn"] == "overfør":
         if request.form["fra_konto"] == "velg" or request.form["til_konto"] == "velg":
-            flash("Ugyldig mottaker")
+            flash("Ugyldig konto")
             return redirect(url_for('main.transaction'))
         avsender_kontonr = request.form["fra_konto"]
         mottaker_kontonr = request.form["til_konto"]
@@ -196,7 +196,7 @@ def transaction_post():
         
     if request.form["btn"] == "betal":
         if request.form["avsender_konto"] == "velg" or request.form["mottaker_konto"] == "velg":
-            flash("Ugyldig mottaker")
+            flash("Ugyldig konto")
             return redirect(url_for('main.transaction'))
         avsender_kontonr = request.form["avsender_konto"]
         mottaker_kontonr = request.form["mottaker_konto"]
