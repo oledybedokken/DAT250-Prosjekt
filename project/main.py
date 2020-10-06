@@ -187,11 +187,17 @@ def transaction():
 @main.route('/transaction', methods=['POST'])
 def transaction_post():
     if request.form["btn"] == "overfør":
+        if request.form["fra_konto"] == "velg" or request.form["til_konto"] == "velg":
+            flash("Ugyldig mottaker")
+            return redirect(url_for('main.transaction'))
         avsender_kontonr = request.form["fra_konto"]
         mottaker_kontonr = request.form["til_konto"]
         trans_type = "Overføring"
         
     if request.form["btn"] == "betal":
+        if request.form["avsender_konto"] == "velg" or request.form["mottaker_konto"] == "velg":
+            flash("Ugyldig mottaker")
+            return redirect(url_for('main.transaction'))
         avsender_kontonr = request.form["avsender_konto"]
         mottaker_kontonr = request.form["mottaker_konto"]
         trans_type = "Betaling"

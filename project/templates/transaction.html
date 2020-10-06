@@ -21,6 +21,7 @@
             <div class="info-container">
                 <label for="fra_konto"><h2>Fra konto</h2></label>
                 <select name="fra_konto" id="fra_konto">
+                    <option value="velg" selected> Velg konto </option>
                     {% for konto in bruker_kontoer %}
                     {% if konto.kontotype != "lån" %}
                     <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.saldo }} kr</option>
@@ -32,6 +33,7 @@
             <div class="info-container">
                 <label for="til_konto"><h2>Til konto</h2></label>
                 <select name="til_konto" id="til_konto">
+                    <option value="velg" selected> Velg konto </option>
                     {% for konto in bruker_kontoer %}
                     {% if konto.kontotype != "lån" %}
                     <option value="{{ konto.kontonr }}">{{ konto.navn }}: {{ konto.saldo }} kr</option>
@@ -59,8 +61,9 @@
             <div class="info-container">
                 <label for="avsender_konto" id ="ddl"><h2>Fra konto</h2></label>
                 <select name="avsender_konto" id="avsender_konto">
+                    <option value="velg" selected> Velg konto </option>
                     {% for konto in bruker_kontoer %}
-                    {% if konto.kontotype != "lån" %}
+                    {% if konto.kontotype == "bruk" %}
                     <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.saldo }} kr</option>
                     {% endif %}
                     {% endfor %}
@@ -70,6 +73,7 @@
             <div class="info-container">
                 <label for="mottaker_konto"><h2>Til konto</h2></label>
                 <select name="mottaker_konto" id="mottaker_konto">
+                    <option value="velg" selected> Velg konto </option>
                     {% for konto in andre_kontoer.keys() %}
                     {% if konto.kontotype != "lån" %}
                     <option value="{{ konto.kontonr }}"> {{ andre_kontoer[konto] }} ({{ konto.kontonr }})</option>
