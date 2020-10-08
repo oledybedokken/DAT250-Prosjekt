@@ -59,6 +59,11 @@ def overview():
 @login_required
 def account(kontonr):
     kontoen = BankAccount.query.filter_by(kontonr=int(kontonr)).first()
+    # Må sjekke om kontoen faktisk er current_user sin konto slik at
+    # man ikke kan endre URLen og få tilgang til oversikten for andre kontoer
+    if not kontoen or kontoen.user_id != current_user.id:
+        flash("Du har ikke tilgang til denne kontoen")
+        return redirect(url_for('main.overview'))
     brukskontoer = BankAccount.query.filter_by(user_id=current_user.id, kontotype="bruk").all()
     transaksjoner = Transaction.query.order_by(desc(Transaction.tidspunkt)).filter(or_(Transaction.avsender==kontonr, Transaction.mottaker==kontonr)).all()
     saldoer = {}
@@ -69,9 +74,6 @@ def account(kontonr):
             rest -= transaksjon.verdi
         if transaksjon.avsender == kontoen.kontonr:
             rest += transaksjon.verdi
-
-    if request.method == 'POST':
-        return redirect(url_for('main.overview'))
 
     return render_template('account.html', konto=kontoen, brukskontoer=brukskontoer, transaksjoner=transaksjoner, saldoer=saldoer)
 
@@ -91,7 +93,7 @@ def account_post(kontonr):
         flash(f"Du kan maks nedbetale {abs(laanet.saldo)} kr")
         return redirect(url_for('main.account', kontonr=laanet.kontonr))
 
-    # Oppdater databsen
+    # Oppdater databasen
     avsender_konto.saldo -= pengesum
     laanet.saldo += pengesum
     transaksjon = Transaction(trans_type=trans_type, verdi=pengesum, avsender=avsender_konto.kontonr, mottaker=laanet.kontonr)
@@ -125,7 +127,7 @@ def create_bank_account_post():
     db.session.commit()
     return redirect(url_for('main.overview'))
 
-# Sletting av bank konto, dette er template for viedere development - ikke ferdig
+# Sletting av bank konto
 @main.route('/delete_bank_account<int:kontonr>')
 @login_required
 def delete_bank_account(kontonr):
@@ -145,7 +147,7 @@ def delete_bank_account(kontonr):
 def create_loan():
     kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
     if not kontoen:
-        flash('Du må opprette en konto først!') #FÅ DENNE TIL Å VISES
+        flash('Du må opprette en konto først!')
         return redirect(url_for('main.overview'))
 
     return render_template('create_loan.html')
@@ -223,7 +225,7 @@ def transaction_post():
         flash("Du har ikke nok penger")
         return redirect(url_for('main.transaction'))
 
-    # Oppdater databsen
+    # Oppdater databasen
     avsender_konto.saldo -= pengesum
     mottaker_konto.saldo += pengesum
     transaksjon = Transaction(trans_type=trans_type, verdi=pengesum, avsender=avsender_kontonr, mottaker=mottaker_kontonr)

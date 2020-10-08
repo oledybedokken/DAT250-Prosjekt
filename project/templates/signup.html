@@ -6,20 +6,18 @@
  
 
 <div id="register-container">
-
-
     <form id="demo-form" method="POST" action="/signup">
         <div style="text-align: center;">
-                {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
-        </div>
-    {% endif %}
-    {% endwith %}
-          <h1>Registrer</h1>
-          <p>Vennligst fyll inn skjemaet for å lage kontoen.</p>
-          <hr>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="notification is-danger">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
+            <h1>Registrer</h1>
+            <p>Vennligst fyll inn skjemaet for å lage kontoen.</p>
+            <hr>
         </div>
         <div class="register-container">
             <div class="register-row">
@@ -64,34 +62,108 @@
             </div>
             <div class="register-row">
                 <div class="register-input">
-                <label for="psw"><b>Passord</b></label>
-                <input type="password" placeholder="Skriv Passord" name="psw" id="psw" required>
+                    <label for="psw"><b>Passord</b></label>
+                    <input type="password" placeholder="Skriv Passord" name="psw" id="psw" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
                 </div>
                 <div class="register-input">
-                <label for="psw-repeat"><b>Gjenta Passord</b></label>
-                <input type="password" placeholder="Gjenta Passord" name="psw-repeat" id="psw-repeat" required>
+                    <label for="psw-repeat"><b>Gjenta Passord</b></label>
+                    <input type="password" placeholder="Gjenta Passord" name="psw-repeat" id="psw-repeat">
                 </div>
             </div>
         </div> 
         <div style="text-align: center;">
-                <hr>
-              <p>Ved å lage en konto, så godtar du våre <a href="#">Brukervilkår</a>.</p>
-              <input type="checkbox" id="Husk-meg" name="Husk-meg" value="Husk-meg">
-                <label for="Husk-meg"> Hold meg Innlogget</label>
+            <hr>
+            <p>Ved å lage en konto, så godtar du våre <a href="#">Brukervilkår</a>.</p>
+            <input type="checkbox" id="Husk-meg" name="Husk-meg" value="Husk-meg">
+            <label for="Husk-meg"> Hold meg Innlogget</label>
+            <button class="registerbtn" >Registrer</button>
+            <div class="g-recaptcha" data-sitekey="{{sitekey}}" data-theme="dark"></div>
         </div>
-              <button class="registerbtn" >Registrer</button>
-              
-              
-              
-              <div class="g-recaptcha" data-sitekey="{{sitekey}}" data-theme="dark"></div>
-          </form> 
-    </div>
+    </form> 
+</div>
 
+<div id="message">
+    <div class="Requirements"><h4>Passordet må best av:</h4></div>
+        <p id="letter" class="invalid">Minst <b>en liten</b> bokstav</p>
+        <p id="capital" class="invalid">Minst <b>en stor</b> bokstav</p>
+        <p id="number" class="invalid">Minst <b>ett tall</b></p>
+        <p id="length" class="invalid">Minst <b>8 tegn</b></p>
+        <p id="special" class="invalid">Minst <b>1 spesialtegn</b></p>
+</div>
 
+    <script>
+
+        //Definerer variable for requirement display
+        var pasInput = document.getElementById("psw");
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+        var special = document.getElementById("special");
     
+        //Kravene vises når brukeren trykker inni passordfeltet
+        pasInput.onfocus = function() {
+            document.getElementById("message").style.display = "block";
+        }
+    
+        // Skjule kravene igjen når brukeren trykker utenfor passordfeltet
+        pasInput.onblur = function() {
+            document.getElementById("message").style.display = "none";
+        }
 
+        // Når brukeren skriver, sjekk kravene:
+        pasInput.onkeyup = function() {
+            // Validate lowercase letters
+            var lowerCaseLetters = /[a-z]/g;
+            if(pasInput.value.match(lowerCaseLetters)) {  
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+            
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if(pasInput.value.match(upperCaseLetters)) {  
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
 
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if(pasInput.value.match(numbers)) {  
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+            
+            // Validate length
+            if(pasInput.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
 
-
-
+            // Validate special case letter
+            var specialCaseLetters = /[$@$!%.,;:()*#?&]/g;
+            if(pasInput.value.match(specialCaseLetters)) {  
+                special.classList.remove("invalid");
+                special.classList.add("valid");
+            } else {
+                special.classList.remove("valid");
+                special.classList.add("invalid");
+            }
+            }
+    
+    </script>
+    
+    
 {% endblock %}
