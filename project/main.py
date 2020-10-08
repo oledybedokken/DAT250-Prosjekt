@@ -61,7 +61,7 @@ def account(kontonr):
     kontoen = BankAccount.query.filter_by(kontonr=int(kontonr)).first()
     # Må sjekke om kontoen faktisk er current_user sin konto slik at
     # man ikke kan endre URLen og få tilgang til oversikten for andre kontoer
-    if kontoen.user_id != current_user.id:
+    if not kontoen or kontoen.user_id != current_user.id:
         flash("Du har ikke tilgang til denne kontoen")
         return redirect(url_for('main.overview'))
     brukskontoer = BankAccount.query.filter_by(user_id=current_user.id, kontotype="bruk").all()
