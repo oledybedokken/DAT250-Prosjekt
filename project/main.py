@@ -230,3 +230,12 @@ def transaction_post():
     db.session.add(transaksjon)
     db.session.commit()
     return redirect(url_for('main.overview'))
+
+
+@main.route('/support')
+def support():
+     return render_template('support.html')
+
+@main.route('/support', methods=['POST'])
+def support_post():
+    return render_template('support.html')
