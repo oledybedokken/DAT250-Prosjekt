@@ -10,7 +10,8 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
 def login():
-    return render_template('login.html')
+    sitekey = "6LcME9UZAAAAAFs9gpLPk2cNe6y7KsbltAMyZOIk"
+    return render_template('login.html', sitekey = sitekey )
 
 @auth.route('/login', methods=['POST'])
 def login_post():
@@ -18,6 +19,14 @@ def login_post():
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
+    captcha_response = request.form.get('g-recaptcha-response')
+    
+    if is_human(captcha_response):
+        flash('Du klarte det!')
+    else:
+        flash('Du er ikke ett menneske!')
+        return redirect(url_for('auth.login'))
+        
     user = User.query.filter_by(email=email).first()
 
     # Sjekk om bruker faktisk eksiterer
