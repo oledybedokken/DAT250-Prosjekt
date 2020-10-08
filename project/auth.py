@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from .models import User, Transaction, BankAccount
 from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
+import requests, json
 
 auth = Blueprint('auth', __name__)
 
@@ -35,7 +36,8 @@ def login_post():
 
 @auth.route('/signup')
 def signup():
-    return render_template('signup.html')
+    sitekey = "6LcME9UZAAAAAFs9gpLPk2cNe6y7KsbltAMyZOIk"
+    return render_template('signup.html', sitekey = sitekey)
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
@@ -51,6 +53,13 @@ def signup_post():
     fodselsdato = request.form.get('Fodselsdato')
     password = request.form.get('psw')
     repeatPassword = request.form.get('psw-repeat')
+    captcha_response = request.form.get('g-recaptcha-response')
+    
+    if is_human(captcha_response):
+        flash('Du klarte det!')
+    else:
+        flash('Du er ikke ett menneske!')
+        return redirect(url_for('auth.signup'))
     salt = generate_random_salt()
 
     #if database not exist, create database
@@ -86,6 +95,17 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for('auth.login'))
+
+def is_human(captcha_response):
+    """ Validating recaptcha response from google server
+        Returns True captcha test passed for submitted form else returns False.
+    """
+    secret = "6LcME9UZAAAAAN3gmRrcW0RTQoGpA5bRs980Hoco"
+    payload = {'response':captcha_response, 'secret':secret}
+    response = requests.post("https://www.google.com/recaptcha/api/siteverify", payload)
+    response_text = json.loads(response.text)
+    return response_text['success']
+
 
 @auth.route('/logout')
 @login_required

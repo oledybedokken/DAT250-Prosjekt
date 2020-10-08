@@ -3,9 +3,12 @@
 
 {% block content %}
 
+ 
+
 <div id="register-container">
 
-    <form method="POST" action="/signup">
+
+    <form id="demo-form" method="POST" action="/signup">
         <div style="text-align: center;">
                 {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -76,10 +79,16 @@
               <input type="checkbox" id="Husk-meg" name="Husk-meg" value="Husk-meg">
                 <label for="Husk-meg"> Hold meg Innlogget</label>
         </div>
-              <button type="submit" class="registerbtn">Registrer</button>
-
+              <button class="registerbtn" >Registrer</button>
+              
+              
+              
+              <div class="g-recaptcha" data-sitekey="{{sitekey}}"></div>
           </form> 
     </div>
+
+
+    
 
 
 
