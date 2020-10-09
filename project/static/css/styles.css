@@ -274,6 +274,7 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     width: 50%;
 }
 
+
 /* Add padding to containers */
 .signin {
     padding: 15px;
@@ -293,7 +294,7 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     background-color: #edf2f7;
     outline: none;
   }
-  
+
   /* Overwrite default styles of hr */
   hr {
     border-color: white white #324154 white;
@@ -751,7 +752,7 @@ span{
     margin-bottom: 16px; /* Bottom margin */
     resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
   }
-  
+
   /* Style the submit button with a specific background color etc */
 .sub-container input[type=submit] {
     background-color: #324154;
