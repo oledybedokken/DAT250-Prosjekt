@@ -21,12 +21,8 @@ def login_post():
 
     captcha_response = request.form.get('g-recaptcha-response')
     
-    if is_human(captcha_response):
-        flash('Du klarte det!')
-    else:
-        flash('Du er ikke ett menneske!')
-        return redirect(url_for('auth.login'))
-        
+
+
     user = User.query.filter_by(email=email).first()
 
     # Sjekk om bruker faktisk eksiterer
@@ -64,11 +60,7 @@ def signup_post():
     repeatPassword = request.form.get('psw-repeat')
     captcha_response = request.form.get('g-recaptcha-response')
     
-    if is_human(captcha_response):
-        flash('Du klarte det!')
-    else:
-        flash('Du er ikke ett menneske!')
-        return redirect(url_for('auth.signup'))
+
     salt = generate_random_salt()
 
     #if database not exist, create database
