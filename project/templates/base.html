@@ -35,12 +35,12 @@
                         {% endif %}
                         {% if not current_user.is_authenticated %}
                         <div class="nav-link-wrapper">   
-                            <a href="{{ url_for('auth.login') }}" >Login</a>
+                            <a href="{{ url_for('auth.login') }}" >Logg inn</a>
                         </div>
                         {% endif %}
                         {% if not current_user.is_authenticated %}
                         <div class="nav-link-wrapper">
-                            <a href="{{ url_for('auth.signup') }}" >Sign Up</a>
+                            <a href="{{ url_for('auth.signup') }}" >Registrering</a>
                         </div>
                         {% endif %} 
                         

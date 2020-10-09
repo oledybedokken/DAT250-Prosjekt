@@ -459,7 +459,6 @@ span{
     left: 450px;
 } 
 
-
 /* The message box is shown when the user clicks on the password field */
 #message {
     width: 200px;
@@ -731,7 +730,7 @@ span{
     margin-bottom: 16px; /* Bottom margin */
     resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
   }
-  
+
   /* Style the submit button with a specific background color etc */
 .sub-container input[type=submit] {
     background-color: #324154;
