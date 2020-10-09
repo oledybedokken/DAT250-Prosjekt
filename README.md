@@ -36,6 +36,7 @@ Betaling:
 "Du har ikke nok penger" er ikke tydelig nok.
 "Ugyldig sum" er ikke tydelig nok.
 "Kontoen må være tom før den kan slettes" ikke tydelig nok.
+Fleste advarsel er ikke tydelig nok. 
 
 "Du kan maks nedbetale XXX kr" ikke tydelig, bytt til:
 "Du kan ikke overstige gitte summen for nedbetaling."
