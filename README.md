@@ -1,25 +1,26 @@
 ### Ting å gjøre og fikse
   * Session problemer
   * Sikkerhet
+  * CSS
 
 ### Legg til ting du holder på med
 Ole:
     
-1. 
+1. NA
   
 Jørgen:
 
-1. 
+1. NA
 
 Pervaz:
 
-1. 
+1. NA
 
 Espen:
 
-1. 
+1. NA
 
-
+## For å kjøre flask run
 ```
 export FLASK_APP=project
 ```
@@ -32,8 +33,6 @@ set FLASK_DEBUG=1
 ```
 flask run
 ```
-
-
 
 ### Sikkerhet!!!
   * https://sucuri.net/guides/owasp-top-10-security-vulnerabilities-2020/
