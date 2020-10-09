@@ -15,49 +15,49 @@
                 </div>
             {% endif %}
             {% endwith %}
-            <h1>Registrer</h1>
-            <p>Vennligst fyll inn skjemaet for å lage kontoen.</p>
+            <h1>Registrering</h1>
+            <p>Vennligst fyll inn skjemaet for å skape bruker.</p>
             <hr>
         </div>
         <div class="register-container">
             <div class="register-row">
                 <div class="register-input">
                 <label for="fornavn"><b>Fornavn</b></label>
-                <input type="text" placeholder="Fornavn" name="fornavn" id="fornavn" required>
+                <input type="text" placeholder="Fornavn" maxlength="14" name="fornavn" id="fornavn" required>
                 </div>
                 <div class="register-input">
                 <label for="etternavn"><b>Etternavn</b></label>
-                <input type="text" placeholder="Etternavn" name="etternavn" id="etternavn" required>
+                <input type="text" placeholder="Etternavn" maxlength="12" name="etternavn" id="etternavn" required>
                 </div>
             </div>
             <div class="register-row">
                 <div class="register-input">
                 <label for="email"><b>Email</b></label>
-                <input type="email" placeholder="Email@mail.no" name="email" id="email" required>
+                <input type="email" placeholder="Email@hotmail.no" maxlength="24" name="email" id="email" required>
                 </div>
                 <div class="register-input">
-                <label for="postAddresse"><b>Post Addresse</b></label>
-                <input type="text" placeholder="Stavangerveien 3" name="postAddresse" id="postAddresse" required>
+                <label for="postAddresse"><b>Adresse</b></label>
+                <input type="text" placeholder="Stavangerveien 3" maxlength="16" name="postAddresse" id="postAddresse" required>
                 </div>
             </div>
             <div class="register-row">
                 <div class="register-input">
-                <label for="postKode"><b>Post Kode</b></label>
-                <input type="text" placeholder="Postkode" name="postKode" id="postKode" required>
+                <label for="postKode"><b>Post adresse</b></label>
+                <input type="text" placeholder="Post adresse" maxlength="4" name="postKode" id="postKode" required>
                 </div>
                 <div class="register-input">
                 <label for="fylke"><b>Fylke</b></label>
-                <input type="text" placeholder="Rogaland" name="fylke" id="fylke" required>
+                <input type="text" placeholder="Rogaland" maxlength="16" name="fylke" id="fylke" required>
                 </div>
             </div>
             <div class="register-row">
                 <div class="register-input">
                 <label for="kjonn"><b>Kjønn</b></label>
-                <input type="text" placeholder="Mann/Vaskemaskin" name="Kjonn" id="Kjonn" required>
+                <input type="text" placeholder="Mann/Kvinne/Annet" name="Kjonn" maxlength="6" id="Kjonn" required>
                 </div>
                 <div class="register-input">
                 <label for="fodselsdato"><b>Fødselsdato</b></label>
-                <input type="text" placeholder="dd.mm.yyyy" name="Fodselsdato" id="Fodselsdato" required>
+                <input type="date" type="date" min="1945-09-01" max="2001-12-31" name="Fodselsdato" id="Fodselsdato" required>
                 </div>
             </div>
             <div class="register-row">
@@ -73,9 +73,9 @@
         </div> 
         <div style="text-align: center;">
             <hr>
-            <p>Ved å lage en konto, så godtar du våre <a href="#">Brukervilkår</a>.</p>
+            <p>Ved å skape en bruker, så godtar du våre <a href="#">brukervilkår</a>.</p>
             <input type="checkbox" id="Husk-meg" name="Husk-meg" value="Husk-meg">
-            <label for="Husk-meg"> Hold meg Innlogget</label>
+            <label for="Husk-meg"> Hold meg innlogget</label>
             <button class="registerbtn" >Registrer</button>
             <div class="g-recaptcha" data-sitekey="{{sitekey}}" data-theme="dark"></div>
         </div>
@@ -88,7 +88,7 @@
         <p id="capital" class="invalid">Minst <b>en stor</b> bokstav</p>
         <p id="number" class="invalid">Minst <b>ett tall</b></p>
         <p id="length" class="invalid">Minst <b>8 tegn</b></p>
-        <p id="special" class="invalid">Minst <b>1 spesialtegn</b></p>
+        <p id="special" class="invalid">Minst <b>1 spesialltegn</b></p>
 </div>
 
     <script>
