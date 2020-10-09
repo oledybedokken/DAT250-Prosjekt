@@ -2,7 +2,6 @@
   * Session problemer
   * Sikkerhet
 
-### To do:
 ### Legg til ting du holder på med
 Ole:
     
