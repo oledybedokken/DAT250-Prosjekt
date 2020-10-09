@@ -9,7 +9,8 @@ Hjem:
 - Rett hovedmeny så den står imidten
 - Skap logg system for alt brukeren gjør
 - Logoen linker til hovedmeny
-
+```
+```
 Profil:
 
 - Noen av boksene er for kort. Gjør at boksene er under emnet, eks.
@@ -22,13 +23,15 @@ Kjønn:
 
 - 'Kontoer' viser bare Brukskonto, ikke sparekonto. Flere brukskonto har den plass til.
 - Reduser antall konto som skal vises. Maks 4 brukskonto, maks 4 sparekonto.
-
+```
+```
 Oversikt:
 - Kan skape maks 8 kontoer (bruks- og sparekonto) (ellers problem for profil.html)
 
 *Tenke gjennom
 - Logg / Alle kontoer vist under, som i Profil
-
+```
+```
 Betaling:
 "Du har ikke nok penger" er ikke tydelig nok.
 "Ugyldig sum" er ikke tydelig nok.
