@@ -23,7 +23,7 @@ class Transaction(db.Model):
     verdi = db.Column(db.Integer)
     avsender = db.Column(db.Integer)
     mottaker = db.Column(db.Integer, nullable = False)
-    tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.now)
+    tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.now().replace(microsecond=0))
 
 class BankAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)

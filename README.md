@@ -43,19 +43,9 @@ Oversikt:
 ```
 ```
 Betaling:
-"Du har ikke nok penger" er ikke tydelig nok.
-"Ugyldig sum" er ikke tydelig nok.
-"Kontoen må være tom før den kan slettes" ikke tydelig nok.
-- Fleste advarsel er ikke tydelig nok. 
-
-"Du kan maks nedbetale XXX kr" ikke tydelig, bytt til:
-"Du kan ikke overstige gitte summen for nedbetaling."
-
-*Forandring
 - Mellomrom på store verdier
-Har tenkt å formatere til string med '.toLocaleString()' men skapte error.
+Har tenkt å formatere til string med '.toLocaleString()' eller ''.join - men skapte error.
 
-- Dato skal ikke inneholde mikrosekunder, YY-MM-DD HH-MM-SS
 ```
 
 ### Legg til ting du holder på med

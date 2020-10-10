@@ -118,9 +118,9 @@ def create_bank_account():
 def create_bank_account_post():
     kontotype = request.form['kontotype']
     kontonavn = request.form['kontonavn']
-    kontonummer = int(random.randint(1e8, 1e9))
+    kontonummer = int(random.randint(1e7, 1e8))
     while BankAccount.query.filter_by(kontonr=kontonummer).first():
-        kontonummer = int(random.randint(1e8, 1e9))
+        kontonummer = int(random.randint(1e7, 1e8))
 
     new_account = BankAccount(kontonr = kontonummer, navn = kontonavn, kontotype = kontotype, saldo=int(0), user_id = current_user.id)
     db.session.add(new_account)
@@ -157,9 +157,9 @@ def create_loan_post():
     kontonavn = request.form['kontotype']
     kontotype = "lån"
     verdi = int(request.form['laan_verdi'])
-    kontonummer = int(random.randint(1e8, 1e9))
+    kontonummer = int(random.randint(1e7, 1e8))
     while BankAccount.query.filter_by(kontonr=kontonummer).first():
-        kontonummer = int(random.randint(1e8, 1e9))
+        kontonummer = int(random.randint(1e7, 1e8))
 
     new_loan = BankAccount(kontonr = kontonummer, navn = kontonavn, kontotype = kontotype, saldo=-int(verdi), user_id = current_user.id)
     db.session.add(new_loan)
