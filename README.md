@@ -1,8 +1,18 @@
 ### Ting å gjøre og fikse
+  * ADMIN BRUKER
   * Session problemer
   * Sikkerhet
   * CSS
 
+```
+* Se over alle brukere
+* Se over alle konto
+* Se over konto til hver bruker
+* Redigere alle bruker
+* Slette bruker/konto
+* Rediger admin info
+* Legge til admin bruker
+```
 ```
 Hjem:
 

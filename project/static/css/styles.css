@@ -281,7 +281,7 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
   }
   
   /* Full-width input fields */
- input[type=text], input[type=date], input[type=password], input[type=email] {
+  input[type=text], input[type=select], input[type=date], input[type=password], input[type=email] {
     padding: 15px 15px;
     margin: 5px 10px 22px 10px;
     display: inline-block;
@@ -294,9 +294,6 @@ https://www.w3schools.com/howto/howto_css_register_form.asp
     background-color: #edf2f7;
     outline: none;
   }
-
-  input[type=date]
-
 
   /* Overwrite default styles of hr */
   hr {
