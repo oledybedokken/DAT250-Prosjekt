@@ -58,6 +58,7 @@ Jørgen:
 1. Sortere transaksjoner riktig (nyeste øverst)
 2. Fjerne kontonummer for nedbetaling av lån
 3. maksgrense for lån og maks en av hver lånetype
+4. Mellomrom på store verdier
 
 Pervaz:
 

@@ -65,7 +65,7 @@ def account(kontonr):
         flash("Du har ikke tilgang til denne kontoen")
         return redirect(url_for('main.overview'))
     brukskontoer = BankAccount.query.filter_by(user_id=current_user.id, kontotype="bruk").all()
-    transaksjoner = Transaction.query.order_by(desc(Transaction.tidspunkt)).filter(or_(Transaction.avsender==kontonr, Transaction.mottaker==kontonr)).all()
+    transaksjoner = Transaction.query.order_by(desc(Transaction.id)).filter(or_(Transaction.avsender==kontonr, Transaction.mottaker==kontonr)).all()
     saldoer = {}
     rest = 0
     for transaksjon in transaksjoner:
