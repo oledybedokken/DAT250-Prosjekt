@@ -64,6 +64,7 @@
         </table>
         <div class="tabell-scroll">
         <table class="transaksjoner">
+            {% if konto.kontotype != "lån" %}
             {% for transaksjon in transaksjoner %}
             {% if transaksjon.avsender == konto.kontonr %}
             <tr>
@@ -83,7 +84,29 @@
                 <td> {{ saldoer[transaksjon] }} kr</td>
             </tr>
             {% endif %}
-            {% endfor %} 
+            {% endfor %}
+            {% else %}
+            {% for transaksjon in transaksjoner %}
+            {% if transaksjon.avsender == konto.navn %}
+            <tr>
+                <td>{{ transaksjon.mottaker }}</td>
+                <td> {{ transaksjon.trans_type }}</td>
+                <td> {{ transaksjon.tidspunkt }}</td>
+                <td> -{{ transaksjon.verdi }} kr</td>
+                <td> {{ saldoer[transaksjon] }} kr</td>
+            </tr>
+            {% endif %}
+            {% if transaksjon.mottaker == konto.navn %}
+            <tr>
+                <td>{{ transaksjon.avsender }}</td>
+                <td> {{ transaksjon.trans_type }}</td>
+                <td> {{ transaksjon.tidspunkt }}</td>
+                <td> +{{ transaksjon.verdi }} kr</td>
+                <td> {{ saldoer[transaksjon] }} kr</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            {% endif %} 
             <table class="saldo-visning">
                 <tr>
                     <td colspan="3"></td>

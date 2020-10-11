@@ -65,14 +65,18 @@ def account(kontonr):
         flash("Du har ikke tilgang til denne kontoen")
         return redirect(url_for('main.overview'))
     brukskontoer = BankAccount.query.filter_by(user_id=current_user.id, kontotype="bruk").all()
-    transaksjoner = Transaction.query.order_by(desc(Transaction.id)).filter(or_(Transaction.avsender==kontonr, Transaction.mottaker==kontonr)).all()
+    if kontoen.kontotype == "lån":
+        transaksjoner = Transaction.query.order_by(desc(Transaction.id)).filter(or_(Transaction.avsender==kontoen.navn, Transaction.mottaker==kontoen.navn)).all()
+    else:
+        transaksjoner = Transaction.query.order_by(desc(Transaction.id)).filter(or_(Transaction.avsender==kontonr, Transaction.mottaker==kontonr)).all()
+    
     saldoer = {}
     rest = 0
     for transaksjon in transaksjoner:
         saldoer[transaksjon] = kontoen.saldo + rest
-        if transaksjon.mottaker == kontoen.kontonr:
+        if transaksjon.mottaker == kontoen.kontonr or transaksjon.mottaker == kontoen.navn:
             rest -= transaksjon.verdi
-        if transaksjon.avsender == kontoen.kontonr:
+        if transaksjon.avsender == kontoen.kontonr or transaksjon.avsender == kontoen.navn:
             rest += transaksjon.verdi
 
     return render_template('account.html', konto=kontoen, brukskontoer=brukskontoer, transaksjoner=transaksjoner, saldoer=saldoer)
@@ -96,7 +100,7 @@ def account_post(kontonr):
     # Oppdater databasen
     avsender_konto.saldo -= pengesum
     laanet.saldo += pengesum
-    transaksjon = Transaction(trans_type=trans_type, verdi=pengesum, avsender=avsender_konto.kontonr, mottaker=laanet.kontonr)
+    transaksjon = Transaction(trans_type=trans_type, verdi=pengesum, avsender=avsender_konto.kontonr, mottaker=laanet.navn)
     db.session.add(transaksjon)
     db.session.commit()
 
@@ -167,7 +171,7 @@ def create_loan_post():
     kontoen = BankAccount.query.filter_by(user_id=current_user.id, kontotype="bruk").first()
     kontoen.saldo += verdi
 
-    transaksjon = Transaction(trans_type="Lån", verdi=verdi, avsender=kontonummer, mottaker=kontoen.kontonr)
+    transaksjon = Transaction(trans_type="Lån", verdi=verdi, avsender=new_loan.navn, mottaker=kontoen.kontonr)
     db.session.add(transaksjon)
     db.session.commit()
 
