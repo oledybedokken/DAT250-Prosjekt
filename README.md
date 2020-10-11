@@ -1,8 +1,20 @@
 ### Ting å gjøre og fikse
+  * ADMIN BRUKER
   * Session problemer
   * Sikkerhet
   * CSS
 
+```
+ADMIN
+* Se over alle brukere
+* Se over alle konto
+* Se over konto til hver bruker
+* Redigere alle bruker
+* Slette bruker/konto
+* Rediger admin info
+* Legge til admin bruker
+* Global liste med kontonummer for å hinder duplikater?
+```
 ```
 Hjem:
 
@@ -33,33 +45,27 @@ Oversikt:
 ```
 ```
 Betaling:
-"Du har ikke nok penger" er ikke tydelig nok.
-"Ugyldig sum" er ikke tydelig nok.
-"Kontoen må være tom før den kan slettes" ikke tydelig nok.
-- Fleste advarsel er ikke tydelig nok. 
-
-"Du kan maks nedbetale XXX kr" ikke tydelig, bytt til:
-"Du kan ikke overstige gitte summen for nedbetaling."
-
-*Forandring
 - Mellomrom på store verdier
-Har tenkt å formatere til string med '.toLocaleString()' men skapte error.
+Har tenkt å formatere til string med '.toLocaleString()' eller ''.join - men skapte error.
 
-- Dato skal ikke inneholde mikrosekunder, YY-MM-DD HH-MM-SS
 ```
 
 ### Legg til ting du holder på med
 Ole:
     
-1. NA
+1. Sortere Admin bruker
   
 Jørgen:
 
-1. NA
+1. Sortere transaksjoner riktig (nyeste øverst)           GJORT
+2. Mellomrom på store verdier                             GJORT
+3. maks en av hver lånetype                               GJORT
+4. Fjerne kontonummer for nedbetaling av lån??
+5. maksgrense for lån?
 
 Pervaz:
 
-1. NA
+1. Sortere Admin bruker
 
 Espen:
 

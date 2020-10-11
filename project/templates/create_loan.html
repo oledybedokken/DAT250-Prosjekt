@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div style="text-align: center;">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+</div>
 <div id="container">
     <!-- -->
     <div class="sub-container">

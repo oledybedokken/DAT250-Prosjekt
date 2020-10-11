@@ -54,7 +54,7 @@ def signup_post():
     postAddresse = request.form.get('postAddresse')
     postKode = request.form.get('postKode')
     fylke = request.form.get('fylke')
-    kjonn = request.form.get('Kjonn')
+    kjonn = str(request.form.get('Kjonn'))
     fodselsdato = request.form.get('Fodselsdato')
     password = request.form.get('psw')
     repeatPassword = request.form.get('psw-repeat')
