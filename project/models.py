@@ -20,17 +20,17 @@ class User(UserMixin, db.Model):
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     trans_type = db.Column(db.String(50), nullable=False)
-    verdi = db.Column(db.Integer)
-    avsender = db.Column(db.Integer)
+    verdi = db.Column(db.Integer, nullable = False)
+    avsender = db.Column(db.Integer, nullable = False)
     mottaker = db.Column(db.Integer, nullable = False)
     tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.now().replace(microsecond=0))
 
 class BankAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kontonr = db.Column(db.Integer, unique=True)
-    navn = db.Column(db.String(50),nullable=False)
-    kontotype = db.Column(db.String(50),nullable=False)
-    saldo = db.Column(db.Integer,nullable = False)
+    navn = db.Column(db.String(50), nullable=False)
+    kontotype = db.Column(db.String(50), nullable=False)
+    saldo = db.Column(db.Integer, nullable = False)
     user_id = db.Column(db.Integer, nullable = False)
 
 """

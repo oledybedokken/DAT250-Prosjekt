@@ -83,15 +83,25 @@ def account_post(kontonr):
     laanet = BankAccount.query.filter_by(kontonr=int(kontonr)).first()
     avsender_kontonr = request.form['fra_konto']
     avsender_konto = BankAccount.query.filter_by(kontonr=int(avsender_kontonr)).first()
-    if not request.form["pengesum"].isdigit() or int(request.form['pengesum']) <= 0:
+    
+    try:
+        pengesum = float(request.form["pengesum"])
+    except:
         flash("Ugyldig sum")
         return redirect(url_for('main.account', kontonr=laanet.kontonr))
-        
-    pengesum = int(request.form['pengesum'])
+
+    if pengesum <= 0:
+        flash("Ugyldig sum")
+        return redirect(url_for('main.account', kontonr=laanet.kontonr))
+
     trans_type = "Nedbetaling"
 
     if abs(laanet.saldo) < pengesum:
         flash(f"Du kan maks nedbetale {abs(laanet.saldo)} kr")
+        return redirect(url_for('main.account', kontonr=laanet.kontonr))
+
+    if avsender_konto.saldo < pengesum or avsender_konto.saldo <= 0:
+        flash("Du har ikke nok penger")
         return redirect(url_for('main.account', kontonr=laanet.kontonr))
 
     # Oppdater databasen
@@ -210,11 +220,15 @@ def transaction_post():
         mottaker_kontonr = request.form["mottaker_konto"]
         trans_type = "Betaling"
 
-    if not request.form["pengesum"].isdigit() or int(request.form['pengesum']) <= 0:
+    try:
+        pengesum = float(request.form["pengesum"])
+    except:
         flash("Ugyldig sum")
         return redirect(url_for('main.transaction'))
 
-    pengesum = int(request.form['pengesum'])
+    if pengesum <= 0:
+        flash("Ugyldig sum")
+        return redirect(url_for('main.transaction'))
 
     avsender_konto = BankAccount.query.filter_by(kontonr=int(avsender_kontonr)).first()
     mottaker_konto = BankAccount.query.filter_by(kontonr=int(mottaker_kontonr)).first()
