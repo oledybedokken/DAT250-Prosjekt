@@ -158,7 +158,12 @@ def create_loan():
 
 @main.route('/create_loan', methods=['POST'])
 def create_loan_post():
+    kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
     kontonavn = request.form['kontotype']
+    for konto in kontoer:
+        if konto.navn == kontonavn:
+            flash(f'Du kan kun ha ett aktivt {kontonavn}')
+            return redirect(url_for('main.create_loan'))
     kontotype = "lån"
     verdi = int(request.form['laan_verdi'])
     kontonummer = int(random.randint(1e7, 1e8))
