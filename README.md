@@ -64,7 +64,7 @@ Jørgen:
 
 Pervaz:
 
-1. NA
+1. Sortere Admin bruker
 
 Espen:
 
