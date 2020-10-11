@@ -39,7 +39,7 @@
                     <label for="fra_konto"><h2>Fra konto</h2> </label>
                     <select name="fra_konto" id="fra_konto">
                         {% for konto in brukskontoer %}
-                        <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.saldo }} kr</option>
+                        <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.__str__() }} kr</option>
                         {% endfor %}
                     </select>
                     <label for="psum"><h2>Sum<input type="psum" id="psum" name="pengesum" placeholder="kr"></h2></label>
