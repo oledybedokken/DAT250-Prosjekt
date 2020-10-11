@@ -58,7 +58,7 @@ Jørgen:
 
 1. Sortere transaksjoner riktig (nyeste øverst)           GJORT
 2. Fjerne kontonummer for nedbetaling av lån??
-3. maksgrense for lån
+3. maksgrense for lån?
 4. Mellomrom på store verdier
 5. maks en av hver lånetype                               GJORT
 
