@@ -70,7 +70,8 @@ def account(kontonr):
     saldoer = {}
     rest = 0
     for transaksjon in transaksjoner:
-        saldoer[transaksjon] = kontoen.saldo + rest
+        resultat = format(kontoen.saldo + rest, ",")
+        saldoer[transaksjon] = resultat.replace(",", " ")
         if transaksjon.mottaker == kontoen.kontonr:
             rest -= transaksjon.verdi
         if transaksjon.avsender == kontoen.kontonr:

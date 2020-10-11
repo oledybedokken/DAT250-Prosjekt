@@ -25,6 +25,10 @@ class Transaction(db.Model):
     mottaker = db.Column(db.Integer, nullable = False)
     tidspunkt = db.Column(db.DateTime, nullable = False, default=datetime.now().replace(microsecond=0))
 
+    def __str__(self):
+        resultat = format(self.verdi, ",")
+        return resultat.replace(",", " ")
+
 class BankAccount(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     kontonr = db.Column(db.Integer, unique=True)
@@ -32,6 +36,10 @@ class BankAccount(db.Model):
     kontotype = db.Column(db.String(50), nullable=False)
     saldo = db.Column(db.Integer, nullable = False)
     user_id = db.Column(db.Integer, nullable = False)
+
+    def __str__(self):
+        resultat = format(self.saldo, ",")
+        return resultat.replace(",", " ")
 
 """
 class Account:
