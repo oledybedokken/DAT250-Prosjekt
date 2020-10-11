@@ -12,6 +12,7 @@
 * Slette bruker/konto
 * Rediger admin info
 * Legge til admin bruker
+* Global liste med kontonummer for å hinder duplikater?
 ```
 ```
 Hjem:
@@ -60,7 +61,6 @@ Jørgen:
 3. maksgrense for lån
 4. Mellomrom på store verdier
 5. maks en av hver lånetype                               GJORT
-6. Global liste med kontonummer for å hinder duplikater
 
 Pervaz:
 
