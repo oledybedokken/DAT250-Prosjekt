@@ -5,6 +5,7 @@
   * CSS
 
 ```
+ADMIN
 * Se over alle brukere
 * Se over alle konto
 * Se over konto til hver bruker
