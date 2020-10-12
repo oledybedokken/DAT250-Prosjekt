@@ -799,5 +799,10 @@ span{
     -moz-appearance: none;
     text-indent: 1px;
     text-overflow: '';
-    
+}
+.title{
+    text-align: center;
+}
+.subtitle{
+    text-align: center;
 }
