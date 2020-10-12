@@ -786,7 +786,9 @@ span{
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
-  }
+}
+
+
 select {
     color: #8E8E8E;
     background-color: #edf2f7;
