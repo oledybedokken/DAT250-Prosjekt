@@ -59,8 +59,12 @@ def profile_post():
                 
                 Fornavn: <input class="generellInput" type="text" name="fornavn" maxlength="12" value='{{ fornavn }}' readonly></input><br>
                 Etternavn: <input class="generellInput" type="text" name="etternavn" maxlength="12" value='{{ etternavn }}' readonly></input><br>
-                Kjønn: <input class="generellInput" type="text" name="kjonn" maxlength="6" value='{{ kjonn }}' readonly></input><br>
-                Fødselsdato: <input class="generellInput" type="date" min="1945-09-01" max="2001-12-31" name="fodselsdato" value='{{ fodselsdato }}' readonly></input><br>
+                Kjønn: <select class="select" value='{{ kjonn }}' disabled>
+                    <option >Mann</option>
+                    <option >Kvinne</option>
+                    <option >Annet</option>
+                </select><br>
+                Fødselsdato: <input class="" type="date" min="1945-09-01" max="2001-12-31" name="fodselsdato" value='{{ fodselsdato }}' readonly></input><br>
                 
                 <button type="submit" class="registerbtn" id="profilKnapp" style="display: none;">Lagre informasjon</button>
 
