@@ -261,3 +261,4 @@ def support():
 @main.route('/support', methods=['POST'])
 def support_post():
     return render_template('support.html')
+
