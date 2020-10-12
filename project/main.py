@@ -29,7 +29,7 @@ def profile_post():
     postAddresse = request.form.get('postAddresse')
     postKode = request.form.get('postKode')
     fylke = request.form.get('fylke')
-    kjonn = request.form.get('kjonn')
+    kjonn = str(request.form.get('Kjonn'))
     fodselsdato = request.form.get('fodselsdato')
     
     user = User.query.filter_by(id=current_user.id).first()
