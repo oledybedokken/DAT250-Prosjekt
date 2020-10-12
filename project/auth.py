@@ -21,27 +21,27 @@ def login_post():
 
     captcha_response = request.form.get('g-recaptcha-response')
     
+
     if is_human(captcha_response):
-        flash('Du klarte det!')
-    else:
-        flash('Du er ikke ett menneske!')
-        return redirect(url_for('auth.login'))
+        user = User.query.filter_by(email=email).first()
+
+        # Sjekk om bruker faktisk eksiterer
+        # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
+        if not check_password_hash(password, user.password, user.salt): 
+            flash('Passordet er feil')
+            return redirect(url_for('auth.login'))
+
+        if not user: 
+            flash('Brukeren finnes ikke, trykk på signup for å registrere')
+            return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
+
+        # Hvis det over ikke skjer, logg inn og ta til profile siden
+        login_user(user, remember=remember)
+        return redirect(url_for('main.profile'))
+
         
-    user = User.query.filter_by(email=email).first()
-
-    # Sjekk om bruker faktisk eksiterer
-    # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
-    if not check_password_hash(password, user.password, user.salt): 
-        flash('Passordet er feil')
-        return redirect(url_for('auth.login'))
-
-    if not user: 
-        flash('Brukeren finnes ikke, trykk på signup for å registrere')
-        return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
-
-    # Hvis det over ikke skjer, logg inn og ta til profile siden
-    login_user(user, remember=remember)
-    return redirect(url_for('main.profile'))
+    flash('Du er ikke menneske!')
+    return redirect(url_for('auth.login'))
 
 @auth.route('/signup')
 def signup():
@@ -58,52 +58,54 @@ def signup_post():
     postAddresse = request.form.get('postAddresse')
     postKode = request.form.get('postKode')
     fylke = request.form.get('fylke')
-    kjonn = request.form.get('Kjonn')
+    kjonn = str(request.form.get('Kjonn'))
     fodselsdato = request.form.get('Fodselsdato')
     password = request.form.get('psw')
     repeatPassword = request.form.get('psw-repeat')
     captcha_response = request.form.get('g-recaptcha-response')
     
     if is_human(captcha_response):
-        flash('Du klarte det!')
-    else:
-        flash('Du er ikke ett menneske!')
-        return redirect(url_for('auth.signup'))
-    salt = generate_random_salt()
+        salt = generate_random_salt()
 
-    #if database not exist, create database
+        #if database not exist, create database
     
-    user = User.query.filter_by(email=email).first() # Hvis dette retunerer en bruker, da finnes allerede mailen i databasen
+        user = User.query.filter_by(email=email).first() # Hvis dette retunerer en bruker, da finnes allerede mailen i databasen
 
-    if user: # Hvis brukeren allerede finnes, sendes den tilbake til signup page med flash message. 
-        flash('Email address already exists')
-        return redirect(url_for('auth.signup'))
+        if user: # Hvis brukeren allerede finnes, sendes den tilbake til signup page med flash message. 
+            flash('Email address already exists')
+            
 
-    if str(password) != str(repeatPassword):
-        flash('Ditt passord er ikke lik. Prøv igjen!')
-        return redirect(url_for('auth.signup'))
+        if str(password) != str(repeatPassword):
+            flash('Ditt passord er ikke lik. Prøv igjen!')
+            return redirect(url_for('auth.signup'))
+    
 
 
-    # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
-    p_hash = generate_password_hash(password, salt)
+        # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
+        p_hash = generate_password_hash(password, salt)
 
-    new_user = User(email=email, 
-                    fornavn=fornavn, 
-                    password=p_hash, 
-                    etternavn=etternavn, 
-                    postAddresse = postAddresse, 
-                    postKode = postKode, 
-                    fylke = fylke, 
-                    kjonn = kjonn, 
-                    fodselsdato = fodselsdato, 
-                    salt = salt
-                    )
+        new_user = User(email=email, 
+                        fornavn=fornavn, 
+                        password=p_hash, 
+                        etternavn=etternavn, 
+                        postAddresse = postAddresse, 
+                        postKode = postKode, 
+                        fylke = fylke, 
+                        kjonn = kjonn, 
+                        fodselsdato = fodselsdato, 
+                        salt = salt
+                        )
 
-    # legg til den nye brukeren til databasen
-    db.session.add(new_user)
-    db.session.commit()
+        # legg til den nye brukeren til databasen
+        db.session.add(new_user)
+        db.session.commit()
 
-    return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
+    
+    
+    flash('Du er ikke Menneske!')
+    return redirect(url_for('auth.signup'))
+
 
 def is_human(captcha_response):
     """ Validating recaptcha response from google server

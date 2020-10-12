@@ -40,11 +40,11 @@ def profile_post():
         <div class="profil-konto">
             <h1>Kontoer</h1>
             {% for konto in kontoer %}
-            {% if konto.kontotype == "bruk" %}
+            {% if konto.kontotype == "bruk" or konto.kontotype == "spar" %}
                     <div class="info-container">
                         <a href="{{url_for('main.account', kontonr=konto.kontonr)}}">
                             <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
-                            <h3>{{ konto.saldo }} kr</h3>
+                            <h3>{{ konto.__str__() }} kr</h3>
                         </a>
                     </div>
             {% endif %}
@@ -59,8 +59,12 @@ def profile_post():
                 
                 Fornavn: <input class="generellInput" type="text" name="fornavn" maxlength="12" value='{{ fornavn }}' readonly></input><br>
                 Etternavn: <input class="generellInput" type="text" name="etternavn" maxlength="12" value='{{ etternavn }}' readonly></input><br>
-                Kjønn: <input class="generellInput" type="text" name="kjonn" maxlength="6" value='{{ kjonn }}' readonly></input><br>
-                Fødselsdato: <input class="generellInput" type="date" min="1945-09-01" max="2001-12-31" name="fodselsdato" value='{{ fodselsdato }}' readonly></input><br>
+                Kjønn: <select class="select" value='{{ kjonn }}' disabled style="width: 30%;">
+                    <option >Mann</option>
+                    <option >Kvinne</option>
+                    <option >Annet</option>
+                </select><br>
+                Fødselsdato: <input class="" type="date" min="1945-09-01" max="2001-12-31" name="fodselsdato" value='{{ fodselsdato }}' readonly></input><br>
                 
                 <button type="submit" class="registerbtn" id="profilKnapp" style="display: none;">Lagre informasjon</button>
 

@@ -24,7 +24,7 @@
                     <option value="velg" selected> Velg konto </option>
                     {% for konto in bruker_kontoer %}
                     {% if konto.kontotype != "lån" %}
-                    <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.saldo }} kr</option>
+                    <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.__str__() }} kr</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -36,7 +36,7 @@
                     <option value="velg" selected> Velg konto </option>
                     {% for konto in bruker_kontoer %}
                     {% if konto.kontotype != "lån" %}
-                    <option value="{{ konto.kontonr }}">{{ konto.navn }}: {{ konto.saldo }} kr</option>
+                    <option value="{{ konto.kontonr }}">{{ konto.navn }}: {{ konto.__str__() }} kr</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -64,7 +64,7 @@
                     <option value="velg" selected> Velg konto </option>
                     {% for konto in bruker_kontoer %}
                     {% if konto.kontotype == "bruk" %}
-                    <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.saldo }} kr</option>
+                    <option value="{{ konto.kontonr }}"> {{ konto.navn }}: {{ konto.__str__() }} kr</option>
                     {% endif %}
                     {% endfor %}
                 </select>
