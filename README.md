@@ -1,7 +1,7 @@
 ### Ting å gjøre og fikse
   * ADMIN BRUKER
   * Session problemer
-  * Sikkerhet
+  * Sikkerhet (https://pythonhosted.org/Flask-Security/) og sjekke owasp top 10
   * CSS
 
 ```

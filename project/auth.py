@@ -7,11 +7,19 @@ from flask_scrypt import generate_random_salt, generate_password_hash, check_pas
 import requests, json
 from project import admin
 
+
+
+
 auth = Blueprint('auth', __name__)
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Transaction, db.session))
 admin.add_view(ModelView(BankAccount, db.session))
+
+
+
+
+
 
 @auth.route('/login')
 def login():
