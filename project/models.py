@@ -1,11 +1,10 @@
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import expression
-
+from flask_admin.contrib.sqla import ModelView
 
 db = SQLAlchemy()
-
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)

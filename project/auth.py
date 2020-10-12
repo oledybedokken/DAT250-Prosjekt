@@ -1,12 +1,17 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import User, Transaction, BankAccount
+from .models import User, Transaction, BankAccount, ModelView
 from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
 import requests, json
+from project import admin
 
 auth = Blueprint('auth', __name__)
+
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Transaction, db.session))
+admin.add_view(ModelView(BankAccount, db.session))
 
 @auth.route('/login')
 def login():
@@ -21,7 +26,6 @@ def login_post():
 
     captcha_response = request.form.get('g-recaptcha-response')
     
-
     if is_human(captcha_response):
         user = User.query.filter_by(email=email).first()
 
@@ -93,7 +97,8 @@ def signup_post():
                         fylke = fylke, 
                         kjonn = kjonn, 
                         fodselsdato = fodselsdato, 
-                        salt = salt
+                        salt = salt,
+                        stilling = "bruker"
                         )
 
         # legg til den nye brukeren til databasen

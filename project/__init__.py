@@ -1,12 +1,13 @@
-from flask import Flask
+from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user, login_required
 from flask_bcrypt import Bcrypt
 from flask_admin import Admin
 from datetime import datetime, timedelta
 from .models import db
 from flask_admin.contrib.sqla import ModelView
 
+admin = Admin()
 
 def create_app():
     app = Flask(__name__)
@@ -16,16 +17,11 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False    
     app.permanent_session_lifetime = timedelta(days=5)
     db.init_app(app)
-
+    admin.init_app(app)
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
     from .models import User, Transaction, BankAccount
-
-    admin = Admin(app)
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Transaction, db.session))
-    admin.add_view(ModelView(BankAccount, db.session))
 
     @login_manager.user_loader
     def load_user(user_id):

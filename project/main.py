@@ -1,6 +1,7 @@
 from flask import Flask,g, redirect, render_template, request,session, url_for, flash, Blueprint
 from flask_login import login_required, current_user
-from .models import db, User, Transaction, BankAccount
+from flask_admin import Admin
+from .models import db, User, Transaction, BankAccount, ModelView
 import random
 from sqlalchemy import desc, or_
 
@@ -42,10 +43,9 @@ def profile_post():
     user.fylke = fylke
     user.kjonn = kjonn
     user.fodselsdato = fodselsdato
+    user.stilling = "bruker"
 
     db.session.commit()
-
-
     return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato, password = current_user.password, kontoer=kontoer)
 
 @main.route('/overview')
@@ -53,7 +53,7 @@ def profile_post():
 def overview():
     kontoer=BankAccount.query.filter_by(user_id=current_user.id).all()
     return render_template('overview.html', kontoer=kontoer)
-
+    
 @main.route('/account<int:kontonr>')
 @login_required
 def account(kontonr):
