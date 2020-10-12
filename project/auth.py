@@ -18,9 +18,6 @@ admin.add_view(ModelView(BankAccount, db.session))
 
 
 
-
-
-
 @auth.route('/login')
 def login():
     sitekey = "6LcME9UZAAAAAFs9gpLPk2cNe6y7KsbltAMyZOIk"
@@ -90,7 +87,6 @@ def signup_post():
         if str(password) != str(repeatPassword):
             flash('Ditt passord er ikke lik. Prøv igjen!')
             return redirect(url_for('auth.signup'))
-    
 
 
         # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
@@ -105,8 +101,7 @@ def signup_post():
                         fylke = fylke, 
                         kjonn = kjonn, 
                         fodselsdato = fodselsdato, 
-                        salt = salt,
-                        stilling = "bruker"
+                        salt = salt
                         )
 
         # legg til den nye brukeren til databasen
@@ -114,7 +109,6 @@ def signup_post():
         db.session.commit()
 
         return redirect(url_for('auth.login'))
-    
     
     flash('Du er ikke Menneske!')
     return redirect(url_for('auth.signup'))

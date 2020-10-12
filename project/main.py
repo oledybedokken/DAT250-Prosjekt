@@ -43,7 +43,6 @@ def profile_post():
     user.fylke = fylke
     user.kjonn = kjonn
     user.fodselsdato = fodselsdato
-    user.stilling = "bruker"
 
     db.session.commit()
     return render_template('profile.html', fornavn=current_user.fornavn, email =current_user.email, etternavn = current_user.etternavn, addresse = current_user.postAddresse, postkode = current_user.postKode, fylke = current_user.fylke, kjonn = current_user.kjonn, fodselsdato = current_user.fodselsdato, password = current_user.password, kontoer=kontoer)
