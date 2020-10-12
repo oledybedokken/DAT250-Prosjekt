@@ -789,7 +789,15 @@ span{
   }
   select {
     color: #8E8E8E;
-    text-align: center;
-    text-align-last: center;
-    -moz-text-align-last: center;
+    background-color: #edf2f7;
+    margin: 5px 5px 22px 10px;
+    padding: 15px;
+    width: 95%;
+    border-radius: 10px;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    
 }

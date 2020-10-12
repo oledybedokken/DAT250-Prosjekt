@@ -69,7 +69,7 @@ Pervaz:
 
 Espen:
 
-1. NA
+1. CSS
 
 ## For å kjøre flask run
 

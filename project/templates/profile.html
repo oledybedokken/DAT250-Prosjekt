@@ -40,7 +40,7 @@ def profile_post():
         <div class="profil-konto">
             <h1>Kontoer</h1>
             {% for konto in kontoer %}
-            {% if konto.kontotype == "bruk" %}
+            {% if konto.kontotype == "bruk" or konto.kontotype == "spar" %}
                     <div class="info-container">
                         <a href="{{url_for('main.account', kontonr=konto.kontonr)}}">
                             <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
