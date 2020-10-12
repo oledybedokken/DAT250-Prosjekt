@@ -84,7 +84,7 @@ def signup_post():
         user = User.query.filter_by(email=email).first() # Hvis dette retunerer en bruker, da finnes allerede mailen i databasen
 
         if user: # Hvis brukeren allerede finnes, sendes den tilbake til signup page med flash message. 
-            flash('Email address already exists')
+            flash('Email adresse allerede finnes.')
             
 
         if str(password) != str(repeatPassword):

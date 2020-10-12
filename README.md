@@ -65,7 +65,7 @@ Jørgen:
 
 Pervaz:
 
-1. Sortere Admin bruker
+1. Går gjennom sikkerhet og quality control (alt funker)
 
 Espen:
 
