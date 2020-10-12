@@ -93,7 +93,7 @@ footer a{
 
 /* Konto siden*/
 .tabell-scroll{
-    height: 400px;
+    max-height: 400px;
     overflow: auto;
 }
 #konto-container{
