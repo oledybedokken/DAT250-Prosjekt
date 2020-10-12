@@ -50,7 +50,7 @@ Har tenkt å formatere til string med '.toLocaleString()' eller ''.join - men sk
 
 ```
 
-### Legg til ting du holder på med
+### Legg til ting du holder på med.-
 Ole:
     
 1. Sortere Admin bruker
