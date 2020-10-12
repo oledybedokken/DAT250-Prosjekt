@@ -2,8 +2,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from flask_admin import Admin
 from datetime import datetime, timedelta
 from .models import db
+from flask_admin.contrib.sqla import ModelView
 
 
 def create_app():
@@ -18,8 +20,12 @@ def create_app():
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-
     from .models import User, Transaction, BankAccount
+
+    admin = Admin(app)
+    admin.add_view(ModelView(User, db.session))
+    admin.add_view(ModelView(Transaction, db.session))
+    admin.add_view(ModelView(BankAccount, db.session))
 
     @login_manager.user_loader
     def load_user(user_id):

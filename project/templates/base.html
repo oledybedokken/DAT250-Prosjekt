@@ -33,6 +33,11 @@
                             <a href="{{ url_for('main.transaction') }}" >Betaling</a>
                         </div>
                         {% endif %}
+                        {% if current_user.is_authenticated %}
+                        <div class="nav-link-wrapper">
+                            <a href="{{ url_for('main.transaction') }}" >Betaling</a>
+                        </div>
+                        {% endif %}
                         {% if not current_user.is_authenticated %}
                         <div class="nav-link-wrapper">   
                             <a href="{{ url_for('auth.login') }}" >Logg inn</a>

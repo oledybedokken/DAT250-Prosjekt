@@ -31,7 +31,6 @@ def profile_post():
     fylke = request.form.get('fylke')
     kjonn = str(request.form.get('Kjonn'))
     fodselsdato = request.form.get('fodselsdato')
-    
     user = User.query.filter_by(id=current_user.id).first()
 
     #Burde ikke kunne sette lik mail som allerede er i databasen
