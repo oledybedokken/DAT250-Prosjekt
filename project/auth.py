@@ -34,15 +34,15 @@ def login_post():
     if is_human(captcha_response):
         user = User.query.filter_by(email=email).first()
 
+        if not user: 
+            flash('Brukeren finnes ikke, trykk på signup for å registrere')
+            return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
+
         # Sjekk om bruker faktisk eksiterer
         # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
         if not check_password_hash(password, user.password, user.salt): 
             flash('Passordet er feil')
             return redirect(url_for('auth.login'))
-
-        if not user: 
-            flash('Brukeren finnes ikke, trykk på signup for å registrere')
-            return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
 
         # Hvis det over ikke skjer, logg inn og ta til profile siden
         login_user(user, remember=remember)
