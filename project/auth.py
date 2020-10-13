@@ -38,21 +38,33 @@ def signin_post():
     if is_human(captcha_response):
         user = User.query.filter_by(email=email).first()
 
+<<<<<<< HEAD
         
         if not user: 
             flash('Brukeren finnes ikke, trykk på signup for å registrere')
             print('OLE SUPER GAY')
             return redirect(url_for('auth.signin')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
         
+=======
+        if not user: 
+            flash('Brukeren finnes ikke, trykk på signup for å registrere')
+            return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
+
+>>>>>>> master
         # Sjekk om bruker faktisk eksiterer
         # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
         if not check_password_hash(password, user.password, user.salt): 
             flash('Passordet er feil')
+<<<<<<< HEAD
             print('OLE GAY')
             return redirect(url_for('auth.signin'))
 
         
         print('Alt e gydd!')
+=======
+            return redirect(url_for('auth.login'))
+
+>>>>>>> master
         # Hvis det over ikke skjer, logg inn og ta til profile siden
         login_user(user, remember=remember, force=True)
         return redirect(url_for('main.profile'))
@@ -91,6 +103,7 @@ def signup_post():
 
         if user: # Hvis brukeren allerede finnes, sendes den tilbake til signup page med flash message. 
             flash('Email adresse allerede finnes.')
+            return redirect(url_for('auth.signup'))
             
 
         if str(password) != str(repeatPassword):
