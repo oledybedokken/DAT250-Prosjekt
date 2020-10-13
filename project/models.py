@@ -1,4 +1,4 @@
-from flask_login import UserMixin, current_user
+from flask_security import RoleMixin, UserMixin
 from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import expression
@@ -6,18 +6,34 @@ from flask_admin.contrib.sqla import ModelView
 
 db = SQLAlchemy()
 
+roles_users_table = db.Table('roles_users',
+    db.Column('user_id', db.Integer(), 
+    db.ForeignKey('user.id')),
+    db.Column('roles_id', db.Integer(), 
+    db.ForeignKey('roles.id')))
+
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(50),nullable=False)
-    fornavn = db.Column(db.String(50),nullable=False)
-    etternavn = db.Column(db.String(50),nullable=False)
-    postAddresse = db.Column(db.String(50),nullable=False)
-    postKode = db.Column(db.String(50),nullable=False)
-    fylke = db.Column(db.String(50),nullable=False)
-    kjonn = db.Column(db.String(50),nullable=False)
-    fodselsdato = db.Column(db.String(50),nullable=False)
+    fornavn = db.Column(db.String(50),nullable=True)
+    etternavn = db.Column(db.String(50),nullable=True)
+    postAddresse = db.Column(db.String(50),nullable=True)
+    postKode = db.Column(db.String(50),nullable=True)
+    fylke = db.Column(db.String(50),nullable=True)
+    kjonn = db.Column(db.String(50),nullable=True)
+    fodselsdato = db.Column(db.String(50),nullable=True)
     salt = db.Column(db.String(50))
+    active = db.Column(db.Boolean())
+    roles = db.relationship('Roles', secondary=roles_users_table, backref='user', lazy=True)
+
+class Roles(db.Model, RoleMixin):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.String(255))
+
 
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)

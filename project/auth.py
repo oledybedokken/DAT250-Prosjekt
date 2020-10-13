@@ -1,20 +1,23 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import User, Transaction, BankAccount, ModelView
+from .models import User, Transaction, BankAccount, ModelView, Roles
 from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
 import requests, json
 from project import admin
+from flask_admin import Admin
+from flask_security import Security, SQLAlchemyUserDatastore
 
 
 
 
 auth = Blueprint('auth', __name__)
 
-admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Transaction, db.session))
-admin.add_view(ModelView(BankAccount, db.session))
+#admin.add_view(ModelView(User, db.session))
+#admin.add_view(ModelView(Transaction, db.session))
+#admin.add_view(ModelView(BankAccount, db.session))
+
 
 
 
@@ -92,7 +95,7 @@ def signup_post():
         # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
         p_hash = generate_password_hash(password, salt)
 
-        new_user = User(email=email, 
+        user_datastore.create_user(email=email, 
                         fornavn=fornavn, 
                         password=p_hash, 
                         etternavn=etternavn, 
@@ -105,7 +108,6 @@ def signup_post():
                         )
 
         # legg til den nye brukeren til databasen
-        db.session.add(new_user)
         db.session.commit()
 
         return redirect(url_for('auth.login'))
