@@ -47,7 +47,7 @@ def create_app():
             if not self.is_accessible():
                 return redirect(url_for('security.login'))
         
-        column_list = ['email', 'password', 'salt']
+        #column_list = ['email', 'password', 'salt']
     
     # Add administrative views to Flask-Admin
     admin.add_view(UserModelView(User, db.session))
@@ -63,10 +63,7 @@ def create_app():
             get_url = url_for,
             h = admin_helpers
         )
-
-    @app.route('/tiss')
-    def index():
-        return render_template('index-admin.html')
+    
     #@login_manager.user_loader
     #def load_user(user_id):
     #    return User.query.get(int(user_id))

@@ -18,9 +18,9 @@ ADMIN
 ```
 Hjem:
 
-- Rett hovedmeny så den står imidten
+- Rett hovedmeny så den står imidten (done)
 - Skap logg system for alt brukeren gjør
-- Logoen linker til hovedmeny
+- Logoen linker til hovedmeny (done)
 ```
 ```
 Profil:
@@ -70,6 +70,7 @@ Pervaz:
 Espen:
 
 1. CSS
+2. Admin bruker(FUNKER)
 
 ## For å kjøre flask run
 

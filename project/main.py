@@ -35,7 +35,7 @@ def profile_post():
     user = User.query.filter_by(id=current_user.id).first()
 
     #Burde ikke kunne sette lik mail som allerede er i databasen
-    #user.email = email
+    user.email = email
     user.fornavn = fornavn
     user.etternavn = etternavn
     user.postAddresse = postAddresse
