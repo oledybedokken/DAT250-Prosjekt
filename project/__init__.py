@@ -16,7 +16,8 @@ def create_app():
 
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False    
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config['SECURITY_PASSWORD_SALT'] = 'OLEGAY'
     app.permanent_session_lifetime = timedelta(days=5)
     db.init_app(app)
     #admin.init_app(app)
@@ -46,12 +47,12 @@ def create_app():
             if not self.is_accessible():
                 return redirect(url_for('security.login'))
         
-        column_list = ['email', 'password']
+        column_list = ['email', 'password', 'salt']
     
     # Add administrative views to Flask-Admin
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Transaction, db.session))
-    admin.add_view(ModelView(BankAccount, db.session))
+    admin.add_view(UserModelView(User, db.session))
+    admin.add_view(UserModelView(Transaction, db.session))
+    admin.add_view(UserModelView(BankAccount, db.session))
 
     # Add the context processor
     @security.context_processor

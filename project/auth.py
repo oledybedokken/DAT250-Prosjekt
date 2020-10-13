@@ -9,7 +9,7 @@ from project import admin
 from flask_admin import Admin
 from flask_security import Security, SQLAlchemyUserDatastore
 
-
+user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
 
 
 auth = Blueprint('auth', __name__)
@@ -21,31 +21,37 @@ auth = Blueprint('auth', __name__)
 
 
 
-@auth.route('/login')
-def login():
+@auth.route('/signin')
+def signin():
     sitekey = "6LcME9UZAAAAAFs9gpLPk2cNe6y7KsbltAMyZOIk"
     return render_template('login.html', sitekey = sitekey )
 
-@auth.route('/login', methods=['POST'])
-def login_post():
+@auth.route('/signin', methods=['POST'])
+def signin_post():
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
     captcha_response = request.form.get('g-recaptcha-response')
     
+    print('REEEEEEEEEEEEEEEEEEEEEEEEEEEE')
     if is_human(captcha_response):
         user = User.query.filter_by(email=email).first()
 
+        
+        if not user: 
+            flash('Brukeren finnes ikke, trykk på signup for å registrere')
+            print('OLE SUPER GAY')
+            return redirect(url_for('auth.signin')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
+        
         # Sjekk om bruker faktisk eksiterer
         # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
         if not check_password_hash(password, user.password, user.salt): 
             flash('Passordet er feil')
-            return redirect(url_for('auth.login'))
+            print('OLE GAY')
+            return redirect(url_for('auth.signin'))
 
-        if not user: 
-            flash('Brukeren finnes ikke, trykk på signup for å registrere')
-            return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
+        
 
         # Hvis det over ikke skjer, logg inn og ta til profile siden
         login_user(user, remember=remember)
@@ -53,7 +59,7 @@ def login_post():
 
         
     flash('Du er ikke menneske!')
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.signin'))
 
 @auth.route('/signup')
 def signup():
@@ -110,7 +116,7 @@ def signup_post():
         # legg til den nye brukeren til databasen
         db.session.commit()
 
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.signin'))
     
     flash('Du er ikke Menneske!')
     return redirect(url_for('auth.signup'))

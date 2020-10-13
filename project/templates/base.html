@@ -44,7 +44,7 @@
                         {% endif %}
                         {% if not current_user.is_authenticated %}
                         <div class="nav-link-wrapper">   
-                            <a href="{{ url_for('auth.login') }}" >Logg inn</a>
+                            <a href="{{ url_for('auth.signin') }}" >Logg inn</a>
                         </div>
                         {% endif %}
                         {% if not current_user.is_authenticated %}
