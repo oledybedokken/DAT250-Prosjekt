@@ -18,7 +18,7 @@
         {% endwith %}
         <h1>Logg inn</h1>
         <hr>
-        <form method="POST" action="/login" >
+        <form method="POST" action="/signin" >
             <div class="register-row">
                 <div class="register-input">
                     <label for="email"><b>Email</b></label>
@@ -34,6 +34,7 @@
                     <input type="checkbox">
                     Husk meg
                 </label>
+            
             <button class="registerbtn">Logg inn</button>
             <div class="g-recaptcha" data-sitekey="{{sitekey}}" data-theme="dark" ></div>
     </div>

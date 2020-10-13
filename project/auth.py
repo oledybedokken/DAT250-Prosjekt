@@ -1,56 +1,77 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import User, Transaction, BankAccount, ModelView
+from .models import User, Transaction, BankAccount, ModelView, Roles
 from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
 import requests, json
 from project import admin
+from flask_admin import Admin
+from flask_security import Security, SQLAlchemyUserDatastore
 
-
+user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
 
 
 auth = Blueprint('auth', __name__)
 
-admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Transaction, db.session))
-admin.add_view(ModelView(BankAccount, db.session))
+#admin.add_view(ModelView(User, db.session))
+#admin.add_view(ModelView(Transaction, db.session))
+#admin.add_view(ModelView(BankAccount, db.session))
 
 
 
-@auth.route('/login')
-def login():
+
+@auth.route('/signin')
+def signin():
     sitekey = "6LcME9UZAAAAAFs9gpLPk2cNe6y7KsbltAMyZOIk"
     return render_template('login.html', sitekey = sitekey )
 
-@auth.route('/login', methods=['POST'])
-def login_post():
+@auth.route('/signin', methods=['POST'])
+def signin_post():
     email = request.form.get('email')
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
     captcha_response = request.form.get('g-recaptcha-response')
     
+    print('REEEEEEEEEEEEEEEEEEEEEEEEEEEE')
     if is_human(captcha_response):
         user = User.query.filter_by(email=email).first()
 
+<<<<<<< HEAD
+        
+        if not user: 
+            flash('Brukeren finnes ikke, trykk på signup for å registrere')
+            print('OLE SUPER GAY')
+            return redirect(url_for('auth.signin')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
+        
+=======
         if not user: 
             flash('Brukeren finnes ikke, trykk på signup for å registrere')
             return redirect(url_for('auth.login')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
 
+>>>>>>> master
         # Sjekk om bruker faktisk eksiterer
         # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
         if not check_password_hash(password, user.password, user.salt): 
             flash('Passordet er feil')
-            return redirect(url_for('auth.login'))
-
-        # Hvis det over ikke skjer, logg inn og ta til profile siden
-        login_user(user, remember=remember)
-        return redirect(url_for('main.profile'))
+<<<<<<< HEAD
+            print('OLE GAY')
+            return redirect(url_for('auth.signin'))
 
         
+        print('Alt e gydd!')
+=======
+            return redirect(url_for('auth.login'))
+
+>>>>>>> master
+        # Hvis det over ikke skjer, logg inn og ta til profile siden
+        login_user(user, remember=remember, force=True)
+        return redirect(url_for('main.profile'))
+
+    print('Hjelp')
     flash('Du er ikke menneske!')
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.signin'))
 
 @auth.route('/signup')
 def signup():
@@ -93,7 +114,7 @@ def signup_post():
         # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
         p_hash = generate_password_hash(password, salt)
 
-        new_user = User(email=email, 
+        user = user_datastore.create_user(email=email, 
                         fornavn=fornavn, 
                         password=p_hash, 
                         etternavn=etternavn, 
@@ -104,12 +125,11 @@ def signup_post():
                         fodselsdato = fodselsdato, 
                         salt = salt
                         )
-
+        user_datastore.toggle_active(user)
         # legg til den nye brukeren til databasen
-        db.session.add(new_user)
         db.session.commit()
 
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.signin'))
     
     flash('Du er ikke Menneske!')
     return redirect(url_for('auth.signup'))
