@@ -46,8 +46,6 @@ def create_app():
         def _handle_view(self, name):
             if not self.is_accessible():
                 return redirect(url_for('security.login'))
-        
-        column_list = ['email', 'password', 'salt']
     
     # Add administrative views to Flask-Admin
     admin.add_view(UserModelView(User, db.session))

@@ -156,9 +156,9 @@ def delete_bank_account(kontonr):
 @main.route('/create_loan')
 @login_required
 def create_loan():
-    kontoen = BankAccount.query.filter_by(user_id=current_user.id).first()
+    kontoen = BankAccount.query.filter_by(user_id=current_user.id, kontotype="bruk").first()
     if not kontoen:
-        flash('Du må opprette en konto først!')
+        flash('Du må opprette en brukskonto før du kan opprette en låneavtale!')
         return redirect(url_for('main.overview'))
 
     return render_template('create_loan.html')
