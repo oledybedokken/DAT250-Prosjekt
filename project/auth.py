@@ -82,6 +82,7 @@ def signup_post():
 
         if user: # Hvis brukeren allerede finnes, sendes den tilbake til signup page med flash message. 
             flash('Email adresse allerede finnes.')
+            return redirect(url_for('auth.signup'))
             
 
         if str(password) != str(repeatPassword):
