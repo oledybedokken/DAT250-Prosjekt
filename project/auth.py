@@ -101,7 +101,7 @@ def signup_post():
         # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
         p_hash = generate_password_hash(password, salt)
 
-        user_datastore.create_user(email=email, 
+        user = user_datastore.create_user(email=email, 
                         fornavn=fornavn, 
                         password=p_hash, 
                         etternavn=etternavn, 
@@ -112,7 +112,7 @@ def signup_post():
                         fodselsdato = fodselsdato, 
                         salt = salt
                         )
-
+        user_datastore.toggle_active(user)
         # legg til den nye brukeren til databasen
         db.session.commit()
 
