@@ -35,14 +35,12 @@ def signin_post():
 
     captcha_response = request.form.get('g-recaptcha-response')
     
-    print('REEEEEEEEEEEEEEEEEEEEEEEEEEEE')
     if is_human(captcha_response):
         user = User.query.filter_by(email=email).first()
 
         
         if not user: 
             flash('Brukeren finnes ikke, trykk på signup for å registrere')
-            print('OLE SUPER GAY')
             return redirect(url_for('auth.signin')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
         
 
@@ -51,16 +49,12 @@ def signin_post():
         # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
         if not check_password_hash(password, user.password, user.salt): 
             flash('Passordet er feil')
-            print('OLE GAY')
             return redirect(url_for('auth.signin'))
 
-        
-        print('Alt e gydd!')
         # Hvis det over ikke skjer, logg inn og ta til profile siden
         login_user(user, remember=remember, force=True)
         return redirect(url_for('main.profile'))
 
-    print('Hjelp')
     flash('Du er ikke menneske!')
     return redirect(url_for('auth.signin'))
 
