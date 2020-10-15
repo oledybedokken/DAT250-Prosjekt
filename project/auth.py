@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required, set_login_view, current_user
 from .models import User, Transaction, BankAccount, ModelView, Roles
 from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
@@ -8,6 +8,8 @@ import requests, json
 from project import admin
 from flask_admin import Admin
 from flask_security import Security, SQLAlchemyUserDatastore
+
+set_login_view("auth.signin")
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
 
@@ -17,7 +19,6 @@ auth = Blueprint('auth', __name__)
 #admin.add_view(ModelView(User, db.session))
 #admin.add_view(ModelView(Transaction, db.session))
 #admin.add_view(ModelView(BankAccount, db.session))
-
 
 
 

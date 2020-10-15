@@ -19,14 +19,13 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config['SECURITY_PASSWORD_SALT'] = 'OLEGAY'
-    app.permanent_session_lifetime = timedelta(days=5)
+    app.permanent_session_lifetime = timedelta(seconds=10)
     db.init_app(app)
     #admin.init_app(app)
     #login_manager = LoginManager()
     #login_manager.login_view = 'auth.login'
     #login_manager.init_app(app)
     from .models import User, Transaction, BankAccount, Roles
-
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
     security = Security(app, user_datastore)
