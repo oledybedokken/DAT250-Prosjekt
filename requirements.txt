@@ -22,8 +22,6 @@ flask_sqlalchemy
 flask_login
 idna
 itsdangerous
-Jinja2
-kiwisolver
 lml
 MarkupSafe
 numpy
