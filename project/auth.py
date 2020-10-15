@@ -40,7 +40,7 @@ def signin_post():
 
         
         if not user: 
-            flash('Brukeren finnes ikke, trykk på signup for å registrere')
+            flash('Brukeren finnes ikke, trykk på registrer for å opprette en bruker')
             return redirect(url_for('auth.signin')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
         
 
