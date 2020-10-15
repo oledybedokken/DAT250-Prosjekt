@@ -57,7 +57,7 @@ def signin_post():
         print('Alt e gydd!')
         # Hvis det over ikke skjer, logg inn og ta til profile siden
         login_user(user, remember=remember, force=True)
-        return redirect(url_for(''))
+        return redirect(url_for('main.profile'))
 
     print('Hjelp')
     flash('Du er ikke menneske!')

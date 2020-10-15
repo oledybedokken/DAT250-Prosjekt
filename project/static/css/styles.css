@@ -193,6 +193,7 @@ body{
 .sub-container{
     position: relative;
     z-index: 2;
+    max-width: 50%;
 }
 
 .container {
