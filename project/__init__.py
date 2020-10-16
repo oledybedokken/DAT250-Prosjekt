@@ -4,6 +4,7 @@ from flask_login import LoginManager, current_user, login_required
 from flask_bcrypt import Bcrypt
 from flask_admin import helpers as admin_helpers
 from flask_admin import Admin
+from flask_admin.menu import MenuLink
 from datetime import datetime, timedelta
 from .models import db
 from flask_admin.contrib.sqla import ModelView
@@ -18,14 +19,13 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config['SECURITY_PASSWORD_SALT'] = 'OLEGAY'
-    app.permanent_session_lifetime = timedelta(days=5)
+    app.permanent_session_lifetime = timedelta(hours=1)
     db.init_app(app)
     #admin.init_app(app)
     #login_manager = LoginManager()
     #login_manager.login_view = 'auth.login'
     #login_manager.init_app(app)
     from .models import User, Transaction, BankAccount, Roles
-
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
     security = Security(app, user_datastore)
@@ -37,7 +37,8 @@ def create_app():
         #user_datastore.create_user(email='admin', password='admin')
         db.session.commit()
 
-    admin = Admin(app, name='Admin', base_template='my_master.html', template_mode='bootstrap3')
+    admin = Admin(app, name='Admin', base_template='my_master.html', template_mode='bootstrap3', url='/admin')
+    admin.add_link(MenuLink(name='Brusjan Bank', category='', url='/'))
 
     class UserModelView(ModelView):
         def is_accessible(self):
@@ -45,7 +46,7 @@ def create_app():
 
         def _handle_view(self, name):
             if not self.is_accessible():
-                return redirect(url_for('security.login'))
+                return redirect(url_for('auth.signin'))
     
     # Add administrative views to Flask-Admin
     admin.add_view(UserModelView(User, db.session))

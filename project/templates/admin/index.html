@@ -18,10 +18,6 @@
                   <a class='btn btn-primary' href="{{ url_for('security.login') }}">login</a>
               </p>
               <br>
-              <p>Alternatively, you can register as a new administrator using the button below.</p>
-              <p>
-                <a class='btn btn-primary' href="{{ url_for('auth.signup') }}">Register</a>
-              </p>
               {% endif %}
               {% if current_user.is_active %}
               <h3>You have successfully logged in.</h3>

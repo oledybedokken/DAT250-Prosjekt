@@ -13,9 +13,9 @@
             <nav>
                 <div class="nav-wrapper">
                     <div class="left-side">
-                        {% if current_user.is_authenticated %}
+                        {% if current_user.is_authenticated and current_user.is_active %}
                         <div class="nav-link-wrapper">
-                            <a href="{{ url_for('main.index') }}">Hjem</a>
+                            <a href="{{ url_for('admin.index') }}">admin</a>
                         </div>
                         {% endif %}
                         {% if current_user.is_authenticated %}
@@ -49,7 +49,7 @@
                         {% endif %}
                         {% if not current_user.is_authenticated %}
                         <div class="nav-link-wrapper">
-                            <a href="{{ url_for('auth.signup') }}" >Registrering</a>
+                            <a href="{{ url_for('auth.signup') }}" >Registrer</a>
                         </div>
                         {% endif %} 
                         

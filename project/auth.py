@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required, set_login_view, current_user
 from .models import User, Transaction, BankAccount, ModelView, Roles
 from . import db
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
@@ -8,6 +8,8 @@ import requests, json
 from project import admin
 from flask_admin import Admin
 from flask_security import Security, SQLAlchemyUserDatastore
+
+set_login_view("auth.signin")
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
 
@@ -17,7 +19,6 @@ auth = Blueprint('auth', __name__)
 #admin.add_view(ModelView(User, db.session))
 #admin.add_view(ModelView(Transaction, db.session))
 #admin.add_view(ModelView(BankAccount, db.session))
-
 
 
 
@@ -34,14 +35,12 @@ def signin_post():
 
     captcha_response = request.form.get('g-recaptcha-response')
     
-    print('REEEEEEEEEEEEEEEEEEEEEEEEEEEE')
     if is_human(captcha_response):
         user = User.query.filter_by(email=email).first()
 
         
         if not user: 
-            flash('Brukeren finnes ikke, trykk på signup for å registrere')
-            print('OLE SUPER GAY')
+            flash('Brukeren finnes ikke, trykk på registrer for å opprette en bruker')
             return redirect(url_for('auth.signin')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
         
 
@@ -50,16 +49,12 @@ def signin_post():
         # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
         if not check_password_hash(password, user.password, user.salt): 
             flash('Passordet er feil')
-            print('OLE GAY')
             return redirect(url_for('auth.signin'))
 
-        
-        print('Alt e gydd!')
         # Hvis det over ikke skjer, logg inn og ta til profile siden
         login_user(user, remember=remember, force=True)
-        return redirect(url_for(''))
+        return redirect(url_for('main.profile'))
 
-    print('Hjelp')
     flash('Du er ikke menneske!')
     return redirect(url_for('auth.signin'))
 
