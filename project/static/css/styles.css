@@ -679,66 +679,29 @@ span{
     cursor: pointer;
 }
 
-/* ole fuck off me denne css koden takk */
-.supptab h4{
-    padding-top: 10px;;
-    margin-left: 0;
-    word-break: break-all;
-}
-.supptab a{
-    text-decoration: none;
-}
-
-.supptab div {
-    display: none;
+.suppaccordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
   }
   
-  .supptab div:target {
-    display: block;
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .suppaccordion:hover {
+    background-color: #ccc;
   }
-.supptab ol {
-    list-style-type: circle; /* Remove default numbering */
-    *list-style: decimal; /* Keep using default numbering for IE6/7 */
-    font: 15px 'trebuchet MS', 'lucida sans';
-    padding: 0;
-    margin-bottom: 10em;
-    text-shadow: 0 1px 0 rgba(255,255,255,.5);
-  }
-
-  ol ol {
-    margin: 0 0 0 2em; /* Add some left margin for inner lists */
-  }
-  .faq a{
-    position: relative;
-    display: flex;
-    padding: .4em .4em .4em 2em;
-    margin: .5em 0;
-    background: #324154;
-    color: #fff;
-    text-decoration: none;
-    border-radius: .3em;
-    transition: all .3s ease-out;
-  }
-  .faq a:hover{
-    background: #eee;
-    color: #808080;
-  }
-  .faq a::before{
-    counter-increment: section;
-    content: "Q";
-    position: absolute;
-    left: -1.3em;
-    top: 40%;
-    margin-top: -1.3em;
-    background: #324154;
-    height: 2em;
-    width: 2em;
-    line-height: 2em;
-    border: .3em solid #fff;
-    text-align: center;
-    font-weight: bold;
-    border-radius: 2em;
-    transition: all .3s ease-out;
+  
+  /* Style the accordion panel. Note: hidden by default */
+.supppanel {
+    padding: 0 18px;
+    background-color: white;
+    border-bottom: #50698a 2px solid;
+    padding-bottom: 10px;
   }
 
 /* Style inputs with type="text", select elements and textareas */
