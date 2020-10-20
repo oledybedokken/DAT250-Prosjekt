@@ -80,5 +80,3 @@ def create_app():
         db.create_all()
         
         return app
-        
-appnow=create_app()

@@ -1,1 +1,1 @@
-web gunicorn -pythonpath app:appnow
+web: gunicorn -pythonpath project app:create_app()
