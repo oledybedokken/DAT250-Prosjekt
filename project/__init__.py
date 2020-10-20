@@ -16,7 +16,7 @@ def create_app():
     app = Flask(__name__)
 
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.databasea'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config['SECURITY_PASSWORD_SALT'] = 'edndre'
     app.permanent_session_lifetime = timedelta(hours=1)
