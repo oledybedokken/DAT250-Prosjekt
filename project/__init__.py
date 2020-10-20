@@ -9,7 +9,6 @@ from datetime import datetime, timedelta
 from .models import db
 from flask_admin.contrib.sqla import ModelView
 from flask_security import Security, SQLAlchemyUserDatastore
-from project import __init__ as application
 
 admin = Admin()
 
@@ -19,7 +18,7 @@ def create_app():
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config['SECURITY_PASSWORD_SALT'] = 'OLEGAY'
+    app.config['SECURITY_PASSWORD_SALT'] = 'fiksdenne'
     app.permanent_session_lifetime = timedelta(hours=1)
     db.init_app(app)
     #admin.init_app(app)
