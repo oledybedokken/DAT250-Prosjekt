@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from .models import db
 from flask_admin.contrib.sqla import ModelView
 from flask_security import Security, SQLAlchemyUserDatastore
+from project import __init__ as application
 
 admin = Admin()
 
