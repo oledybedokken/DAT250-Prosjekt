@@ -6,7 +6,7 @@ from flask_admin import helpers as admin_helpers
 from flask_admin import Admin
 from flask_admin.menu import MenuLink
 from datetime import datetime, timedelta
-from models import db
+from .models import db
 from flask_admin.contrib.sqla import ModelView
 from flask_security import Security, SQLAlchemyUserDatastore
 
@@ -25,7 +25,7 @@ def create_app():
     #login_manager = LoginManager()
     #login_manager.login_view = 'auth.login'
     #login_manager.init_app(app)
-    from models import User, Transaction, BankAccount, Roles
+    from .models import User, Transaction, BankAccount, Roles
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
     security = Security(app, user_datastore)
@@ -69,11 +69,11 @@ def create_app():
 
     with app.app_context():
         # blueprint for auth routes in our app
-        from auth import auth as auth_blueprint
+        from .auth import auth as auth_blueprint
         app.register_blueprint(auth_blueprint)
 
         # blueprint for non-auth parts of app
-        from main import main as main_blueprint
+        from .main import main as main_blueprint
         app.register_blueprint(main_blueprint)
 
         # Create Database Models
