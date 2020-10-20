@@ -18,7 +18,7 @@ def create_app():
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.database'
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config['SECURITY_PASSWORD_SALT'] = 'fiksdenne'
+    app.config['SECURITY_PASSWORD_SALT'] = 'edndre'
     app.permanent_session_lifetime = timedelta(hours=1)
     db.init_app(app)
     #admin.init_app(app)
@@ -80,3 +80,4 @@ def create_app():
         db.create_all()
         
         return app
+myapp=create_app()
