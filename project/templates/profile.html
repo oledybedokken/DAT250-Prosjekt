@@ -29,8 +29,8 @@ def profile_post():
     <div class="profil-venstre">
         <div class="profil-bilde">
         
-            <img src="/static/images/erna.png">
-            <a href="#"><i class="material-icons settings-icon">add_a_photo</i></a>
+            <img src="/static/images/profilepic.png">
+            <!--a href="#"><i class="material-icons settings-icon">add_a_photo</i></a-->
             
             <p>Hei, {{ fornavn }} {{ etternavn }}!</p>  
                     
@@ -71,7 +71,7 @@ def profile_post():
             </div>
         </div>
         <div class="profil-mail">
-            <h1>Email adresse<a href="#profil-mail" onclick="emailEdit()"><i class="material-icons settings-icon" >settings</i></a></h1>
+            <h1>Email adresse<!--a href="#profil-mail" onclick="emailEdit()"><i class="material-icons settings-icon" >settings</i></a--></h1>
             <div>
                 Email:<br> <input type="text" class="emailInput" maxlength="24" name="email" value='{{ email }}' readonly></input><br>
                 <button type="submit" class="registerbtn" id="emailKnapp" style="display: none;">Lagre informasjon</button>
