@@ -31,8 +31,9 @@ def create_app():
     def create_user():
         #db.drop_all()
         db.create_all()
-        #user_datastore.create_user(email='Olegay', password='Espengay')
-        db.session.commit()
+        if not User.query.filter_by(email='Olegay').first():
+            user_datastore.create_user(email='Olegay', password='Espengay')
+            db.session.commit()
 
     admin = Admin(app, name='Admin', base_template='my_master.html', template_mode='bootstrap3', url='/admin')
     admin.add_link(MenuLink(name='Brusjan Bank', category='', url='/'))

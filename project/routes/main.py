@@ -1,7 +1,7 @@
 from flask import Flask,g, redirect, render_template, request,session, url_for, flash, Blueprint
 from flask_login import login_required, current_user
 from flask_admin import Admin
-from ..models import User, Transaction, BankAccount, ModelView, Roles
+from ..models import User, Transaction, BankAccount, ModelView, Roles, db
 import random
 from sqlalchemy import desc, or_
 
