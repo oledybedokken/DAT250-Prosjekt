@@ -53,7 +53,7 @@ def signin_post():
 
         # Sjekk om bruker faktisk eksiterer
         # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
-        if not check_password_hash(password, user.password, user.salt): 
+        if not check_password_hash(password, bytes.fromhex(user.password), bytes.fromhex(user.salt)): 
             flash('Passordet er feil')
             return redirect(url_for('auth.signin'))
 
@@ -114,14 +114,14 @@ def signup_post():
 
         user = User(email=email, 
                         fornavn=fornavn, 
-                        password=p_hash, 
+                        password=p_hash.hex(), 
                         etternavn=etternavn, 
                         postAddresse = postAddresse, 
                         postKode = postKode, 
                         fylke = fylke, 
                         kjonn = kjonn, 
                         fodselsdato = fodselsdato, 
-                        salt = salt
+                        salt = salt.hex()
                         )
         user_datastore.toggle_active(user)
         # legg til den nye brukeren til databasen
