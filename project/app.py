@@ -6,11 +6,11 @@ from flask_admin import helpers as admin_helpers
 from flask_admin import Admin
 from flask_admin.menu import MenuLink
 from datetime import datetime, timedelta
-from .models import db
+from models import db
 from flask_admin.contrib.sqla import ModelView
 from flask_security import Security, SQLAlchemyUserDatastore
-from .routes.auth import auth
-from .routes.main import main
+from routes.auth import auth
+from routes.main import main
 
 admin = Admin()
 
@@ -23,7 +23,7 @@ def create_app(config_file='settings.py'):
     #login_manager = LoginManager()
     #login_manager.login_view = 'auth.login'
     #login_manager.init_app(app)
-    from .models import User, Transaction, BankAccount, Roles
+    from models import User, Transaction, BankAccount, Roles
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
     security = Security(app, user_datastore)
