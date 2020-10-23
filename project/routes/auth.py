@@ -128,9 +128,11 @@ def signup_post():
         db.session.add(user)
         db.session.commit()
 
-        print("passordet og salt fra databasen:")
-        print(user.password)
+        print()
+        print("Salt og hash etter at brukeren er lagt til i databasen:")
         print(user.salt)
+        print(user.password)
+        print()
 
         return redirect(url_for('auth.signin'))
     
