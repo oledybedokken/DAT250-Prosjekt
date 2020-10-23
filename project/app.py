@@ -6,24 +6,23 @@ from flask_admin import helpers as admin_helpers
 from flask_admin import Admin
 from flask_admin.menu import MenuLink
 from datetime import datetime, timedelta
-from models import db
 from flask_admin.contrib.sqla import ModelView
 from flask_security import Security, SQLAlchemyUserDatastore
-from routes.auth import auth
-from routes.main import main
+from .models import db
 
 admin = Admin()
 
-def create_app(config_file='settings.py'):
+def create_app():
     app = Flask(__name__)
+    app.config.from_pyfile("config.py")
+    app.config['SECURITY_PASSWORD_SALT'] = 'edndre'
     app.permanent_session_lifetime = timedelta(hours=1)
-    app.config.from_pyfile(config_file)
     db.init_app(app)
     #admin.init_app(app)
     #login_manager = LoginManager()
     #login_manager.login_view = 'auth.login'
     #login_manager.init_app(app)
-    from models import User, Transaction, BankAccount, Roles
+    from .models import User, Transaction, BankAccount, Roles
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
     security = Security(app, user_datastore)
@@ -32,7 +31,7 @@ def create_app(config_file='settings.py'):
     def create_user():
         db.drop_all()
         db.create_all()
-        user_datastore.create_user(email='Olegay', password='Espengay')
+        #user_datastore.create_user(email='Olegay', password='Espengay')
         db.session.commit()
 
     admin = Admin(app, name='Admin', base_template='my_master.html', template_mode='bootstrap3', url='/admin')
@@ -61,13 +60,20 @@ def create_app(config_file='settings.py'):
             h = admin_helpers
         )
 
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
-        # blueprint for auth routes in our app
-        app.register_blueprint(auth)
-        app.register_blueprint(main)
+    #@login_manager.user_loader
+    #def load_user(user_id):
+    #    return User.query.get(int(user_id))
 
-        app.cli.add_command(create_tables)
+    with app.app_context():
+        # blueprint for auth routes in our app
+        from .routes.auth import auth as auth_blueprint
+        app.register_blueprint(auth_blueprint)
+
+        # blueprint for non-auth parts of app
+        from .routes.main import main as main_blueprint
+        app.register_blueprint(main_blueprint)
+
+        # Create Database Models
+        db.create_all()
         
         return app
