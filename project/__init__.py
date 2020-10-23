@@ -9,16 +9,15 @@ from datetime import datetime, timedelta
 from .models import db
 from flask_admin.contrib.sqla import ModelView
 from flask_security import Security, SQLAlchemyUserDatastore
+from .routes.auth import auth
+from .routes.main import main
 
 admin = Admin()
 
-def create_app():
+def create_app(config_file='settings.py'):
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
-    app.config['DATABASE_URL'] = 'sqlite:///db.databasea'
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config['SECURITY_PASSWORD_SALT'] = 'edndre'
     app.permanent_session_lifetime = timedelta(hours=1)
+    app.config.from_pyfile(config_file)
     db.init_app(app)
     #admin.init_app(app)
     #login_manager = LoginManager()
@@ -62,20 +61,13 @@ def create_app():
             h = admin_helpers
         )
 
-    #@login_manager.user_loader
-    #def load_user(user_id):
-    #    return User.query.get(int(user_id))
-
-    with app.app_context():
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
         # blueprint for auth routes in our app
-        from .auth import auth as auth_blueprint
-        app.register_blueprint(auth_blueprint)
+        app.register_blueprint(auth)
+        app.register_blueprint(main)
 
-        # blueprint for non-auth parts of app
-        from .main import main as main_blueprint
-        app.register_blueprint(main_blueprint)
-
-        # Create Database Models
-        db.create_all()
+        app.cli.add_command(create_tables)
         
         return app
