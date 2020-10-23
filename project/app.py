@@ -29,7 +29,7 @@ def create_app():
 
     @app.before_first_request
     def create_user():
-        db.drop_all()
+        #db.drop_all()
         db.create_all()
         #user_datastore.create_user(email='Olegay', password='Espengay')
         db.session.commit()
