@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center;">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+</div>
+<div id="container">
+    <!-- -->
+    <div class="sub-container">
+        <div class="oversikt-container">
+            <h1><i class="material-icons">payment</i>BRUKERE</h1>
+        </div>
+        <div class="konto-tabell">
+            <table class="transaksjoner">
+                <!-- Kunne trykke på th og sortere -->
+                <tr>
+                    <th style="color: white;">ID</th>
+                    <th style="color: white;">Email </th>
+                    <th style="color: white;">Navn</th>
+                    <th style="color: white;">Passord</th>
+                    <th style="color: white;">Salt</th>
+                </tr>
+            </table>
+            <div class="tabell-scroll">
+            <table class="transaksjoner">
+                {% for bruker in brukere %}
+                <tr>
+                    <td>{{ bruker.id }}</td>
+                    <td>{{ bruker.email }}</td>
+                    <td>{{ bruker.fornavn }} {{ bruker.etternavn }}</td>
+                    <td>{{ bruker.password }}</td>
+                    <td>{{ bruker.salt }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+{% endblock content %}

@@ -1,7 +1,7 @@
 from flask import Flask,g, redirect, render_template, request,session, url_for, flash, Blueprint
 from flask_login import login_required, current_user
 from flask_admin import Admin
-from .models import db, User, Transaction, BankAccount, ModelView
+from ..models import User, Transaction, BankAccount, ModelView, Roles
 import random
 from sqlalchemy import desc, or_
 
@@ -11,6 +11,12 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
+@main.route('/databasen')
+def databasen():
+    brukere= User.query.all()
+    return render_template('databasen.html', brukere=brukere)
+
+##
 @main.route('/profile')
 @login_required
 def profile():
