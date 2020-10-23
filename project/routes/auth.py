@@ -54,7 +54,7 @@ def signin_post():
 
         # Sjekk om bruker faktisk eksiterer
         # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
-        if not check_password_hash(str(password), str(user.password), str(user.salt)): 
+        if not check_password_hash(password, user.password, user.salt): 
             flash('Passordet er feil')
             return redirect(url_for('auth.signin'))
 
@@ -129,9 +129,11 @@ def signup_post():
         db.session.add(user)
         db.session.commit()
 
-        print("passordet og salt fra databasen:")
-        print(user.password)
+        print()
+        print("Salt og hash etter at brukeren er lagt til i databasen:")
         print(user.salt)
+        print(user.password)
+        print()
 
         return redirect(url_for('auth.signin'))
     
