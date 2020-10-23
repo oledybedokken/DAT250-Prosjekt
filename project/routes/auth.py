@@ -7,7 +7,6 @@ import requests, json
 from project.app import admin
 from flask_admin import Admin
 from flask_security import Security, SQLAlchemyUserDatastore
-import psycopg2
 
 set_login_view("auth.signin")
 
@@ -116,7 +115,7 @@ def signup_post():
 
         user = User(email=email, 
                         fornavn=fornavn, 
-                        password=psycopg2.Binary(p_hash), 
+                        password=p_hash, 
                         etternavn=etternavn, 
                         postAddresse = postAddresse, 
                         postKode = postKode, 
