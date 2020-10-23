@@ -1,3 +1,3 @@
-from project import create_app
+from project.app import create_app
 
-myapp = create_app()
+app = create_app()

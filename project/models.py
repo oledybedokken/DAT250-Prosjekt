@@ -12,12 +12,10 @@ roles_users_table = db.Table('roles_users',
     db.Column('roles_id', db.Integer(), 
     db.ForeignKey('roles.id')))
 
-
-
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(150),nullable=False)
+    password = db.Column(db.String(300),nullable=False)
     fornavn = db.Column(db.String(50),nullable=True)
     etternavn = db.Column(db.String(50),nullable=True)
     postAddresse = db.Column(db.String(50),nullable=True)
@@ -25,7 +23,7 @@ class User(UserMixin, db.Model):
     fylke = db.Column(db.String(50),nullable=True)
     kjonn = db.Column(db.String(50),nullable=True)
     fodselsdato = db.Column(db.String(50),nullable=True)
-    salt = db.Column(db.String(150))
+    salt = db.Column(db.String(300))
     active = db.Column(db.Boolean())
     roles = db.relationship('Roles', secondary=roles_users_table, backref='user', lazy=True)
 
