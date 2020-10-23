@@ -33,23 +33,12 @@ def signin_post():
 
     captcha_response = request.form.get('g-recaptcha-response')
     
-    if not is_human(captcha_response):
+    if is_human(captcha_response):
         user = User.query.filter_by(email=email).first()
-
         
         if not user: 
             flash('Brukeren finnes ikke, trykk på registrer for å opprette en bruker')
             return redirect(url_for('auth.signin')) # Hvis bruker ikke eksisterer eller passord er feil, last inn siden på nytt med flash message
-
-        print("Sjekker innlogging med passord, opp mot hash og salt i databasen")
-        print(password)
-        print(user.password)
-        print(user.salt)
-        print("bruker salten til å hashe passordet på nytt")
-        p_hash = generate_password_hash(password, user.salt)
-        print(p_hash)
-
-        print(user.fornavn)
 
         # Sjekk om bruker faktisk eksiterer
         # Ta brukeren sitt passord, hash det, og sammenlign det med det hasha passordet i databasen
@@ -61,7 +50,7 @@ def signin_post():
         login_user(user, remember=remember, force=True)
         return redirect(url_for('main.profile'))
 
-    flash('Du er ikke menneske!')
+    flash('Du er ikke et menneske!')
     return redirect(url_for('auth.signin'))
 
 @auth.route('/signup')
@@ -85,9 +74,8 @@ def signup_post():
     repeatPassword = request.form.get('psw-repeat')
     captcha_response = request.form.get('g-recaptcha-response')
     
-    if not is_human(captcha_response):
+    if is_human(captcha_response):
         salt = generate_random_salt()
-        print(salt)
 
         #if database not exist, create database
     
@@ -99,20 +87,14 @@ def signup_post():
             
 
         if str(password) != str(repeatPassword):
-            flash('Ditt passord er ikke lik. Prøv igjen!')
+            flash('Dine passord samsvarer ikke. Prøv igjen!')
             return redirect(url_for('auth.signup'))
 
 
         # lag ny bruker med dataen fra form. Hash passworder så vanlig passord ikke blir lagret.
         p_hash = generate_password_hash(password, salt)
-        print()
-        print("Registrerer bruker med passord, salt, hash:")
-        print(password)
-        print(salt)
-        print(p_hash)
-        print()
 
-        user = User(email=email, 
+        user = user_datastore.create_user(email=email, 
                         fornavn=fornavn, 
                         password=p_hash.hex(), 
                         etternavn=etternavn, 
@@ -125,18 +107,11 @@ def signup_post():
                         )
         user_datastore.toggle_active(user)
         # legg til den nye brukeren til databasen
-        db.session.add(user)
         db.session.commit()
-
-        print()
-        print("Salt og hash etter at brukeren er lagt til i databasen:")
-        print(user.salt)
-        print(user.password)
-        print()
 
         return redirect(url_for('auth.signin'))
     
-    flash('Du er ikke Menneske!')
+    flash('Du er ikke et menneske!')
     return redirect(url_for('auth.signup'))
 
 
