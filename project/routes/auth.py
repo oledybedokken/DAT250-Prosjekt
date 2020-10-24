@@ -7,15 +7,14 @@ from flask_admin import Admin
 from flask_security import Security, SQLAlchemyUserDatastore
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from wsgi import app
 
 set_login_view("auth.signin")
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
-
+limiter = Limiter(key_func=get_remote_address)
 
 auth = Blueprint('auth', __name__)
-limiter=Limiter(app, key_func=get_remote_address, default_limits=["2 per minute", "1 per second"],)
+
 #admin.add_view(ModelView(User, db.session))
 #admin.add_view(ModelView(Transaction, db.session))
 #admin.add_view(ModelView(BankAccount, db.session))

@@ -7,10 +7,10 @@ from flask_admin import Admin
 from flask_admin.menu import MenuLink
 from datetime import datetime, timedelta
 from flask_admin.contrib.sqla import ModelView
+from flask_limiter import Limiter
 from flask_security import Security, SQLAlchemyUserDatastore
 from .models import db
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
+
 
 admin = Admin()
 
@@ -20,7 +20,10 @@ def create_app():
     app.config.from_pyfile("config.py")
     app.config['SECURITY_PASSWORD_SALT'] = 'edndre'
     app.permanent_session_lifetime = timedelta(hours=1)
+
+    limiter=Limiter()
     db.init_app(app)
+    limiter.init_app(app)
     #admin.init_app(app)
     #login_manager = LoginManager()
     #login_manager.login_view = 'auth.login'
