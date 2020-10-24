@@ -1,8 +1,8 @@
 import os
-from heroku logs --taildotenv import load_dotenv
+from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-load_dotenv(os.path.join(basedir, '.enpip install -U python-dotenvv'))
+load_dotenv(os.path.join(basedir, '.env'))
 
 SECRET_KEY = os.environ['SECRET_KEY']
 STATIC_FOLDER = 'static'
