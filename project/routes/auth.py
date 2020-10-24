@@ -6,18 +6,39 @@ import requests, json
 from project.app import admin
 from flask_admin import Admin
 from flask_security import Security, SQLAlchemyUserDatastore
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from wsgi import app
 
 set_login_view("auth.signin")
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
 
-
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["2 per minute", "1 per second"],
+    )
 auth = Blueprint('auth', __name__)
 
 #admin.add_view(ModelView(User, db.session))
 #admin.add_view(ModelView(Transaction, db.session))
 #admin.add_view(ModelView(BankAccount, db.session))
 
+
+@auth.route("/slow")
+@limiter.limit("1 per day")
+def slow():
+    return "24"
+
+@auth.route("/fast")
+def fast():
+    return "42"
+
+@auth.route("/ping")
+@limiter.exempt
+def ping():
+    return 'PONG'
 
 
 @auth.route('/signin')
