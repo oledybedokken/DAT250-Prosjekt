@@ -15,7 +15,6 @@ set_login_view("auth.signin")
 user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
 
 limiter = Limiter(
-    app,
     key_func=get_remote_address,
     default_limits=["2 per minute", "1 per second"],
     )
@@ -27,9 +26,9 @@ auth = Blueprint('auth', __name__)
 
 
 @auth.route("/slow")
-@limiter.limit("1 per day")
+@limiter.limit("5 per minute")
 def slow():
-    return "24"
+    return "5 per minute!"
 
 @auth.route("/fast")
 def fast():
