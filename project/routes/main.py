@@ -103,7 +103,7 @@ def account_post(kontonr):
     trans_type = "Nedbetaling"
 
     if abs(laanet.saldo) < pengesum:
-        flash(f"Du kan maks nedbetale {abs(laanet.saldo)} kr")
+        flash(f"Du kan maks nedbetale {laanet.__str__().strip('-')} kr")
         return redirect(url_for('main.account', kontonr=laanet.kontonr))
 
     if avsender_konto.saldo < pengesum or avsender_konto.saldo <= 0:
@@ -123,7 +123,9 @@ def account_post(kontonr):
         flash("Du har nedbetalt hele lånet")
         return redirect(url_for('main.overview'))
     else:
-        flash(f"Vellykket nedbetaling på {pengesum} kr av lånet")
+        resultat = format(pengesum, ",")
+        resultat = resultat.replace(",", " ")
+        flash(f"Vellykket nedbetaling på {resultat} kr av lånet")
         return redirect(url_for('main.account', kontonr=laanet.kontonr))
 
 @main.route('/create_bank_account')
