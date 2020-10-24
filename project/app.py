@@ -29,8 +29,7 @@ def create_app():
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
     security = Security(app, user_datastore)
-    limiter=Limiter(app,key_func=get_remote_address,default_limits=["2 per minute", "1 per second"],)
-    
+
     @app.before_first_request
     def create_user():
         db.drop_all()
