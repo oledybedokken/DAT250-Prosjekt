@@ -56,7 +56,6 @@ def signup():
     return render_template('signup.html', sitekey = sitekey)
 
 @auth.route('/signup', methods=['POST'])
-@limiter.limit("5 per minute")
 def signup_post():
 
     #Henter all informasjonen fra form til variabler
