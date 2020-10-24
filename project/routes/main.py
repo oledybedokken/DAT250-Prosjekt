@@ -4,6 +4,7 @@ from flask_admin import Admin
 from ..models import User, Transaction, BankAccount, ModelView, Roles, db
 import random
 from sqlalchemy import desc, or_
+from .auth import limiter
 
 main = Blueprint('main', __name__)
 

@@ -1,17 +1,14 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, login_required, set_login_view, current_user
-from ..models import User, Transaction, BankAccount, ModelView, Roles, db
+from ..models import User, Transaction, BankAccount, ModelView, Roles, db, limiter
 from flask_scrypt import generate_random_salt, generate_password_hash, check_password_hash
 import requests, json
 from flask_admin import Admin
 from flask_security import Security, SQLAlchemyUserDatastore
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 
 set_login_view("auth.signin")
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
-limiter = Limiter(key_func=get_remote_address)
 
 auth = Blueprint('auth', __name__)
 
@@ -19,28 +16,13 @@ auth = Blueprint('auth', __name__)
 #admin.add_view(ModelView(Transaction, db.session))
 #admin.add_view(ModelView(BankAccount, db.session))
 
-
-@auth.route("/slow")
-@limiter.limit("5 per minute")
-def slow():
-    return "5 per minute!"
-
-@auth.route("/fast")
-def fast():
-    return "42"
-
-@auth.route("/ping")
-@limiter.exempt
-def ping():
-    return 'PONG'
-
-
 @auth.route('/signin')
 def signin():
     sitekey = "6LcME9UZAAAAAFs9gpLPk2cNe6y7KsbltAMyZOIk"
     return render_template('login.html', sitekey = sitekey )
 
 @auth.route('/signin', methods=['POST', 'GET'])
+@limiter.limit("10 per minute")
 def signin_post():
     email = request.form.get('email')
     password = request.form.get('password')
@@ -74,6 +56,7 @@ def signup():
     return render_template('signup.html', sitekey = sitekey)
 
 @auth.route('/signup', methods=['POST'])
+@limiter.limit("5 per minute")
 def signup_post():
 
     #Henter all informasjonen fra form til variabler

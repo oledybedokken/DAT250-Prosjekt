@@ -3,7 +3,10 @@ from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import expression
 from flask_admin.contrib.sqla import ModelView
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
+limiter = Limiter(key_func=get_remote_address, default_limits=["200 per day", "50 per hour", "5 per minute"])
 db = SQLAlchemy()
 
 roles_users_table = db.Table('roles_users',

@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from flask_admin.contrib.sqla import ModelView
 from flask_limiter import Limiter
 from flask_security import Security, SQLAlchemyUserDatastore
-from .models import db
+from .models import db, limiter
 
 
 admin = Admin()
@@ -21,7 +21,6 @@ def create_app():
     app.config['SECURITY_PASSWORD_SALT'] = 'edndre'
     app.permanent_session_lifetime = timedelta(hours=1)
 
-    limiter=Limiter()
     db.init_app(app)
     limiter.init_app(app)
     #admin.init_app(app)
