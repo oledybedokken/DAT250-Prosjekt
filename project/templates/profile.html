@@ -43,8 +43,10 @@ def profile_post():
             {% if konto.kontotype == "bruk" or konto.kontotype == "spar" %}
                     <div class="info-container">
                         <a href="{{url_for('main.account', kontonr=konto.kontonr)}}">
+                            <div class="endre-container">
                             <h2><i class='fas fa-chevron-right'></i>{{ konto.navn }}</h2>
                             <h3>{{ konto.__str__() }} kr</h3>
+                            </div>
                         </a>
                     </div>
             {% endif %}

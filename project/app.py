@@ -34,9 +34,9 @@ def create_app():
 
     @app.before_first_request
     def create_user():
-        db.drop_all()
+        #db.drop_all()
         db.create_all()
-        if not User.query.filter_by(email='Olegay').first():
+        if not User.query.filter_by(email='Brosjan').first():
             user_datastore.create_user(email='Brosjan', password='dsinfwe6wqnd!?Mkswj389')
             db.session.commit()
 
