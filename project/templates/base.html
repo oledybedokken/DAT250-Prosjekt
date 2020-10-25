@@ -51,11 +51,6 @@
                         <div class="nav-link-wrapper">
                             <a href="{{ url_for('auth.signup') }}" >Registrer</a>
                         </div>
-                        {% endif %}
-                        {% if not current_user.is_authenticated %}
-                        <div class="nav-link-wrapper">
-                            <a href="{{ url_for('main.databasen') }}" >Databasen</a>
-                        </div>
                         {% endif %} 
                         
                     <div class="mid-side">
