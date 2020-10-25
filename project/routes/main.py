@@ -12,6 +12,10 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
+@main.errorhandler(404)
+def forbidden(e):
+  return render_template('404.html'), 404
+
 @main.route('/databasen')
 def databasen():
     brukere= User.query.all()

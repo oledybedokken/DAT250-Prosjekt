@@ -17,6 +17,7 @@ auth = Blueprint('auth', __name__)
 #admin.add_view(ModelView(BankAccount, db.session))
 
 @auth.route('/signin')
+@limiter.limit("5 per minute")
 def signin():
     sitekey = "6LcME9UZAAAAAFs9gpLPk2cNe6y7KsbltAMyZOIk"
     return render_template('login.html', sitekey = sitekey )
