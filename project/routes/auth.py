@@ -12,10 +12,6 @@ user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
 
 auth = Blueprint('auth', __name__)
 
-#admin.add_view(ModelView(User, db.session))
-#admin.add_view(ModelView(Transaction, db.session))
-#admin.add_view(ModelView(BankAccount, db.session))
-
 @auth.route('/signin')
 def signin():
     sitekey = "6LcME9UZAAAAAFs9gpLPk2cNe6y7KsbltAMyZOIk"

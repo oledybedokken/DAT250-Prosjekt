@@ -9,12 +9,6 @@ from flask_limiter.util import get_remote_address
 limiter = Limiter(key_func=get_remote_address, default_limits=["200 per day", "50 per hour", "5 per minute"])
 db = SQLAlchemy()
 
-roles_users_table = db.Table('roles_users',
-    db.Column('user_id', db.Integer(), 
-    db.ForeignKey('user.id')),
-    db.Column('roles_id', db.Integer(), 
-    db.ForeignKey('roles.id')))
-
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
@@ -28,12 +22,6 @@ class User(UserMixin, db.Model):
     fodselsdato = db.Column(db.String(50),nullable=True)
     salt = db.Column(db.String(300))
     active = db.Column(db.Boolean())
-    roles = db.relationship('Roles', secondary=roles_users_table, backref='user', lazy=True)
-
-class Roles(db.Model, RoleMixin):
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(80), unique=True)
-    description = db.Column(db.String(255))
 
 
 class Transaction(db.Model):
