@@ -16,12 +16,6 @@ def index():
 def forbidden(e):
   return render_template('404.html'), 404
 
-@main.route('/databasen')
-def databasen():
-    brukere= User.query.all()
-    return render_template('databasen.html', brukere=brukere)
-
-##
 @main.route('/profile')
 @login_required
 def profile():
