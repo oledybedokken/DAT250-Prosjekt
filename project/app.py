@@ -37,7 +37,7 @@ def create_app():
         db.drop_all()
         db.create_all()
         if not User.query.filter_by(email='Olegay').first():
-            user_datastore.create_user(email='Olegay', password='Espengay')
+            user_datastore.create_user(email='Brosjan', password='dsinfwe6wqnd!?Mkswj389')
             db.session.commit()
 
     admin = Admin(app, name='Admin', base_template='my_master.html', template_mode='bootstrap3', url='/admin')
