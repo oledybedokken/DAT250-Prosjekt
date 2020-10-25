@@ -6,7 +6,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-limiter = Limiter(key_func=get_remote_address, default_limits=["2000 per day", "100 per hour", "10 per minute"])
+limiter = Limiter(key_func=get_remote_address, default_limits=["500 per day", "100 per hour", "10 per minute"])
 db = SQLAlchemy()
 
 roles_users_table = db.Table('roles_users',
