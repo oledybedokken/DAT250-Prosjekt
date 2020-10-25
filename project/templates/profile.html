@@ -29,8 +29,8 @@ def profile_post():
     <div class="profil-venstre">
         <div class="profil-bilde">
         
-            <img src="/static/images/erna.png">
-            <a href="#"><i class="material-icons settings-icon">add_a_photo</i></a>
+            <img src="/static/images/profilepic.png">
+            <!--a href="#"><i class="material-icons settings-icon">add_a_photo</i></a-->
             
             <p>Hei, {{ fornavn }} {{ etternavn }}!</p>  
                     
@@ -57,23 +57,23 @@ def profile_post():
             <h1>Generell informasjon <a href="#profil-informasjon" onclick="generellEdit()"><i class="material-icons settings-icon" >settings</i></a></h1>
             <div>
                 
-                Fornavn: <input class="generellInput" type="text" name="fornavn" maxlength="12" value='{{ fornavn }}' readonly></input><br>
-                Etternavn: <input class="generellInput" type="text" name="etternavn" maxlength="12" value='{{ etternavn }}' readonly></input><br>
-                Kjønn: <select class="select" value='{{ kjonn }}' disabled style="width: 30%;">
+                Fornavn: <br><input class="generellInput" type="text" name="fornavn" maxlength="12" value='{{ fornavn }}' readonly></input><br>
+                Etternavn: <br><input class="generellInput" type="text" name="etternavn" maxlength="12" value='{{ etternavn }}' readonly></input><br>
+                Kjønn: <br><select class="select" value='{{ kjonn }}' disabled style="width: 30%;">
                     <option value="Mann">Mann</option>
                     <option value="Kvinne">Kvinne</option>
                     <option value="Annet">Annet</option>
                 </select><br>
-                Fødselsdato: <input class="" type="date" min="1945-09-01" max="2001-12-31" name="fodselsdato" value='{{ fodselsdato }}' readonly></input><br>
+                Fødselsdato: <br><input class="" type="date" min="1945-09-01" max="2001-12-31" name="fodselsdato" value='{{ fodselsdato }}' readonly></input><br>
                 
                 <button type="submit" class="registerbtn" id="profilKnapp" style="display: none;">Lagre informasjon</button>
 
             </div>
         </div>
         <div class="profil-mail">
-            <h1>Email adresse<a href="#profil-mail" onclick="emailEdit()"><i class="material-icons settings-icon" >settings</i></a></h1>
+            <h1>Email adresse<!--a href="#profil-mail" onclick="emailEdit()"><i class="material-icons settings-icon" >settings</i></a--></h1>
             <div>
-                Email: <input type="text" class="emailInput" maxlength="24" name="email" value='{{ email }}' readonly></input><br>
+                Email:<br> <input type="text" class="emailInput" maxlength="24" name="email" value='{{ email }}' readonly></input><br>
                 <button type="submit" class="registerbtn" id="emailKnapp" style="display: none;">Lagre informasjon</button>
                 <!--Mobilnr: <input type="number" value="12345678" readonly></input>-->
             </div>
@@ -90,9 +90,9 @@ def profile_post():
         <div class="profil-sikkerhet">
             <h1>Adresse<a href="#profil-sikkerhet" onclick="boEdit()"><i class="material-icons settings-icon" >settings</i></a></h1>
             <div>
-                Adresse: <input class="boInput" name="postAddresse" type="text" maxlength="16" value='{{ addresse }}' readonly></input><br>
-                Post adresse: <input class="boInput" name="postKode" type="text" maxlength="4" value='{{ postkode }}' readonly></input><br>
-                Fylke: <input class="boInput" name="fylke" type="text" maxlength="16" value='{{ fylke }}' readonly></input><br>
+                Adresse: <br> <input class="boInput" name="postAddresse" type="text" maxlength="16" value='{{ addresse }}' readonly></input><br>
+                Post adresse: <br> <input class="boInput" name="postKode" type="text" maxlength="4" value='{{ postkode }}' readonly></input><br>
+                Fylke: <br> <input class="boInput" name="fylke" type="text" maxlength="16" value='{{ fylke }}' readonly></input><br>
 
                 <button type="submit" class="registerbtn" id="boKnapp" style="display: none;">Lagre informasjon</button>
 
@@ -119,11 +119,12 @@ function boEdit(){
     [].forEach.call(els, function (el) {el.readOnly = false;});
     document.getElementById('boKnapp').style.display='block';
 }
-function emailEdit(){
-    els = document.getElementsByClassName('emailInput');
-    [].forEach.call(els, function (el) {el.readOnly = false;});
-    document.getElementById('emailKnapp').style.display='block';
-}
+
+//function emailEdit(){
+//    els = document.getElementsByClassName('emailInput');
+//    [].forEach.call(els, function (el) {el.readOnly = false;});
+//    document.getElementById('emailKnapp').style.display='block';
+//}
 
 </script>
 {% endblock content %}

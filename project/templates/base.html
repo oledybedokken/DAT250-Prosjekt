@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Brusjanbank</title>
+        <title>Brosjanbank</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -13,9 +13,9 @@
             <nav>
                 <div class="nav-wrapper">
                     <div class="left-side">
-                        {% if current_user.is_authenticated %}
+                        {% if current_user.is_authenticated and current_user.is_active %}
                         <div class="nav-link-wrapper">
-                            <a href="{{ url_for('main.index') }}">Hjem</a>
+                            <a href="{{ url_for('admin.index') }}">admin</a>
                         </div>
                         {% endif %}
                         {% if current_user.is_authenticated %}
@@ -49,7 +49,12 @@
                         {% endif %}
                         {% if not current_user.is_authenticated %}
                         <div class="nav-link-wrapper">
-                            <a href="{{ url_for('auth.signup') }}" >Registrering</a>
+                            <a href="{{ url_for('auth.signup') }}" >Registrer</a>
+                        </div>
+                        {% endif %}
+                        {% if not current_user.is_authenticated %}
+                        <div class="nav-link-wrapper">
+                            <a href="{{ url_for('main.databasen') }}" >Databasen</a>
                         </div>
                         {% endif %} 
                         

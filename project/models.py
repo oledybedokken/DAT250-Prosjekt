@@ -3,7 +3,10 @@ from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import expression
 from flask_admin.contrib.sqla import ModelView
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
+limiter = Limiter(key_func=get_remote_address, default_limits=["200 per day", "50 per hour", "5 per minute"])
 db = SQLAlchemy()
 
 roles_users_table = db.Table('roles_users',
@@ -12,12 +15,10 @@ roles_users_table = db.Table('roles_users',
     db.Column('roles_id', db.Integer(), 
     db.ForeignKey('roles.id')))
 
-
-
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(150),nullable=False)
+    password = db.Column(db.String(300),nullable=False)
     fornavn = db.Column(db.String(50),nullable=True)
     etternavn = db.Column(db.String(50),nullable=True)
     postAddresse = db.Column(db.String(50),nullable=True)
@@ -25,7 +26,7 @@ class User(UserMixin, db.Model):
     fylke = db.Column(db.String(50),nullable=True)
     kjonn = db.Column(db.String(50),nullable=True)
     fodselsdato = db.Column(db.String(50),nullable=True)
-    salt = db.Column(db.String(150))
+    salt = db.Column(db.String(300))
     active = db.Column(db.Boolean())
     roles = db.relationship('Roles', secondary=roles_users_table, backref='user', lazy=True)
 

@@ -6,7 +6,7 @@
       <div>
           <div>
             <h1>Welcome!</h1>
-              {% if not current_user.is_authenticated %}
+              {% if not current_user.is_active %}
               <h3>Please log in to continue</h3>
               <br>
               <p>You can log in as the default administrator with the following credentials:
@@ -18,12 +18,8 @@
                   <a class='btn btn-primary' href="{{ url_for('security.login') }}">login</a>
               </p>
               <br>
-              <p>Alternatively, you can register as a new administrator using the button below.</p>
-              <p>
-                <a class='btn btn-primary' href="{{ url_for('security.register') }}">Register</a>
-              </p>
               {% endif %}
-              {% if current_user.is_authenticated %}
+              {% if current_user.is_active %}
               <h3>You have successfully logged in.</h3>
               <p>You now have access to the Users view.</p>
               {% endif %}
