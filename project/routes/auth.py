@@ -22,7 +22,8 @@ def signin():
     return render_template('login.html', sitekey = sitekey )
 
 @auth.route('/signin', methods=['POST', 'GET'])
-@limiter.limit("10 per minute")
+@limiter.limit("5 per minute")
+@limiter.limit("200 per day")
 def signin_post():
     email = request.form.get('email')
     password = request.form.get('password')
