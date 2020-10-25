@@ -23,10 +23,10 @@ def create_app():
 
     db.init_app(app)
     limiter.init_app(app)
-    #admin.init_app(app)
-    #login_manager = LoginManager()
-    #login_manager.login_view = 'auth.login'
-    #login_manager.init_app(app)
+    # admin.init_app(app)
+    # login_manager = LoginManager()
+    # login_manager.login_view = 'auth.login'
+    # login_manager.init_app(app)
     from .models import User, Transaction, BankAccount, Roles
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Roles)
